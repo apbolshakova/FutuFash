@@ -115,6 +115,34 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Designer.cpp" />
+    <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="MainMenu.cpp" />
+    <ClCompile Include="Menu.cpp" />
+    <ClCompile Include="Model.cpp" />
+    <ClCompile Include="ParticipantsMenu.cpp" />
+    <ClCompile Include="Project.cpp" />
+    <ClCompile Include="ProjectsManagementSystem.cpp" />
+    <ClCompile Include="ProjectsMenu.cpp" />
+    <ClCompile Include="SearchHandler.cpp" />
+    <ClCompile Include="User.cpp" />
+    <ClCompile Include="UserMenu.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Common.h" />
+    <ClInclude Include="Designer.h" />
+    <ClInclude Include="Entity.h" />
+    <ClInclude Include="MainMenu.h" />
+    <ClInclude Include="Menu.h" />
+    <ClInclude Include="Model.h" />
+    <ClInclude Include="ParticipantsMenu.h" />
+    <ClInclude Include="Project.h" />
+    <ClInclude Include="ProjectsManagementSystem.h" />
+    <ClInclude Include="ProjectsMenu.h" />
+    <ClInclude Include="SearchHandler.h" />
+    <ClInclude Include="User.h" />
+    <ClInclude Include="UserMenu.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

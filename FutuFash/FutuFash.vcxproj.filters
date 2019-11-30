@@ -13,5 +13,105 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\Classes">
+      <UniqueIdentifier>{fecf14cc-7525-4887-bc6f-1104116a7a02}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Classes">
+      <UniqueIdentifier>{1f8ef1bc-8b51-49f6-850b-c8113d56b4a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Classes\Menus">
+      <UniqueIdentifier>{b31c57f4-486c-40fe-a953-4d3ed3aa8ff4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Classes\Menus">
+      <UniqueIdentifier>{3035aeff-5aa4-4686-802a-924b762d8c35}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Classes\Entities">
+      <UniqueIdentifier>{3ad7a06d-682f-4b6f-add2-2a43773037ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Classes\Entities">
+      <UniqueIdentifier>{ceac5e80-4424-4db7-8e01-0ebd2be30712}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Common.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ProjectsManagementSystem.h">
+      <Filter>Header Files\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="SearchHandler.h">
+      <Filter>Header Files\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="MainMenu.h">
+      <Filter>Header Files\Classes\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="Menu.h">
+      <Filter>Header Files\Classes\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticipantsMenu.h">
+      <Filter>Header Files\Classes\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="ProjectsMenu.h">
+      <Filter>Header Files\Classes\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="UserMenu.h">
+      <Filter>Header Files\Classes\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity.h">
+      <Filter>Header Files\Classes\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Model.h">
+      <Filter>Header Files\Classes\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Project.h">
+      <Filter>Header Files\Classes\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="User.h">
+      <Filter>Header Files\Classes\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Designer.h">
+      <Filter>Header Files\Classes\Entities</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ProjectsManagementSystem.cpp">
+      <Filter>Source Files\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="SearchHandler.cpp">
+      <Filter>Source Files\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="MainMenu.cpp">
+      <Filter>Source Files\Classes\Menus</Filter>
+    </ClCompile>
+    <ClCompile Include="Menu.cpp">
+      <Filter>Source Files\Classes\Menus</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticipantsMenu.cpp">
+      <Filter>Source Files\Classes\Menus</Filter>
+    </ClCompile>
+    <ClCompile Include="ProjectsMenu.cpp">
+      <Filter>Source Files\Classes\Menus</Filter>
+    </ClCompile>
+    <ClCompile Include="UserMenu.cpp">
+      <Filter>Source Files\Classes\Menus</Filter>
+    </ClCompile>
+    <ClCompile Include="Designer.cpp">
+      <Filter>Source Files\Classes\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity.cpp">
+      <Filter>Source Files\Classes\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Model.cpp">
+      <Filter>Source Files\Classes\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="User.cpp">
+      <Filter>Source Files\Classes\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Project.cpp">
+      <Filter>Source Files\Classes\Entities</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
