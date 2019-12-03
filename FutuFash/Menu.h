@@ -9,4 +9,3 @@ protected:
 	void handleWarning();
 	void printSuccessMessage();
 };
-

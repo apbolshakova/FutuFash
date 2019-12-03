@@ -20,4 +20,3 @@ private:
 public:
 	MainMenu(std::map<int, User*> *users, std::map<int, Project*> *projects);
 };
-
