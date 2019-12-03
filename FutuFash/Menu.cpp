@@ -1,16 +1,16 @@
 #include "Menu.h"
 
 
-int Menu::getOperationCode(int min = 0, int max = 0)
+int Menu::getOperationCode(int min = 0, int max = 0, char exitBtnCode = 0x1B)
 {
 	if (!min || !max) throw new std::exception("Invalid operations range.");
 	int opCode = 0;
 	do 
 	{
-		std::cout << "Enter number of required operation: ";
+		std::cout << "Enter which operation need to be evaluated: ";
 		std::cin >> opCode;
 
-	} while (min > opCode || max < opCode);
+	} while (opCode != exitBtnCode || min > opCode || max < opCode);
 	return opCode;
 }
 
