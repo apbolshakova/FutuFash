@@ -2,7 +2,7 @@
 
 
 
-MainMenu::MainMenu(std::map<int, User*> *users = nullptr, std::map<int, Project*> *projects = nullptr)
+MainMenu::MainMenu(std::map<int, User*>* users = nullptr, std::map<int, Project*>* projects = nullptr)
 {
 	if (!users) throw new std::exception("No users structure is found.");
 	if (!projects) throw new std::exception("No project structure is found.");
@@ -38,6 +38,19 @@ void MainMenu::printMenu()
 		"3   - Print all projects and users in system\n\n" <<
 		"4   - Save current system state\n\n" << 
 		"Esc - Exit" << std::endl;
+}
+
+
+void MainMenu::handleUsersMenu()
+{
+	try
+	{
+		UserMenu(); //TODO add required data
+	}
+	catch (const std::exception& e)
+	{
+		std::cout << e.what() << std::endl;
+	}
 }
 
 
