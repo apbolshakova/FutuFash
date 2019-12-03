@@ -1,5 +1,5 @@
 #pragma once
-#include "User.h"
+#include "Common.h"
 class Model :
 	public User
 {

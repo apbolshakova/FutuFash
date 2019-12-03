@@ -1,10 +1,19 @@
 #pragma once
-#include "Menu.h"
+#include "Common.h"
+
+
 class MainMenu :
 	public Menu
 {
+private:
+	std::map<int, User*> *users;
+	std::map<int, Project*> *projects;
+	void printMenu();
+	void handleUsersMenu();
+	void handleProjectsMenu();
+	void printProjectsWithParticipants();
+	void handleDataSaving();
 public:
-	MainMenu();
-	~MainMenu();
+	MainMenu(std::map<int, User*> *users = nullptr, std::map<int, Project*> *projects = nullptr);
 };
 
