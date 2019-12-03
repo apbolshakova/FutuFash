@@ -15,8 +15,8 @@ private:
 	void printMenu();
 	void handleUsersMenu();
 	void handleProjectsMenu();
-	//void printProjectsWithParticipants(); TODO
-	//void handleDataSaving();
+	void printProjectsWithParticipants();
+	void handleDataSaving();
 public:
 	MainMenu(std::map<int, User*> *users, std::map<int, Project*> *projects);
 };

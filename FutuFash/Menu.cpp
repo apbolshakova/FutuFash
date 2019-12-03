@@ -7,7 +7,6 @@ int Menu::getOperationCode(int min = 0, int max = 0, char exitBtnCode = 0x1B)
 	int opCode = 0;
 	do 
 	{
-		std::cout << "Press button of required operation." << std::endl;
 		opCode = _getch();
 
 	} while ((min > opCode - '0' || max < opCode - '0') && opCode != exitBtnCode);

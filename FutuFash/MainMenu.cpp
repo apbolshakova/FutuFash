@@ -17,13 +17,14 @@ MainMenu::MainMenu(std::map<int, User*> *users = nullptr, std::map<int, Project*
 		this->printMenu();
 		enum OpCodes { USERS_MENU = 1, PROJECTS_MENU, PRINT_ALL, SAVE };
 
+		std::cout << "Press button of required operation." << std::endl;
 		opCode = this->getOperationCode(USERS_MENU, SAVE, exitBtnCode);
 		switch (opCode)
 		{
 		case USERS_MENU: this->handleUsersMenu(); break;
 		case PROJECTS_MENU: this->handleProjectsMenu(); break;
-		//case PRINT_ALL: this->printProjectsWithParticipants(); break;
-		//case SAVE: this->handleDataSaving();
+		case PRINT_ALL: this->printProjectsWithParticipants(); break;
+		case SAVE: this->handleDataSaving();
 		default: break;
 		}
 
@@ -66,4 +67,44 @@ void MainMenu::handleProjectsMenu()
 	{
 		std::cout << e.what() << std::endl;
 	}
+}
+
+
+void MainMenu::printProjectsWithParticipants()
+{
+	system("cls");
+
+	if (this->projects->empty())
+	{
+		std::cout << "No projects in system." << std::endl;
+	}
+	else
+	{
+		std::cout << "Projects in system: " << std::endl;
+		for (auto const& el : *(this->projects))
+		{
+			std::cout << el.first << '. ' << el.second->getName() << std::endl;
+		}
+	}
+	
+	if (this->users->empty())
+	{
+		std::cout << "No users in system." << std::endl;
+	}
+	else
+	{
+		std::cout << "Users in system: " << std::endl;
+		for (auto const& el : *(this->users))
+		{
+			std::cout << el.first << '. ' << el.second->getName() << std::endl;
+		}
+	}
+	std::cout << "Press any button to return." << std::endl;
+	_getch();
+}
+
+
+void MainMenu::handleDataSaving()
+{
+	//TODO
 }
