@@ -7,10 +7,11 @@ int Menu::getOperationCode(int min = 0, int max = 0, char exitBtnCode = 0x1B)
 	int opCode = 0;
 	do 
 	{
-		std::cout << "Enter which operation need to be evaluated: ";
-		std::cin >> opCode;
+		std::cout << "Press button of required operation." << std::endl;
+		opCode = _getch();
 
-	} while (opCode != exitBtnCode || min > opCode || max < opCode);
+	} while ((min > opCode - '0' || max < opCode - '0') && opCode != exitBtnCode);
+	if (opCode != exitBtnCode) opCode -= '0';
 	return opCode;
 }
 
@@ -22,7 +23,7 @@ void Menu::handleWarning()
 	char ch = 0;
 	std::cout << "Are you sure? Press Enter to confirm or Esc to abort." << std::endl;
 	do {
-		std::cin >> ch;
+		ch = _getch();
 	} while (ch != confCode && ch != abortCode);
 	if (ch == abortCode) throw new std::exception("Operation was aborted.");
 }

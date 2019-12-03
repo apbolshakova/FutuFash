@@ -6,7 +6,14 @@ ProjectsManagementSystem::ProjectsManagementSystem()
 	std::map<int, User*> users;
 	std::map<int, Project*> projects;
 
-	handleDataLoading(&users, &projects);
+	try
+	{
+		handleDataLoading(&users, &projects);
+	}
+	catch (const std::exception&)
+	{
+		std::cout << "Unable to load data." << std::endl;
+	}
 	handleMainMenu(&users, &projects);
 }
 
@@ -19,13 +26,5 @@ void ProjectsManagementSystem::handleDataLoading(std::map<int, User*> *users, st
 
 void ProjectsManagementSystem::handleMainMenu(std::map<int, User*> *users, std::map<int, Project*> *projects)
 {
-	users->begin();
-	try
-	{
-		//MainMenu(users, projects);
-	}
-	catch (const std::exception& e)
-	{
-		std::cout << e.what() << std::endl;
-	}
+	MainMenu(users, projects);
 }
