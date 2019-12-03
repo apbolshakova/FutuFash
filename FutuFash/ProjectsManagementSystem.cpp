@@ -3,8 +3,8 @@
 
 ProjectsManagementSystem::ProjectsManagementSystem()
 {
-	std::map<int, User> users;
-	std::map<int, Project> projects;
+	std::map<int, User*> users;
+	std::map<int, Project*> projects;
 
 	try
 	{
@@ -14,18 +14,17 @@ ProjectsManagementSystem::ProjectsManagementSystem()
 	{
 		std::cout << "Unable to load data." << std::endl;
 	}
-	
 	handleMainMenu(&users, &projects);
 }
 
 
-void ProjectsManagementSystem::handleDataLoading(std::map<int, User> *users, std::map<int, Project> *projects)
+void ProjectsManagementSystem::handleDataLoading(std::map<int, User*> *users, std::map<int, Project*> *projects)
 {
 	//TODO
 }
 
 
-void ProjectsManagementSystem::handleMainMenu(std::map<int, User> *users, std::map<int, Project> *projects)
+void ProjectsManagementSystem::handleMainMenu(std::map<int, User*> *users, std::map<int, Project*> *projects)
 {
-	//MainMenu(&users, &projects);
+	MainMenu(users, projects);
 }
