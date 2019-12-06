@@ -1,6 +1,6 @@
 #include "User.h"
 
-map<int, Project*> User::GetProjects()
+map<int, Project*>* User::GetProjects()
 {
 	return this->projects;
 }
@@ -18,24 +18,16 @@ void User::setExp(int exp)
 	}
 		
 }
-void User::addProject(Project* project, int ProjectId)
+void User::addProject(Project* project)
 {
-	projects.insert(pair<int, Project*>(ProjectId, project));
+	projects.insert(pair<int, Project*>(project->id, project));
 }
-void User::removeProject(int id)
+void User::removeProject(Project* project)
 {
-	projects.erase(id);
+	projects.erase(project->id);
 }
 void User::markToDelete()
 {
-	//if (toDelete)
-		//?
-}
-User::User()
-{
+	this->toDelete = true;
 }
 
-
-User::~User()
-{
-}

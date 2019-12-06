@@ -9,7 +9,7 @@ class UserMenu :
 	public Menu
 {
 private:
-	map<int, User*> users;
+	map<int, User*> *users;
 	enum UserMenuMode {
 		GLOBAL_CHANGING,
 		PROJECT_CHANGING

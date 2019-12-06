@@ -52,11 +52,7 @@ void Model::setHairColor(string hairColor)
 	}
 }
 
-Model::Model()
-{
-}
 
 
-Model::~Model()
-{
-}
+
+

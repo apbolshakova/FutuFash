@@ -19,11 +19,7 @@ void Designer::SetVogue(string vogue)
 
 }
 
-Designer::Designer()
-{
-}
 
 
-Designer::~Designer()
-{
-}
+
+

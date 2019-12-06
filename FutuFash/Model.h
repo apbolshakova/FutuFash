@@ -1,5 +1,6 @@
 #pragma once
 #include "Common.h"
+#include "User.h"
 using namespace std;
 class Model :
 	public User
@@ -16,6 +17,6 @@ public:
 	void setHeight(int height);
 	void setWeight(int weight);
 	void setHairColor(string hairColor);
-	~Model();
+	
 };
 

@@ -1,7 +1,6 @@
 #pragma once
 #include "Common.h"
 #include "Entity.h"
-#include "Entity.cpp"
 #include "Project.h"
 using namespace std;
 class User :
@@ -9,15 +8,15 @@ class User :
 {
 private:
 	int experienceInYears;
-	map<int, Project*> projects;
+	map<int, Project*> *projects;
 	bool toDelete;
 public:
-	User(int experienceInYears = -1, bool toDelete = false) : experienceInYears(experienceInYears), toDelete(toDelete) {};
-	map<int, Project*> GetProjects();
+	User(int experienceInYears = -1, map<int, Project*> *projects = nullptr, bool toDelete = false) : experienceInYears(experienceInYears), toDelete(toDelete) {};
+	map<int, Project*>* GetProjects();
 	void setExp(int exp);
-	void addProject(Project* project, int ProjectId);
-	void removeProject(int id);
+	void addProject(Project* project);
+	void removeProject(Project* project);
 	void markToDelete();
-	~User();
+	
 };
 

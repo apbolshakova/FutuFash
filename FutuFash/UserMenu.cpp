@@ -10,7 +10,7 @@ UserMenu::UserMenu(map<int, User*> *users = nullptr, UserMenuMode mode, Project*
 	{
 		if (!users) throw new exception("No users structure found.");
 
-		//this->users = users;
+		this->users = users;
 		const char exitBtnCode = 0x1B;
 		char opCode = 0;
 
@@ -57,11 +57,12 @@ void UserMenu::handleAdding()
 		cout << "Press button of required operation." << endl;
 		char opc = 0;
 		opc = this->getOperationCode(DESIGNER, MODEL, exitBtnCode);
-		switch (opc)
-		case DESIGNER:	this->addNew(Designer* designer); break;
-		case MODEL: this->addNew(Model* model); break;
+		switch (opc) 
+		{
+		case DESIGNER:	Designer* newUser; break;
+		case MODEL: Model* newUser; break;
 		default: break;
-
+		}
 	}
 	catch (const exception& e)
 	{

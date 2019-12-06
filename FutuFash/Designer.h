@@ -1,5 +1,6 @@
 #pragma once
 #include "Common.h"
+#include "User.h"
 using namespace std;
 class Designer :
 	public User
@@ -11,6 +12,6 @@ public:
 	Designer(string vogue = "") : vogue(vogue) {};
 	string GetVogue();
 	void SetVogue(string vogue);
-	~Designer();
+
 };
 
