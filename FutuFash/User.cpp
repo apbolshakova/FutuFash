@@ -20,11 +20,11 @@ void User::setExp(int exp)
 }
 void User::addProject(Project* project)
 {
-	projects.insert(pair<int, Project*>(project->id, project));
+	this->projects->insert(pair<int, Project*>(project->getId(), project));
 }
 void User::removeProject(Project* project)
 {
-	projects.erase(project->id);
+	this->projects->erase(project->getId());
 }
 void User::markToDelete()
 {
