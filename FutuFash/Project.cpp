@@ -2,14 +2,7 @@
 #include <string>
 
 
-Project::Project()
-{
 
-
-}
-Project::~Project()
-{
-}
 
 
 string Project::getDate(void)
@@ -40,15 +33,13 @@ void Project::setLocation(string location)
 {
 	Project::location = location;
 }
-void Project::addModel(Model* model, int mid)
+void Project::addModel(Model* model)
 {
-	Project::models.insert(pair< int, Model*>(mid, model));
+	Project::models.insert(pair< int, Model*>(model->id, model));
 }
-void Project::removeModel(Model* model, int mid)
+void Project::removeModel(Model* model)
 {
-	for (int i = 0; i < models.end; i++)
-		if (mid == models[i].key_comp)
-			Project::models.erase(pair< int, Model*>(mid, model));
+	Project::models.erase(model->id);
 }
 void Project::setStatus(enum ProjectStatus status)
 {

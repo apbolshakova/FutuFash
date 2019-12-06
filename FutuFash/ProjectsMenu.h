@@ -1,12 +1,14 @@
 #pragma once
 #include "Menu.h"
+#include "Project.h"
 #include <string>
+#include <vector>
 using namespace std;
 class ProjectsMenu :
 	public Menu
 {
 private:
-	map<int, Projects*> *projects;
+	map<int, Project*> *projects;
 
 
 public:
@@ -16,10 +18,7 @@ public:
 	void printAllProjects();
 	void handleSearch();
 	void addNew(Project* project);
-	enum Field getField();
-	string getQuery();
-	void getSearchResult(enum ProjectField field, string query);
-	void printSearchResult(vector<Projects*> result);
+
 
 
 	~ProjectsMenu();
