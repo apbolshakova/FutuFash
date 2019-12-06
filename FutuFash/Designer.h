@@ -1,10 +1,17 @@
 #pragma once
 #include "Common.h"
+#include "User.h"
+using namespace std;
 class Designer :
 	public User
 {
+private:
+	string vogue;
+
 public:
-	Designer();
-	~Designer();
+	Designer(string vogue = "") : vogue(vogue) {};
+	string GetVogue();
+	void SetVogue(string vogue);
+
 };
 
