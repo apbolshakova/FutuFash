@@ -4,12 +4,11 @@
 #include "Designer.h"
 #include "Model.h"
 #include "Menu.h"
-using namespace std;
 class UserMenu :
 	public Menu
 {
 private:
-	map<int, User*> *users;
+	std::map<int, User*> *users;
 	enum UserMenuMode {
 		GLOBAL_CHANGING,
 		PROJECT_CHANGING
@@ -21,16 +20,21 @@ private:
 	void printAllUsers();
 	void handleSearch();
 	//adding
-	void addNew(User* user);
+	//void addNew(User* user);
+	void addNew(Designer* designer);
+	void addNew(Model* model);
 	//profile
 	int getNumToShow();
-	void printProfile(User* user);
-	void handleGlobalChanging(User* user);
+	//void printProfile(User* user);
+	void printProfile(Designer* designer);
+	void printProfile(Model* model);
+	void handleGlobalChanging(Designer* designer);
+	void handleGlobalChanging(Model* model);
 	void handleGlobalDeleting(User* user);
-	void handleProjectAdding(User* user);
+	void handleProjectAdding(User* user); //TODO нужно ли параметр менять на модель
 	void handleProjectDeleting(User* user);
 public:
-	UserMenu(map<int, User*> *users, UserMenuMode mode, Project* projectToEdit);
+	UserMenu(std::map<int, User*> *users, UserMenuMode mode, Project* projectToEdit);
 	~UserMenu();
 };
 
