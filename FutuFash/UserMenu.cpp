@@ -54,7 +54,6 @@ UserMenu::UserMenu(map<int, User*> *users = nullptr, UserMenuMode mode = GLOBAL_
 	{
 		//TODO
 		this->handleSearch();
-		this->getNumToShow();
 
 	}
 	}
@@ -187,10 +186,31 @@ void UserMenu::handleProfile(vector<User*> data)
 	if (model)
 	{
 		printProfile(model);
+		
+		enum operCodes { CHANGE = 1, DELETE };
+		char operCode = 0;
+		cout << "Press 1 to change the data       Press 2 to delete the user" << endl;
+		operCode = this->getOperationCode(CHANGE, DELETE);
+		switch (operCode)
+		{
+		case CHANGE: handleGlobalChanging(model); break;
+		case DELETE: handleGlobalDeleting(data[number]); break;
+		default: break;
+		}
 	}
 	else
 	{
 		printProfile(designer);
+		enum operCodes { CHANGE = 1, DELETE };
+		char operCode = 0;
+		cout << "Press 1 to change the data       Press 2 to delete the user" << endl;
+		operCode = this->getOperationCode(CHANGE, DELETE);
+		switch (operCode)
+		{
+		case CHANGE: handleGlobalChanging(designer); break;
+		case DELETE: handleGlobalDeleting(data[number]); break;
+		default: break;
+		}
 	}
 }
 int UserMenu::getNumToShow(vector<User*> data)
