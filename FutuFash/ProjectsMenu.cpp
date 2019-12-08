@@ -91,10 +91,10 @@ void ProjectsMenu::addNew(Project* project)
 }
 void ProjectsMenu::handleSearch()
 {
-	entityType type = PROJECT;
-	SearchHandler* Search(type);
-	vector<Project*> data = Search->getSearchResult();
-	Search->printSearchResult(data);
+	SearchEntityType type = PROJECT;
+	SearchHandler Search(type);
+	vector<Project*> data = Search.getResult();
+	Search.printResult(data);
 	cout << "Зайти в профиль в проекта? 1- да, 0- нет";
 	bool t;
 	cin >> t;
@@ -107,16 +107,16 @@ Designer* ProjectsMenu::getNewDesigner()
 	cout << "Имя дизайнера";
 	string designer;
 	getline(cin,designer);
-	entityType type = DESIGNER;
-    SearchHandler* Search(type);
-    vector<Project*> data = Search->getSearchResult(); //делать поиск, пока что-то не найдется
+	SearchEntityType type = SearchEntityType(DESIGNER);
+    SearchHandler Search(type);
+    vector<Project*> data = Search.getResult(); //делать поиск, пока что-то не найдется
     //Если размер 1 - возвращаешь сам элемени
 	//Если размер больше:
 	if (data.size == 1)
-		return Project*->data[0]->getDesigner();
+		return data[0]->getDesigner();
 	else
 	{
-		Search->printSearchResult(data);
+		Search.printResult(data);
 		cout << "Выберете номер интересующего вас дизайнера";
 		int number;
 		cin >> number;
@@ -127,7 +127,7 @@ Designer* ProjectsMenu::getNewDesigner()
 void ProjectsMenu::handleProfile(vector<Project*> data)
 {
 	int number = getNumToShow();
-	printProfile(project);
+	printProfile(data[number]);
 	cout << "Вы хотите изменить выбранный проект? 1- да, 0- нет";
 	bool t;
 	cin >> t;
@@ -138,9 +138,9 @@ void ProjectsMenu::handleProfile(vector<Project*> data)
 		int k;
 		cin >> k;
 		if (k == 1)
-			handleParticipantsMenu(project);
-		else if (k == 2) handleChanging(project);
-		else if (k == 3) handleDeleting(project);
+			handleParticipantsMenu(data[number],this->users);
+		else if (k == 2) handleChanging(data[number]);
+		else if (k == 3) handleDeleting(data[number]);
 
 	}
 }
@@ -148,10 +148,14 @@ int ProjectsMenu::getNumToShow()
 {
 
 }
-void ProjectsMenu::handleParticipantsMenu(Project* project)
+void ProjectsMenu::handleParticipantsMenu(Project* project, map<int,User*> *users)
 {
 	ParticipantsMenu* changeModels;
 
+
+}
+void ProjectsMenu::printProfile(Project* project)
+{
 
 }
 void ProjectsMenu::handleChanging(Project* project)

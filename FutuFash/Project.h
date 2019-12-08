@@ -2,6 +2,7 @@
 #include "Entity.h"
 #include "Designer.h"
 #include "Model.h"
+class Entity;
 enum ProjectStatus 
 {
 	INSEARCH, FILLED, FINISHED, DELETED
