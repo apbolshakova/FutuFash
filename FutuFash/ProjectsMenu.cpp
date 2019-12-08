@@ -21,7 +21,7 @@ ProjectsMenu::ProjectsMenu(map<int, User*> *users, map<int, Project*> *projects)
 		enum OpCodes { ADDING = 1, PRINT_ALL, SEARCH };
 
 		std::cout << "Нажмите номер интересующего вас действия" << endl; 
-		opCode = Menu*->getOperationCode(ADDING, SEARCH, exitBtnCode);
+		opCode = this->getOperationCode(ADDING, SEARCH, exitBtnCode);
 		switch (opCode)
 		{
 		case ADDING: this->handleAdding(); break;
@@ -144,6 +144,10 @@ void ProjectsMenu::handleProfile(vector<Project*> data)
 
 	}
 }
+int ProjectsMenu::getNumToShow()
+{
+
+}
 void ProjectsMenu::handleParticipantsMenu(Project* project)
 {
 	ParticipantsMenu* changeModels;
@@ -156,7 +160,7 @@ void ProjectsMenu::handleChanging(Project* project)
 }
 void ProjectsMenu::handleDeleting(Project* project)
 {
-
+	project->setStatus(DELETED);
 }
 
 ProjectsMenu::~ProjectsMenu()
