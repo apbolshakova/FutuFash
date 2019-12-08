@@ -40,7 +40,6 @@ private:
 	std::string getNewQuery();
 	void setField(SearchField field);
 	void setQuery(std::string query);
-	//new
 	std::vector<SearchField> getAllowedFields();
 	void printFieldChoice();
 	std::vector<Project*> searchInProjects();

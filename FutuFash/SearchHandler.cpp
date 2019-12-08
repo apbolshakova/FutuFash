@@ -88,7 +88,11 @@ void SearchHandler::printFieldChoice()
 
 std::string SearchHandler::getNewQuery()
 {
-	//TODO
+	std::cout << "Enter value to search: " << std::endl;
+	do
+	{
+		std::getline(std::cin, this->query);
+	} while (!this->query.empty());
 }
 
 
