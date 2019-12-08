@@ -6,10 +6,12 @@ class Entity;
 class User :
 	public Entity
 {
+	
 private:
 	int experienceInYears;
 	std::map<int, Project*> *projects;
 	bool toDelete;
+	virtual ~User() {};
 public:
 	User(int experienceInYears = -1, std::map<int, Project*> *projects = nullptr, bool toDelete = false) : experienceInYears(experienceInYears), toDelete(toDelete) {};
 	int GetExp();
@@ -18,6 +20,5 @@ public:
 	void addProject(Project* project);
 	void removeProject(Project* project);
 	void markToDelete();
-	
 };
 

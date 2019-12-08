@@ -168,30 +168,37 @@ void UserMenu::printAllUsers()
 void UserMenu::handleSearch()
 {
 	//TODO
-	entityType type = USER;
-	SearchHandler* Search(type);
-	vector<User*> data = Search->getSearchResult();
-	Search->printSearchResult();
-	cout << endl;
-	cout << "Type true to go to a certain profile" << endl;
-	bool t = false;
-	cin >> t;
-	if (t)
-		this->handleProfile(data);
+	//SearchEntityType type = USER;
+	//SearchHandler Search(type);
+	//vector<User*> data = Search.getResult();
+	//Search.printResult();
+	//cout << endl;
+	//cout << "Type true to go to a certain profile" << endl;
+	//bool t = false;
+	//cin >> t;
+	//if (t)
+		//this->handleProfile(data);
 }
 void UserMenu::handleProfile(vector<User*> data)
 {
-	int number = getNumToShow();
-	int i = 0;
-	Model* model = dynamic_cast<Model*>(data[i]*);
-	
+	int number = getNumToShow(data);
+	Model* model = dynamic_cast<Model*>(data[number]);
+	Designer* designer = dynamic_cast<Designer*>(data[number]);
+	if (model)
+	{
+		printProfile(model);
+	}
+	else
+	{
+		printProfile(designer);
+	}
 }
-int UserMenu::getNumToShow()
+int UserMenu::getNumToShow(vector<User*> data)
 {
-	//TODO
-	const char exitBtnCode = 0x1B;
-	char opCode = 0;
-	
+	cout << "Enter profile ordinal number from the list: ";
+	int opCode = 0;
+	opCode = this->getOperationCode(1, data.size());
+	return opCode - 1;
 }
 void UserMenu::printProfile(Designer* designer)
 {

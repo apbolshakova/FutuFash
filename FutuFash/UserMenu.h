@@ -26,7 +26,7 @@ private:
 	void addNew(Model* model);
 	//profile
 	void handleProfile(std::vector<User*> data);
-	int getNumToShow();
+	int getNumToShow(std::vector<User*> data);
 	//void printProfile(User* user);
 	void printProfile(Designer* designer);
 	void printProfile(Model* model);
