@@ -4,15 +4,16 @@
 #include "Designer.h"
 #include "Model.h"
 #include "Menu.h"
+#include <vector>
+enum UserMenuMode {
+	GLOBAL_CHANGING,
+	PROJECT_CHANGING
+}mode;
 class UserMenu :
 	public Menu
 {
 private:
 	std::map<int, User*> *users;
-	enum UserMenuMode {
-		GLOBAL_CHANGING,
-		PROJECT_CHANGING
-	}mode;
 	Project* projectToEdit;
 	void printMenu();
 	//switch
@@ -24,6 +25,7 @@ private:
 	void addNew(Designer* designer);
 	void addNew(Model* model);
 	//profile
+	void handleProfile(std::vector<User*> data);
 	int getNumToShow();
 	//void printProfile(User* user);
 	void printProfile(Designer* designer);
