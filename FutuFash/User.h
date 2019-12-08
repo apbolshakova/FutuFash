@@ -2,7 +2,6 @@
 #include "Common.h"
 #include "Entity.h"
 #include "Project.h"
-using namespace std;
 class User :
 	public Entity
 {
@@ -12,6 +11,7 @@ private:
 	bool toDelete;
 public:
 	User(int experienceInYears = -1, map<int, Project*> *projects = nullptr, bool toDelete = false) : experienceInYears(experienceInYears), toDelete(toDelete) {};
+	int GetExp();
 	map<int, Project*>* GetProjects();
 	void setExp(int exp);
 	void addProject(Project* project);

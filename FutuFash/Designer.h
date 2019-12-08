@@ -1,7 +1,6 @@
 #pragma once
 #include "Common.h"
 #include "User.h"
-using namespace std;
 class Designer :
 	public User
 {

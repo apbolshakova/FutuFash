@@ -1,6 +1,10 @@
 #include "User.h"
-
-map<int, Project*>* User::GetProjects()
+using namespace std;
+int User::GetExp()
+{
+	return this->experienceInYears;
+}
+map<int, Project*>* User:: GetProjects()
 {
 	return this->projects;
 }
