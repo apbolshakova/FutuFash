@@ -1,7 +1,8 @@
 #pragma once
 #include "Common.h"
-#include "User.h"
+
 class User;
+
 class Model :
 	public User
 {

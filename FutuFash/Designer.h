@@ -1,7 +1,8 @@
 #pragma once
 #include "Common.h"
-#include "User.h"
+
 class User;
+
 class Designer :
 	public User
 {
@@ -14,4 +15,3 @@ public:
 	void SetVogue(std::string vogue);
 
 };
-

@@ -1,5 +1,5 @@
+#pragma once
 #include "SearchHandler.h"
-
 
 SearchHandler::SearchHandler(SearchEntityType type)
 {

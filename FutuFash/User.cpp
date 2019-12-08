@@ -1,5 +1,7 @@
 #include "User.h"
+
 using namespace std;
+
 int User::GetExp()
 {
 	return this->experienceInYears;
@@ -34,4 +36,3 @@ void User::markToDelete()
 {
 	this->toDelete = true;
 }
-

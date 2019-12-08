@@ -1,5 +1,5 @@
+#pragma once
 #include "MainMenu.h"
-#include "UserMenu.h"
 
 MainMenu::MainMenu(std::map<int, User*> *users = nullptr, std::map<int, Project*> *projects = nullptr)
 {

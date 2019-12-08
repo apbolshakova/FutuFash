@@ -1,7 +1,7 @@
+#pragma once
 #include "UserMenu.h"
-#include "SearchHandler.h"
-using namespace std;
 
+using namespace std;
 
 UserMenu::UserMenu(map<int, User*> *users = nullptr, UserMenuMode mode = GLOBAL_CHANGING, Project* projectToEdit = nullptr)
 {

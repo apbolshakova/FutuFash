@@ -1,5 +1,5 @@
+#pragma once
 #include "Menu.h"
-
 
 int Menu::getOperationCode(int min = 0, int max = 0, char exitBtnCode = 0x1B)
 {

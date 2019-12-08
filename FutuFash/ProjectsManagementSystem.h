@@ -1,7 +1,5 @@
 #pragma once
 #include "Common.h"
-#include "User.h"
-#include "Project.h"
 #include "MainMenu.h"
 
 class ProjectsManagementSystem

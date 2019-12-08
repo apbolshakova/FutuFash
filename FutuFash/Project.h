@@ -1,8 +1,10 @@
 #pragma once
-#include "Entity.h"
-#include "Designer.h"
-#include "Model.h"
+#include "Common.h"
+
 class Entity;
+class Designer;
+class Model;
+
 enum ProjectStatus 
 {
 	INSEARCH, FILLED, FINISHED, DELETED
@@ -13,24 +15,24 @@ class Project :
 {
 private:
 	int id;
-	string name;
-	string date;
-	string location;
+	std::string name;
+	std::string date;
+	std::string location;
 	Designer* designer;
-	map<int, Model*> models;
+	std::map<int, Model*> models;
 	enum ProjectStatus status;
 
 public:
-	string getName();
+	std::string getName();
 	int getId();
-	string getDate();
-	string getLocation();
+	std::string getDate();
+	std::string getLocation();
 	Designer* getDesigner();
-	map<int, Model*> getModels();
+	std::map<int, Model*> getModels();
 	enum ProjectStatus getStatus();
 
-	void setDate(string date);
-	void setLocation(string location);
+	void setDate(std::string date);
+	void setLocation(std::string location);
 	void addModel(Model* model);
 	void removeModel(Model* model);
 	void setStatus(enum ProjectStatus);

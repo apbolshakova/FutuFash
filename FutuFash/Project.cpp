@@ -1,7 +1,7 @@
+#pragma once
 #include "Project.h"
-#include <string>
 
-
+using namespace std;
 
 string Project::getName(void)
 {

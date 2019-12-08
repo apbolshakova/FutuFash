@@ -1,5 +1,8 @@
+#pragma once
 #include "Designer.h"
+
 using namespace std;
+
 string Designer::GetVogue()
 {
 	return this->vogue;

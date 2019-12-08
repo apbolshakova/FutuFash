@@ -1,5 +1,5 @@
+#pragma once
 #include "ProjectsManagementSystem.h"
-
 
 ProjectsManagementSystem::ProjectsManagementSystem()
 {

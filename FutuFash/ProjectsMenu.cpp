@@ -1,11 +1,8 @@
+#pragma once
 #include "ProjectsMenu.h"
-#include <string>
-#include "Project.h"
-#include "SearchHandler.h"
-#include "Menu.h"
-#include "ParticipantsMenu.h"
 
 using namespace std;
+
 ProjectsMenu::ProjectsMenu(map<int, User*> *users, map<int, Project*> *projects)
 {
 	this->users = users;
