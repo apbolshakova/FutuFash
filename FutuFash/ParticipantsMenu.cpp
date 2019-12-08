@@ -11,7 +11,7 @@ ParticipantsMenu::ParticipantsMenu(map<int, User*> *users, Project* project)
 	do
 	{
 		system("cls");
-		this->printMenunow();
+		this->printMenu();
 		enum OpCodes { PRINTING = 1, CHANGING };
 
 		std::cout << "Нажмите номер интересующего вас действия" << endl;
@@ -29,7 +29,7 @@ ParticipantsMenu::ParticipantsMenu(map<int, User*> *users, Project* project)
 
 	} while (opCode != exitBtnCode);
 }
-void ParticipantsMenu::printMenunow()
+void ParticipantsMenu::printMenu()
 {
 	cout << "	1- Вывести всех участников проекта" << endl;
 	cout << "	2- Изменить участников проекта" << endl;
@@ -38,9 +38,9 @@ void ParticipantsMenu::printMenunow()
 }
 void ParticipantsMenu::printAllParticipants()
 {
-	map<int, Model*> mapmod = project->getModels;
-	map <int, Model*> ::iterator it = mapmod->begin();
-	for (int i = 0; it != this->projects->end(); i++, it++)
+	map<int, Model*> mapmod = this->project->getModels();
+	map <int, Model*> ::iterator it = mapmod.begin();
+	for (int i = 0; it != mapmod.end(); i++, it++)
 		cout << i++ << ") " << it->second->getName() << endl;
 }
 void ParticipantsMenu::changeParticipants()

@@ -5,7 +5,7 @@
 #include "Project.h"
 #include "UserMenu.h"
 #include "ProjectsMenu.h"
-
+class Menu;
 class MainMenu :
 	public Menu
 {

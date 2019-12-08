@@ -3,6 +3,7 @@
 #include "Menu.h"
 #include "Project.h"
 #include "User.h"
+class Menu;
 class ParticipantsMenu :
 	public Menu
 {
@@ -11,7 +12,7 @@ private:
 	map<int, User*> *users;
 public:
 	ParticipantsMenu(map<int, User*> *users, Project* project);
-	void printMenunow();
+	void printMenu();
 	void printAllParticipants();
 	void changeParticipants();
 
