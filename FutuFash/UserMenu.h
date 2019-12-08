@@ -1,5 +1,7 @@
 #pragma once
 #include "Common.h"
+#include "Menu.h"
+#include "Entities.h"
 
 class Menu;
 class Project;
@@ -7,10 +9,12 @@ class User;
 class Designer;
 class Model;
 
-enum UserMenuMode {
+enum UserMenuMode 
+{
 	GLOBAL_CHANGING,
 	PROJECT_CHANGING
-}mode;
+};
+
 class UserMenu :
 	public Menu
 {

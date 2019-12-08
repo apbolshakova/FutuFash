@@ -72,6 +72,9 @@
     <ClInclude Include="Designer.h">
       <Filter>Header Files\Classes\Entities</Filter>
     </ClInclude>
+    <ClInclude Include="Entities.h">
+      <Filter>Header Files\Classes\Entities</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">

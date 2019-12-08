@@ -1,5 +1,7 @@
 #pragma once
 #include "Common.h"
+#include "UserMenu.h"
+#include "ProjectsMenu.h"
 
 class Menu;
 class User;

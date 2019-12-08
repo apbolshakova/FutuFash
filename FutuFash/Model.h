@@ -1,5 +1,8 @@
+//TODO DELETE
+
 #pragma once
 #include "Common.h"
+#include "User.h"
 
 class User;
 

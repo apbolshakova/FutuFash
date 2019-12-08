@@ -8,10 +8,10 @@ class Model;
 
 enum SearchEntityType
 {
-	PROJECT,
-	USER,
-	DESIGNER,
-	MODEL
+	PRJ,
+	USR,
+	DSG,
+	MDL
 };
 
 enum SearchField

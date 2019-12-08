@@ -31,7 +31,7 @@ std::vector<SearchField> SearchHandler::getAllowedFields()
 	std::vector<SearchField> allowed;
 	allowed.push_back(ID);
 	allowed.push_back(NAME);
-	if (this->type == PROJECT)
+	if (this->type == PRJ)
 	{
 		allowed.push_back(DATE);
 		allowed.push_back(LOCATION);
@@ -41,7 +41,7 @@ std::vector<SearchField> SearchHandler::getAllowedFields()
 	else
 	{
 		allowed.push_back(EXPERIENCE);
-		if (this->type == DESIGNER)
+		if (this->type == DSG)
 		{
 			allowed.push_back(VOGUE);
 		}
@@ -61,7 +61,7 @@ void SearchHandler::printFieldChoice()
 	std::cout << "Enter by which parameter you want to search: " << std::endl;
 	std::cout << ID << " - ID" << std::endl
 		<< NAME << " - name" << std::endl;
-	if (this->type == PROJECT)
+	if (this->type == PRJ)
 	{
 		std::cout << DATE << " - date" << std::endl
 			<< LOCATION << " - location" << std::endl
@@ -71,7 +71,7 @@ void SearchHandler::printFieldChoice()
 	else
 	{
 		std::cout << EXPERIENCE << " - experience in years" << std::endl;
-		if (this->type == DESIGNER)
+		if (this->type == DSG)
 		{
 			std::cout << VOGUE << " - vogue" << std::endl;
 		}
@@ -93,6 +93,7 @@ std::string SearchHandler::getNewQuery()
 	{
 		std::getline(std::cin, this->query);
 	} while (!this->query.empty());
+	return std::string(); //TODO
 }
 
 
@@ -113,10 +114,10 @@ std::vector<EntityT*> SearchHandler::getResult()
 {
 	switch (this->searchType)
 	{
-	case PROJECT: return this->searchInProjects(); break;
-	case USER: return this->searchInUsers(); break;
-	case DESIGNER: return this->searchInDesigners(); break;
-	case MODEL: return this->searchInModels(); break;
+	case PRJ: return this->searchInProjects(); break;
+	case USR: return this->searchInUsers(); break;
+	case DSG: return this->searchInDesigners(); break;
+	case MDL: return this->searchInModels(); break;
 	default: break;
 	}
 }

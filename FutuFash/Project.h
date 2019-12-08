@@ -1,9 +1,14 @@
+//TODO DELETE
+
 #pragma once
 #include "Common.h"
+#include "Model.h"
+#include "Designer.h"
 
 class Entity;
 class Designer;
 class Model;
+
 
 enum ProjectStatus 
 {

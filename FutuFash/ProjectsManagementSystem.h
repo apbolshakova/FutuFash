@@ -2,6 +2,10 @@
 #include "Common.h"
 #include "MainMenu.h"
 
+class User;
+class Project;
+class MainMenu;
+
 class ProjectsManagementSystem
 {
 private:

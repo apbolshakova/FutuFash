@@ -88,14 +88,14 @@ void UserMenu::handleAdding()
 		{
 			Designer* newUser;
 			
-		addNew(newUser);
+		//addNew(newUser); TODO
 		break;
 		}
 		case MODEL:
 		{
 			
 			Model* newUser;
-		addNew(newUser);
+		//addNew(newUser); TODO
 		break;
 		}
 		default: break;

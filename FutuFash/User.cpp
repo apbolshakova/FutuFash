@@ -1,4 +1,5 @@
-#include "User.h"
+#pragma once
+#include "Entities.h"
 
 using namespace std;
 

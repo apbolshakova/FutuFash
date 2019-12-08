@@ -1,5 +1,9 @@
+//TODO DELETE
+
 #pragma once
 #include "Common.h"
+#include "Entity.h"
+#include "Project.h"
 
 class Entity;
 class Project;

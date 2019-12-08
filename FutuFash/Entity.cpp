@@ -1,5 +1,5 @@
 #pragma once
-#include "Entity.h"
+#include "Entities.h"
 
 void Entity::setName(std::string name)
 {
