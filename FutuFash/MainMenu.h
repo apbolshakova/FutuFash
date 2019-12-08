@@ -18,5 +18,5 @@ private:
 	void printProjectsWithParticipants();
 	void handleDataSaving();
 public:
-	MainMenu(std::map<int, User*> *users, std::map<int, Project*> *projects);
+	MainMenu(std::map<int, User*> *users = nullptr, std::map<int, Project*> *projects = nullptr);
 };

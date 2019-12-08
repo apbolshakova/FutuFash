@@ -1,5 +1,5 @@
 #include "MainMenu.h"
-
+#include "UserMenu.h"
 
 MainMenu::MainMenu(std::map<int, User*> *users = nullptr, std::map<int, Project*> *projects = nullptr)
 {
@@ -48,7 +48,7 @@ void MainMenu::handleUsersMenu()
 {
 	try
 	{
-		UserMenu(); //TODO add required data
+		UserMenu(this->users, GLOBAL_CHANGING, nullptr); //TODO fix constructor invoke
 	}
 	catch (const std::exception& e)
 	{
