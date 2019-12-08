@@ -3,8 +3,14 @@
 
 
 
-
-
+string Project::getName(void)
+{
+	return this->name;
+}
+int Project::getId(void)
+{
+	return this->id;
+}
 string Project::getDate(void)
 {
 	return this->date;
@@ -35,13 +41,17 @@ void Project::setLocation(string location)
 }
 void Project::addModel(Model* model)
 {
-	Project::models.insert(pair< int, Model*>(model->id, model));
+	Project::models.insert(pair< int, Model*>(model->getId(), model));
 }
 void Project::removeModel(Model* model)
 {
-	Project::models.erase(model->id);
+	Project::models.erase(model->getId());
 }
 void Project::setStatus(enum ProjectStatus status)
 {
 	Project::status = status;
+}
+void Project::setDesigner(Designer* designer)
+{
+	Project::designer = designer;
 }
