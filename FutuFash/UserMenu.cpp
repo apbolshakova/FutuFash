@@ -32,18 +32,18 @@ UserMenu::UserMenu(map<int, User*> *users = nullptr, UserMenuMode mode = GLOBAL_
 			{
 				//TODO
 				this->handleSearch();
-				this->getNumToShow();
+			//	this->getNumToShow();
 					//if это модель вызываем printProfile(model) иначе printProfile(designer)
-				enum operCodes { CHANGE = 1, DELETE };
-				char operCode = 0;
-				cout << "Press 1 to change the data       Press 2 to delete the user" << endl;
-				operCode = this->getOperationCode(CHANGE, DELETE, exitBtnCode);
-				switch (operCode)
-				{
+				//enum operCodes { CHANGE = 1, DELETE };
+			//	char operCode = 0;
+				//cout << "Press 1 to change the data       Press 2 to delete the user" << endl;
+				//operCode = this->getOperationCode(CHANGE, DELETE, exitBtnCode);
+			//	switch (operCode)
+			//	{
 					//case CHANGE: if это модель вызываем handleGlobalChanging(model) else handleGlobalChanging(designer)
 					//case DELETE: if это модель вызываем handleGlobalDeleting(model) else handleGlobalDeleting(designer)
-				}
-				break;
+			//	}
+			//	break;
 			}
 			default: break;
 			}
@@ -168,6 +168,23 @@ void UserMenu::printAllUsers()
 void UserMenu::handleSearch()
 {
 	//TODO
+	entityType type = USER;
+	SearchHandler* Search(type);
+	vector<User*> data = Search->getSearchResult();
+	Search->printSearchResult();
+	cout << endl;
+	cout << "Type true to go to a certain profile" << endl;
+	bool t = false;
+	cin >> t;
+	if (t)
+		this->handleProfile(data);
+}
+void UserMenu::handleProfile(vector<User*> data)
+{
+	int number = getNumToShow();
+	int i = 0;
+	Model* model = dynamic_cast<Model*>(data[i]*);
+	
 }
 int UserMenu::getNumToShow()
 {
