@@ -1,7 +1,7 @@
+#pragma once
 #include "MainMenu.h"
 
-
-MainMenu::MainMenu(std::map<int, User*> *users = nullptr, std::map<int, Project*> *projects = nullptr)
+MainMenu::MainMenu(std::map<int, User*> *users, std::map<int, Project*> *projects)
 {
 	if (!users) throw new std::exception("No users structure is found.");
 	if (!projects) throw new std::exception("No project structure is found.");
@@ -48,7 +48,7 @@ void MainMenu::handleUsersMenu()
 {
 	try
 	{
-		UserMenu(); //TODO add required data
+		UserMenu(this->users, GLOBAL_CHANGING, nullptr); //TODO fix constructor invoke
 	}
 	catch (const std::exception& e)
 	{
@@ -61,7 +61,7 @@ void MainMenu::handleProjectsMenu()
 {
 	try
 	{
-		ProjectsMenu(); //TODO add required data
+		ProjectsMenu(this->users, this->projects); //TODO add required data
 	}
 	catch (const std::exception& e)
 	{

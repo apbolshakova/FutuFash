@@ -1,5 +1,5 @@
+#pragma once
 #include "ProjectsManagementSystem.h"
-
 
 ProjectsManagementSystem::ProjectsManagementSystem()
 {
@@ -26,5 +26,12 @@ void ProjectsManagementSystem::handleDataLoading(std::map<int, User*> *users, st
 
 void ProjectsManagementSystem::handleMainMenu(std::map<int, User*> *users, std::map<int, Project*> *projects)
 {
-	MainMenu(users, projects);
+	try
+	{
+		MainMenu(users, projects);
+	}
+	catch (const std::exception& e)
+	{
+		std::cout << e.what() << std::endl;
+	}
 }
