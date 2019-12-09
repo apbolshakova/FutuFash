@@ -1,7 +1,7 @@
+#pragma once
 #include "MainMenu.h"
-#include "UserMenu.h"
 
-MainMenu::MainMenu(std::map<int, User*> *users = nullptr, std::map<int, Project*> *projects = nullptr)
+MainMenu::MainMenu(std::map<int, User*> *users, std::map<int, Project*> *projects)
 {
 	if (!users) throw new std::exception("No users structure is found.");
 	if (!projects) throw new std::exception("No project structure is found.");
@@ -61,7 +61,7 @@ void MainMenu::handleProjectsMenu()
 {
 	try
 	{
-		ProjectsMenu(); //TODO add required data
+		ProjectsMenu(this->users, this->projects); //TODO add required data
 	}
 	catch (const std::exception& e)
 	{

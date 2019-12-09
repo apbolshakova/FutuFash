@@ -1,17 +1,17 @@
 #pragma once
 #include "Common.h"
-#include "Entity.h"
-#include "Project.h"
-#include "User.h"
-#include "Designer.h"
-#include "Model.h"
+
+class Project;
+class User;
+class Designer;
+class Model;
 
 enum SearchEntityType
 {
-	PROJECT,
-	USER,
-	DESIGNER,
-	MODEL
+	PRJ,
+	USR,
+	DSG,
+	MDL
 };
 
 enum SearchField

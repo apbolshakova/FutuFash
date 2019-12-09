@@ -1,6 +1,7 @@
+#pragma once
 #include "ParticipantsMenu.h"
-using namespace std;
 
+using namespace std;
 
 ParticipantsMenu::ParticipantsMenu(map<int, User*> *users, Project* project)
 {

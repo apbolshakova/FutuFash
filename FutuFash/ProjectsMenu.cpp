@@ -1,11 +1,8 @@
+#pragma once
 #include "ProjectsMenu.h"
-#include <string>
-#include "Project.h"
-#include "SearchHandler.h"
-#include "Menu.h"
-#include "ParticipantsMenu.h"
 
 using namespace std;
+
 ProjectsMenu::ProjectsMenu(map<int, User*> *users, map<int, Project*> *projects)
 {
 	this->users = users;
@@ -49,7 +46,7 @@ void ProjectsMenu::handleAdding()
 	Project* newProject;
 	try
 	{
-		addNew(newProject); //TODO add required data
+		//addNew(newProject); TODO
 	}
 	catch (const std::exception& e)
 	{
@@ -83,7 +80,7 @@ void ProjectsMenu::addNew(Project* project)
 	project->setLocation(name);
 	
 	Designer* designer = getNewDesigner();
-	project->setDesigner*(designer);
+	project->setDesigner(designer);
 	project->setLocation(name);
 	map<int, Project*>::iterator it = this->projects->end();
 	int key = it->first + 1;
@@ -91,15 +88,15 @@ void ProjectsMenu::addNew(Project* project)
 }
 void ProjectsMenu::handleSearch()
 {
-	SearchEntityType type = PROJECT;
+	SearchEntityType type = PRJ;
 	SearchHandler Search(type);
-	vector<Project*> data = Search.getResult();
-	Search.printResult(data);
+	//vector<Project*> data = Search.getResult();
+	//Search.printResult(data);
 	cout << "Зайти в профиль в проекта? 1- да, 0- нет";
 	bool t;
 	cin >> t;
-	if (t)
-		this->handleProfile(data);
+	//if (t)
+	//	this->handleProfile(data);
 }
 
 Designer* ProjectsMenu::getNewDesigner()
@@ -107,22 +104,22 @@ Designer* ProjectsMenu::getNewDesigner()
 	cout << "Имя дизайнера";
 	string designer;
 	getline(cin,designer);
-	SearchEntityType type = SearchEntityType(DESIGNER);
+	SearchEntityType type = DSG;
     SearchHandler Search(type);
-    vector<Project*> data = Search.getResult(); //делать поиск, пока что-то не найдется
+    //vector<Project*> data = Search.getResult(); //делать поиск, пока что-то не найдется
     //Если размер 1 - возвращаешь сам элемени
 	//Если размер больше:
-	if (data.size == 1)
-		return data[0]->getDesigner();
-	else
-	{
-		Search.printResult(data);
-		cout << "Выберете номер интересующего вас дизайнера";
-		int number;
-		cin >> number;
+	//if (data.size == 1)
+	//	return data[0]->getDesigner();
+	//else
+	//{
+	//	Search.printResult(data);
+	//	cout << "Выберете номер интересующего вас дизайнера";
+	//	int number;
+	//	cin >> number;
 
-	}
-	
+    //	}
+	return nullptr;
 }
 void ProjectsMenu::handleProfile(vector<Project*> data)
 {
@@ -146,22 +143,23 @@ void ProjectsMenu::handleProfile(vector<Project*> data)
 }
 int ProjectsMenu::getNumToShow()
 {
-
+	return 0; //TODO release
 }
 void ProjectsMenu::handleParticipantsMenu(Project* project, map<int,User*> *users)
 {
-	ParticipantsMenu* changeModels;
-
-
+	ParticipantsMenu(users, project);
 }
+
 void ProjectsMenu::printProfile(Project* project)
 {
 
 }
+
 void ProjectsMenu::handleChanging(Project* project)
 {
 
 }
+
 void ProjectsMenu::handleDeleting(Project* project)
 {
 	project->setStatus(DELETED);

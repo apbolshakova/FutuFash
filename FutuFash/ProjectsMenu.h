@@ -1,9 +1,13 @@
 #pragma once
+#include "Common.h"
 #include "Menu.h"
-#include "Project.h" 
-#include "User.h"
-#include <string>
-#include <vector>
+#include "Entities.h"
+#include "ParticipantsMenu.h"
+
+class Menu;
+class Project;
+class User;
+class Designer;
 
 class ProjectsMenu :
 	public Menu

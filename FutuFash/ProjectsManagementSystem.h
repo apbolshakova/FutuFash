@@ -1,8 +1,10 @@
 #pragma once
 #include "Common.h"
-#include "User.h"
-#include "Project.h"
 #include "MainMenu.h"
+
+class User;
+class Project;
+class MainMenu;
 
 class ProjectsManagementSystem
 {

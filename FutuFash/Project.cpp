@@ -1,7 +1,7 @@
-#include "Project.h"
-#include <string>
+#pragma once
+#include "Entities.h"
 
-
+using namespace std;
 
 string Project::getName(void)
 {

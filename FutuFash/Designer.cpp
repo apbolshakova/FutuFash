@@ -1,5 +1,8 @@
-#include "Designer.h"
+#pragma once
+#include "Entities.h"
+
 using namespace std;
+
 string Designer::GetVogue()
 {
 	return this->vogue;

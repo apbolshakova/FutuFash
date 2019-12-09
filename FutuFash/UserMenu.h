@@ -1,14 +1,20 @@
 #pragma once
 #include "Common.h"
-#include "User.h"
-#include "Designer.h"
-#include "Model.h"
 #include "Menu.h"
-#include <vector>
-enum UserMenuMode {
+#include "Entities.h"
+
+class Menu;
+class Project;
+class User;
+class Designer;
+class Model;
+
+enum UserMenuMode 
+{
 	GLOBAL_CHANGING,
 	PROJECT_CHANGING
-}mode;
+};
+
 class UserMenu :
 	public Menu
 {

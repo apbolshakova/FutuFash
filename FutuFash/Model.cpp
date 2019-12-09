@@ -1,5 +1,8 @@
-#include "Model.h"
+#pragma once
+#include "Entities.h"
+
 using namespace std;
+
 int Model::getHeight()
 {
 	return this->height;
