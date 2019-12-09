@@ -25,9 +25,6 @@
     <Filter Include="Source Files\Classes\Menus">
       <UniqueIdentifier>{3035aeff-5aa4-4686-802a-924b762d8c35}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Classes\Entities">
-      <UniqueIdentifier>{3ad7a06d-682f-4b6f-add2-2a43773037ac}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Classes\Entities">
       <UniqueIdentifier>{ceac5e80-4424-4db7-8e01-0ebd2be30712}</UniqueIdentifier>
     </Filter>
@@ -57,23 +54,8 @@
     <ClInclude Include="UserMenu.h">
       <Filter>Header Files\Classes\Menus</Filter>
     </ClInclude>
-    <ClInclude Include="Entity.h">
-      <Filter>Header Files\Classes\Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="Model.h">
-      <Filter>Header Files\Classes\Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="Project.h">
-      <Filter>Header Files\Classes\Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="User.h">
-      <Filter>Header Files\Classes\Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="Designer.h">
-      <Filter>Header Files\Classes\Entities</Filter>
-    </ClInclude>
     <ClInclude Include="Entities.h">
-      <Filter>Header Files\Classes\Entities</Filter>
+      <Filter>Header Files\Classes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -147,18 +147,19 @@ int ProjectsMenu::getNumToShow()
 }
 void ProjectsMenu::handleParticipantsMenu(Project* project, map<int,User*> *users)
 {
-	//ParticipantsMenu* changeModels; TODO
-
-
+	ParticipantsMenu(users, project);
 }
+
 void ProjectsMenu::printProfile(Project* project)
 {
 
 }
+
 void ProjectsMenu::handleChanging(Project* project)
 {
 
 }
+
 void ProjectsMenu::handleDeleting(Project* project)
 {
 	project->setStatus(DELETED);
