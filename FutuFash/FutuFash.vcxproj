@@ -131,17 +131,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Common.h" />
-    <ClInclude Include="Designer.h" />
-    <ClInclude Include="Entity.h" />
+    <ClInclude Include="Entities.h" />
     <ClInclude Include="MainMenu.h" />
     <ClInclude Include="Menu.h" />
-    <ClInclude Include="Model.h" />
     <ClInclude Include="ParticipantsMenu.h" />
-    <ClInclude Include="Project.h" />
     <ClInclude Include="ProjectsManagementSystem.h" />
     <ClInclude Include="ProjectsMenu.h" />
     <ClInclude Include="SearchHandler.h" />
-    <ClInclude Include="User.h" />
     <ClInclude Include="UserMenu.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
