@@ -2,8 +2,9 @@
 
 
 
-ParticipantsMenu::ParticipantsMenu()
+ParticipantsMenu::ParticipantsMenu(map < int, User*> *users, Project* project)
 {
+	this->
 }
 
 
