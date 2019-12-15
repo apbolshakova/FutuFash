@@ -22,14 +22,18 @@ public:
 	void handleAdding();
 	void printAllProjects();
 	void handleSearch();
-	void addNew(Project* newProject);
+	void addNew();
 	Designer* getNewDesigner();
 	void handleProfile(std::vector<Project*> data);
-	int getNumToShow();
+	int getNumToShow(int kol);
 	void printProfile(Project* project);
 	void handleChanging(Project* project);
 	void handleParticipantsMenu(Project* project, std::map<int, User*> *user);
 	void handleDeleting(Project* project);
+	void changeName(Project* project);
+	void changeDate(Project* project);
+	void changeLocation(Project* project);
+	void changeStatus(Project* project);
 
 	~ProjectsMenu();
 };

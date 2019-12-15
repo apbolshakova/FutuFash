@@ -2,6 +2,7 @@
 #include "Common.h"
 #include "Menu.h"
 #include "Entities.h"
+#include "UserMenu.h"
 
 class Menu;
 class Project;
