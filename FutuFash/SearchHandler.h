@@ -42,15 +42,16 @@ private:
 	void setQuery(std::string query);
 	std::vector<SearchField> getAllowedFields();
 	void printFieldChoice();
-	std::vector<Project*> searchInProjects();
-	std::vector<User*> searchInUsers();
-	std::vector<Designer*> searchInDesigners();
-	std::vector<Model*> searchInModels();
 public:
 	SearchHandler(SearchEntityType type);
-	template<typename EntityT> std::vector<EntityT*> getResult();
-	void printResult(std::vector<Project*>* result);
-	void printResult(std::vector<User*>* result);
-	void printResult(std::vector<Designer*>* result);
-	void printResult(std::vector<Model*>* result);
+
+	void getResult(std::vector<Project*>& result);
+	void getResult(std::vector<User*>& result);
+	void getResult(std::vector<Designer*>& result);
+	void getResult(std::vector<Model*>& result);
+
+	void printResult(std::vector<Project*>& result);
+	void printResult(std::vector<User*>& result);
+	void printResult(std::vector<Designer*>& result);
+	void printResult(std::vector<Model*>& result);
 };
