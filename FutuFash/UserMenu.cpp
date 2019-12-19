@@ -86,16 +86,16 @@ void UserMenu::handleAdding()
 		{
 		case DESIGNER:	
 		{
-			Designer* newUser;
+			Designer* newUser = new Designer();
 			
-		//addNew(newUser); TODO
+		addNew(newUser); //TODO
 		break;
 		}
 		case MODEL:
 		{
 			
-			Model* newUser;
-		//addNew(newUser); TODO
+			Model* newUser = new Model();
+		addNew(newUser); //TODO
 		break;
 		}
 		default: break;
@@ -110,7 +110,11 @@ void UserMenu::addNew(Designer* designer)
 {
 	system("cls");
 	map<int, User*> ::iterator iter = this->users->end();//check
-	int key = iter->first + 1;//check
+	int key = 1;//check
+	if (this->users->size() != 0)
+	{
+		key = iter->first + 1;
+	}
 	designer->setId(key);//check
 	cout << "Enter your data:\n" <<
 		"Your name: ";
@@ -131,7 +135,11 @@ void UserMenu::addNew(Model* model)
 {
 	system("cls");
 	map<int, User*>::iterator iter = this->users->end();//check
-	int key = iter->first + 1;//check
+	int key = 1;//check
+	if (this->users->size() != 0)
+	{
+		key = iter->first + 1;
+	}
 	model->setId(key); //check
 	cout << "Enter your data:\n" <<
 		"Your name: ";
@@ -166,6 +174,8 @@ void UserMenu::printAllUsers()
 }
 void UserMenu::handleSearch()
 {
+	SearchEntityType type = USR;
+	SearchHandler Search(type);
 	//TODO
 	//SearchEntityType type = USER;
 	//SearchHandler Search(type);
