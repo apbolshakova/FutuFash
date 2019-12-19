@@ -88,12 +88,13 @@ void SearchHandler::printFieldChoice()
 
 std::string SearchHandler::getNewQuery()
 {
+	std::string q;
 	std::cout << "Enter value to search: " << std::endl;
 	do
 	{
-		std::getline(std::cin, this->query);
-	} while (!this->query.empty());
-	return std::string(); //TODO
+		std::getline(std::cin, q);
+	} while (!q.empty());
+	return q; //TODO
 }
 
 
@@ -109,71 +110,48 @@ void SearchHandler::setQuery(std::string query)
 }
 
 
-template <typename EntityT>
-std::vector<EntityT*> SearchHandler::getResult()
-{
-	switch (this->searchType)
-	{
-	case PRJ: return this->searchInProjects(); break;
-	case USR: return this->searchInUsers(); break;
-	case DSG: return this->searchInDesigners(); break;
-	case MDL: return this->searchInModels(); break;
-	default: break;
-	}
-}
-
-
-std::vector<Project*> SearchHandler::searchInProjects()
-{
-	std::vector<Project*> result;
-	//TODO
-	return result;
-}
-
-
-std::vector<User*> SearchHandler::searchInUsers()
-{
-	std::vector<User*> result;
-	//TODO
-	return result;
-}
-
-
-std::vector<Designer*> SearchHandler::searchInDesigners()
-{
-	std::vector<Designer*> result;
-	//TODO
-	return result;
-}
-
-
-std::vector<Model*> SearchHandler::searchInModels()
-{
-	std::vector<Model*> result;
-	//TODO
-	return result;
-}
-
-
-void SearchHandler::printResult(std::vector<Project*>* result)
+void SearchHandler::getResult(std::vector<Project*>& result)
 {
 	//TODO
 }
 
 
-void SearchHandler::printResult(std::vector<User*>* result)
+void SearchHandler::getResult(std::vector<User*>& result)
 {
 	//TODO
 }
 
 
-void SearchHandler::printResult(std::vector<Designer*>* result)
+void SearchHandler::getResult(std::vector<Designer*>& result)
 {
 	//TODO
 }
 
 
-void SearchHandler::printResult(std::vector<Model*>* result)
+void SearchHandler::getResult(std::vector<Model*>& result)
+{
+	//TODO
+}
+
+void SearchHandler::printResult(std::vector<Project*>& result)
+{
+	//TODO
+}
+
+
+void SearchHandler::printResult(std::vector<User*>& result)
+{
+	//TODO
+}
+
+
+void SearchHandler::printResult(std::vector<Designer*>& result)
+{
+	//TODO
+}
+
+
+void SearchHandler::printResult(std::vector<Model*>& result)
 {
 	//TODO
 }
