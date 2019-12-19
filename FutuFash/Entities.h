@@ -35,8 +35,6 @@ class Project :
 
 {
 private:
-	int id;
-	std::string name;
 	std::string date;
 	std::string location;
 	Designer* designer;

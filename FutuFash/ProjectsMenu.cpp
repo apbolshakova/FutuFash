@@ -27,7 +27,7 @@ ProjectsMenu::ProjectsMenu(map<int, User*> *users, map<int, Project*> *projects)
 		case SEARCH: this->handleSearch(); break;
 		default:
 		{
-			cout << "Incorrect number of query";
+			cout << "Incorrect number of query"<< endl;
 			break;
 		}
 		}
@@ -60,7 +60,7 @@ void ProjectsMenu::printAllProjects()
 	system("cls");
 	map <int, Project*> ::iterator it = this->projects->begin();
 	for (int i=0; it != this->projects->end(); i++, it++)
-		cout << i++ << ") " << it->second->getName() << endl;
+		cout << ++i << ") " << it->second->getName() << endl;
 }
 void ProjectsMenu::addNew()
 {
@@ -68,24 +68,29 @@ void ProjectsMenu::addNew()
 	system ("cls");
 	cout << "Insert the information about new project" << endl;
 	
-	cout << "Project name";
+	cout << "Project name"<< endl;
 	string name;
 	cin >> name;
 	project->setName(name);
-	cout << "Date of show";
+	cout << "Date of show"<< endl;
 	string date;
 	cin >> date;
-	project->setDate(name);
-	cout << "Location";
+	project->setDate(date);
+	cout << "Location"<< endl;
 	string location;
 	cin >> location;
-	project->setLocation(name);
+	project->setLocation(location);
 	project->setStatus(INSEARCH);
 	Designer* designer = getNewDesigner();
 	project->setDesigner(designer);
 	project->setLocation(name);
 	map<int, Project*>::iterator it = this->projects->end();
-	int key = it->first + 1;
+	int key = 1;
+	if (this->projects->size() != 0)
+	{
+		key = it->first + 1;
+	}
+	project->setId(key);
 	this->projects->insert(pair< int, Project*>(key, project));
 }
 void ProjectsMenu::handleSearch()
@@ -94,16 +99,18 @@ void ProjectsMenu::handleSearch()
 	SearchHandler Search(type);
 	//vector<Project*> data = Search.getResult();
 	//Search.printResult(data);
-	cout << "Do you want to work with particular profile? 1- yes, 0- no";
+	vector<Project*> data;
+	Project* item = (*this->projects)[1];
+	data.push_back(item);
+	cout << "Do you want to work with particular profile? 1- yes, 0- no"<< endl;
 	bool t;
 	cin >> t;
-	//if (t)
-	//	this->handleProfile(data);
+	if (t) this->handleProfile(data); //TODO передавать результат поиска
 }
 
 Designer* ProjectsMenu::getNewDesigner()
 {
-	cout << "Name of designer";
+	cout << "Name of designer"<< endl;
 	string designer;
 	getline(cin,designer);
 	SearchEntityType type = DSG;
@@ -125,7 +132,7 @@ Designer* ProjectsMenu::getNewDesigner()
 }
 void ProjectsMenu::handleProfile(vector<Project*> data)
 {
-	int number = getNumToShow(data.size);
+	int number = getNumToShow(data.size());
 	printProfile(data[number]);
 	cout << "Do you want to change this project? 1- yes, 0- no"<< endl;
 	bool t;
@@ -161,7 +168,7 @@ void ProjectsMenu::printProfile(Project* project)
 	cout << "   Location : " << project->getLocation() << endl;
 	cout << "   Name of designer : " << project->getDesigner() << endl;
 	cout << "   Project status : " << project->getStatus() << endl;
-	cout << "   Number of models" << project->getModels().size << endl;
+	cout << "   Number of models" << project->getModels().size() << endl;
 	cout << endl;
 }
 
@@ -187,7 +194,7 @@ void ProjectsMenu::handleChanging(Project* project)
 		case STATUS: this->changeStatus(project); break;
 		default:
 		{
-			cout << "Incorrect number of query";
+			cout << "Incorrect number of query"<< endl;
 			break;
 		}
 		}
@@ -228,7 +235,7 @@ void ProjectsMenu::changeStatus(Project* project)
 		case FIN: project->setStatus(FINISHED); break;
 		default:
 		{
-			cout << "Incorrect number of query";
+			cout << "Incorrect number of query"<< endl;
 			break;
 		}
 		}

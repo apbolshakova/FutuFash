@@ -22,7 +22,7 @@ ParticipantsMenu::ParticipantsMenu(map<int, User*> *users, Project* project)
 		case CHANGING: this->changeParticipants(); break;
 		default:
 		{
-			cout << "Incorrect number of query";
+			cout << "Incorrect number of query"<< endl;
 			break;
 		}
 		}
@@ -38,10 +38,12 @@ void ParticipantsMenu::printMenu()
 }
 void ParticipantsMenu::printAllParticipants()
 {
+	system("cls");
 	map<int, Model*> mapmod = this->project->getModels();
 	map <int, Model*> ::iterator it = mapmod.begin();
 	for (int i = 0; it != mapmod.end(); i++, it++)
 		cout << i++ << ") " << it->second->getName() << endl;
+	_getch();
 }
 void ParticipantsMenu::changeParticipants()
 {
