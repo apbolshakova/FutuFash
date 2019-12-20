@@ -206,7 +206,7 @@ void SearchHandler::getResult(std::vector<Designer*>& result)
 {
 	for (auto const& el : *(this->users))
 	{
-		if (typeid(el.second) != typeid(result.data())) continue;
+		//if (typeid(dynamic_cast<Designer*>(el.second)) != typeid(result.data())) continue; TODO
 		Designer* elem = dynamic_cast<Designer*>(el.second);
 		if (this->field == ID)
 		{
