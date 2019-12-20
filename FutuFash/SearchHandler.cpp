@@ -151,7 +151,7 @@ void SearchHandler::setQuery(std::string query)
 
 void SearchHandler::getResult(std::vector<Project*>& result)
 {
-
+	//TODO
 }
 
 
@@ -174,23 +174,34 @@ void SearchHandler::getResult(std::vector<Model*>& result)
 
 void SearchHandler::printResult(std::vector<Project*>& result)
 {
-	//TODO
+	for (std::size_t i = 0; i < result.size(); ++i)
+		std::cout << i << ") " << result[i]->getName() << " with " << 
+		result[i]->getDesigner->getName() << " as designer" << std::endl;
 }
 
 
 void SearchHandler::printResult(std::vector<User*>& result)
 {
-	//TODO
+	for (std::size_t i = 0; i < result.size(); ++i)
+		std::cout << i << ") " << result[i]->getName()
+		<< " with " << result[i]->GetExp()
+		<< " years experience";
 }
 
 
 void SearchHandler::printResult(std::vector<Designer*>& result)
 {
-	//TODO
+	for (std::size_t i = 0; i < result.size(); ++i)
+		std::cout << i << ") " << result[i]->getName() << " with " <<
+		result[i]->GetExp() << " years experience from " << result[i]->GetVogue() << " vogue"
+		<< std::endl;
 }
 
 
 void SearchHandler::printResult(std::vector<Model*>& result)
 {
-	//TODO
+	for (std::size_t i = 0; i < result.size(); ++i)
+		std::cout << i << ") " << result[i]->getName() << " with " <<
+		result[i]->GetExp() << " years experience: " << result[i]->getHeight() << " tall with "
+        << result[i]->getHairColor() << " hair" << std::endl;
 }
