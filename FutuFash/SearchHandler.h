@@ -48,7 +48,7 @@ private:
 	void printFieldChoice();
 public:
 	SearchHandler(SearchEntityType type, std::map<int, User*> *users, 
-		std::map<int, Project*> *projects);
+		std::map<int, Project*> *projects = nullptr);
 
 	void getResult(std::vector<Project*>& result);
 	void getResult(std::vector<User*>& result);

@@ -206,7 +206,7 @@ void SearchHandler::getResult(std::vector<Designer*>& result)
 {
 	for (auto const& el : *(this->users))
 	{
-		if (typeid(el.second) != typeid(result.data)) continue;
+		if (typeid(el.second) != typeid(result.data())) continue;
 		Designer* elem = dynamic_cast<Designer*>(el.second);
 		if (this->field == ID)
 		{
@@ -236,7 +236,7 @@ void SearchHandler::getResult(std::vector<Model*>& result)
 {
 	for (auto const& el : *(this->users))
 	{
-		if (typeid(el.second) != typeid(result.data)) continue;
+		if (typeid(el.second) != typeid(result.data())) continue;
 		Model* elem = dynamic_cast<Model*>(el.second);
 		if (this->field == ID)
 		{
@@ -283,7 +283,7 @@ void SearchHandler::printResult(std::vector<User*>& result)
 {
 	for (std::size_t i = 0; i < result.size(); ++i)
 		std::cout << i << ") " << result[i]->getName() << " with " << result[i]->GetExp()
-		<< " years experience";
+		<< " years experience" << std::endl;
 }
 
 
