@@ -115,7 +115,10 @@ Designer* ProjectsMenu::getNewDesigner()
 	getline(cin,designer);
 	SearchEntityType type = DSG;
     SearchHandler Search(type, this->users, this->projects);
-    //vector<Project*> data = Search.getResult(); //делать поиск, пока что-то не найдется
+	vector<Designer*> data;
+    Search.getResult(data);
+	Search.printResult(data);
+
     //Если размер 1 - возвращаешь сам элемени
 	//Если размер больше:
 	//if (data.size == 1)

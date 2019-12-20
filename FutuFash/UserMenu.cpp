@@ -70,6 +70,7 @@ void UserMenu::printMenu()
 }
 void UserMenu::handleAdding()
 {
+	system("cls");
 	try
 	{
 		cout <<
@@ -109,13 +110,13 @@ void UserMenu::handleAdding()
 void UserMenu::addNew(Designer* designer)
 {
 	system("cls");
-	map<int, User*> ::iterator iter = this->users->end();//check
-	int key = 1;//check
+	int key = 1;
 	if (this->users->size() != 0)
 	{
+		map<int, User*> ::iterator iter = --this->users->end();
 		key = iter->first + 1;
 	}
-	designer->setId(key);//check
+	designer->setId(key);
 	cout << "Enter your data:\n" <<
 		"Your name: ";
 	string name;
@@ -134,13 +135,13 @@ void UserMenu::addNew(Designer* designer)
 void UserMenu::addNew(Model* model)
 {
 	system("cls");
-	map<int, User*>::iterator iter = this->users->end();//check
-	int key = 1;//check
+	int key = 1;
 	if (this->users->size() != 0)
 	{
+		map<int, User*> ::iterator iter = --this->users->end();
 		key = iter->first + 1;
 	}
-	model->setId(key); //check
+	model->setId(key);
 	cout << "Enter your data:\n" <<
 		"Your name: ";
 	string name;
@@ -166,27 +167,29 @@ void UserMenu::addNew(Model* model)
 }
 void UserMenu::printAllUsers()
 {
-	map<int, User*> ::iterator iter = this->users->begin();
-	for (int i = 0; iter != this->users->end(); i++, iter++)
+	system("cls");
+	
+	for (auto const& el : *(this->users))
 	{
-		cout << i++ << ". " << iter->second->getName() << endl;
+		std::cout << el.first << ". " << el.second->getName() << std::endl;
 	}
+	cout << "Press any button to return." << std::endl;
+	_getch();
 }
 void UserMenu::handleSearch()
 {
 	SearchEntityType type = USR;
-	SearchHandler Search(type);
-	//TODO
-	//SearchEntityType type = USER;
-	//SearchHandler Search(type);
-	//vector<User*> data = Search.getResult();
-	//Search.printResult();
+	SearchHandler Search(type, this->users);
+	vector<User*> data;
+	Search.getResult(data);
+	Search.printResult(data);
 	//cout << endl;
 	//cout << "Type true to go to a certain profile" << endl;
 	//bool t = false;
 	//cin >> t;
 	//if (t)
 		//this->handleProfile(data);
+	_getch();
 }
 void UserMenu::handleProfile(vector<User*> data)
 {

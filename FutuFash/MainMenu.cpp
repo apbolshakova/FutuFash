@@ -83,7 +83,7 @@ void MainMenu::printProjectsWithParticipants()
 		std::cout << "Projects in system: " << std::endl;
 		for (auto const& el : *(this->projects))
 		{
-			std::cout << el.first << '. ' << el.second->getName() << std::endl;
+			std::cout << el.first << ". " << el.second->getName() << std::endl;
 		}
 	}
 	
@@ -96,7 +96,7 @@ void MainMenu::printProjectsWithParticipants()
 		std::cout << "Users in system: " << std::endl;
 		for (auto const& el : *(this->users))
 		{
-			std::cout << el.first << '. ' << el.second->getName() << std::endl;
+			std::cout << el.first << ". " << el.second->getName() << std::endl;
 		}
 	}
 	std::cout << "Press any button to return." << std::endl;
