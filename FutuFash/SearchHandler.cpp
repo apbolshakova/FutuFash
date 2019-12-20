@@ -1,9 +1,12 @@
 #pragma once
 #include "SearchHandler.h"
 
-SearchHandler::SearchHandler(SearchEntityType type)
+SearchHandler::SearchHandler(SearchEntityType type, std::map<int, User*> *users, 
+	std::map<int, Project*> *projects)
 {
 	this->type = type;
+	this->users = users;
+	this->projects = projects;
 	this->setField(this->getNewField());
 	this->setQuery(this->getNewQuery());
 }
@@ -17,10 +20,17 @@ SearchField SearchHandler::getNewField()
 	this->printFieldChoice();
 	int field;
 	std::vector<SearchField>::iterator it;
+
 	do
 	{
 		std::cin >> field;
-		it = find(allowedFields.begin(), allowedFields.end(), SearchField(field));
+		if (field != 0)
+		{
+			it = find(allowedFields.begin(), allowedFields.end(), SearchField(field));
+		}
+		else it = allowedFields.end();
+		std::cin.clear();
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 	} while (it == allowedFields.end());
 	return SearchField(field);
 }
@@ -90,11 +100,40 @@ std::string SearchHandler::getNewQuery()
 {
 	std::string q;
 	std::cout << "Enter value to search: " << std::endl;
+
+	if (this->field == ID || this->field == EXPERIENCE || this->field == HEIGHT ||
+		this->field == WEIGHT)
+	{
+		std::cout << "Only positive numbers are allowed." << std::endl;
+	}
+
+	if (this->field == STATUS)
+	{
+		std::cout << INSEARCH << " - searching for models" << std::endl;
+		std::cout << FILLED << " - filled with attendants and currently in process" << std::endl;
+		std::cout << FINISHED << " - held" << std::endl;
+	}
 	do
 	{
 		std::getline(std::cin, q);
-	} while (!q.empty());
-	return q; //TODO
+	} while (q.empty() || !this->queryIsValid(q));
+	return q;
+}
+
+
+bool SearchHandler::queryIsValid(std::string query)
+{
+	if (this->field == ID || this->field == EXPERIENCE || this->field == HEIGHT ||
+		this->field == WEIGHT)
+	{
+		return !query.empty() && query.find_first_not_of("0123456789") == std::string::npos;
+	}
+	else if (this->field == STATUS)
+	{
+		return (query == std::to_string(INSEARCH) || query == std::to_string(FILLED) ||
+			query == std::to_string(FINISHED));
+	}
+	return true;
 }
 
 
@@ -112,7 +151,7 @@ void SearchHandler::setQuery(std::string query)
 
 void SearchHandler::getResult(std::vector<Project*>& result)
 {
-	//TODO
+
 }
 
 
