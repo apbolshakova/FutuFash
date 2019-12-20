@@ -28,8 +28,8 @@ private:
 	void handleSearch();
 	//adding
 	//void addNew(User* user);
-	void addNew(Designer* designer);
-	void addNew(Model* model);
+	void addNew(Designer* designer = nullptr);
+	void addNew(Model* model = nullptr);
 	//profile
 	void handleProfile(std::vector<User*> data);
 	int getNumToShow(std::vector<User*> data);
