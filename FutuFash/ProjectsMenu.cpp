@@ -58,10 +58,15 @@ void ProjectsMenu::handleAdding()
 void ProjectsMenu::printAllProjects()
 {
 	system("cls");
-	map <int, Project*> ::iterator it = this->projects->begin();
-	for (int i=0; it != this->projects->end(); i++, it++)
-		cout << ++i << ") " << it->second->getName() << endl;
+	for (auto const& e1 : *(this->projects))
+		cout << e1.first << "." << e1.second->getName() << endl;
+	//map <int, Project*> ::iterator it = this->projects->begin();
+	//for (int i=0; it != this->projects->end(); i++, it++)
+		//cout << ++i << ") " << it->second->getName() << endl;
+	cout << "Press any button to return" << endl;
+	_getch();
 }
+
 void ProjectsMenu::addNew()
 {
 	Project* project = new Project();
@@ -84,10 +89,10 @@ void ProjectsMenu::addNew()
 	Designer* designer = getNewDesigner();
 	project->setDesigner(designer);
 	project->setLocation(name);
-	map<int, Project*>::iterator it = this->projects->end();
 	int key = 1;
 	if (this->projects->size() != 0)
 	{
+		map<int, Project*>::iterator it = --this->projects->end();
 		key = it->first + 1;
 	}
 	project->setId(key);
