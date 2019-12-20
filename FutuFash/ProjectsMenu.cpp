@@ -96,7 +96,7 @@ void ProjectsMenu::addNew()
 void ProjectsMenu::handleSearch()
 {
 	SearchEntityType type = PRJ;
-	SearchHandler Search(type);
+	SearchHandler Search(type, this->users, this->projects);
 	//vector<Project*> data = Search.getResult();
 	//Search.printResult(data);
 	vector<Project*> data;
@@ -114,7 +114,7 @@ Designer* ProjectsMenu::getNewDesigner()
 	string designer;
 	getline(cin,designer);
 	SearchEntityType type = DSG;
-    SearchHandler Search(type);
+    SearchHandler Search(type, this->users, this->projects);
     //vector<Project*> data = Search.getResult(); //делать поиск, пока что-то не найдется
     //Если размер 1 - возвращаешь сам элемени
 	//Если размер больше:
