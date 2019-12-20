@@ -55,7 +55,7 @@ std::vector<SearchField> SearchHandler::getAllowedFields()
 		{
 			allowed.push_back(VOGUE);
 		}
-		else
+		else if (this->type == MDL)
 		{
 			allowed.push_back(HEIGHT);
 			allowed.push_back(WEIGHT);
@@ -85,7 +85,7 @@ void SearchHandler::printFieldChoice()
 		{
 			std::cout << VOGUE << " - vogue" << std::endl;
 		}
-		else
+		else if (this->type == MDL)
 		{
 			std::cout << HEIGHT << " - height" << std::endl
 				<< WEIGHT << " - weight" << std::endl
@@ -273,6 +273,12 @@ void SearchHandler::getResult(std::vector<Model*>& result)
 
 void SearchHandler::printResult(std::vector<Project*>& result)
 {
+	if (result.size() == 0)
+	{
+		std::cout << "No matching projects found." << std::endl;
+		return;
+	}
+
 	for (std::size_t i = 0; i < result.size(); ++i)
 		std::cout << i << ") " << result[i]->getName() << " with " << 
 		result[i]->getDesigner()->getName() << " as designer" << std::endl;
@@ -281,6 +287,12 @@ void SearchHandler::printResult(std::vector<Project*>& result)
 
 void SearchHandler::printResult(std::vector<User*>& result)
 {
+	if (result.size() == 0)
+	{
+		std::cout << "No matching users found." << std::endl;
+		return;
+	}
+
 	for (std::size_t i = 0; i < result.size(); ++i)
 		std::cout << i << ") " << result[i]->getName() << " with " << result[i]->GetExp()
 		<< " years experience" << std::endl;
@@ -289,6 +301,12 @@ void SearchHandler::printResult(std::vector<User*>& result)
 
 void SearchHandler::printResult(std::vector<Designer*>& result)
 {
+	if (result.size() == 0)
+	{
+		std::cout << "No matching designers found." << std::endl;
+		return;
+	}
+
 	for (std::size_t i = 0; i < result.size(); ++i)
 		std::cout << i << ") " << result[i]->getName() << " with " <<
 		result[i]->GetExp() << " years experience from " << result[i]->GetVogue() << " vogue"
@@ -298,6 +316,12 @@ void SearchHandler::printResult(std::vector<Designer*>& result)
 
 void SearchHandler::printResult(std::vector<Model*>& result)
 {
+	if (result.size() == 0)
+	{
+		std::cout << "No matching models found." << std::endl;
+		return;
+	}
+
 	for (std::size_t i = 0; i < result.size(); ++i)
 		std::cout << i << ") " << result[i]->getName() << " with " <<
 		result[i]->GetExp() << " years experience: " << result[i]->getHeight() << " tall with "
