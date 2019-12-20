@@ -75,7 +75,7 @@ void SearchHandler::printFieldChoice()
 	{
 		std::cout << DATE << " - date" << std::endl
 			<< LOCATION << " - location" << std::endl
-			<< DESIGNER << " - designer" << std::endl
+			<< DESIGNER << " - name of designer" << std::endl
 			<< STATUS << " - project status" << std::endl;
 	}
 	else
@@ -148,43 +148,141 @@ void SearchHandler::setQuery(std::string query)
 	this->query = query;
 }
 
+//TODO: firstly check type
 
 void SearchHandler::getResult(std::vector<Project*>& result)
 {
-	//TODO
+	for (auto const& el : *(this->projects))
+	{
+		if (this->field == ID)
+		{
+			if (el.first == stoi(this->query)) result.push_back(el.second);
+		}
+		if (this->field == NAME)
+		{
+			if (el.second->getName() == this->query) result.push_back(el.second);
+		}
+		if (this->field == DATE)
+		{
+			if (el.second->getDate() == this->query) result.push_back(el.second);
+		}
+		if (this->field == LOCATION)
+		{
+			if (el.second->getLocation() == this->query) result.push_back(el.second);
+		}
+		if (this->field == DESIGNER)
+		{
+			if (el.second->getDesigner()->getName() == this->query) result.push_back(el.second);
+		}
+		if (this->field == STATUS)
+		{
+			if (el.second->getStatus() == stoi(this->query)) result.push_back(el.second);
+		}
+	}
 }
 
 
 void SearchHandler::getResult(std::vector<User*>& result)
 {
-	//TODO
+	for (auto const& el : *(this->users))
+	{
+		if (this->field == ID)
+		{
+			if (el.first == stoi(this->query)) result.push_back(el.second);
+		}
+		if (this->field == NAME)
+		{
+			if (el.second->getName() == this->query) result.push_back(el.second);
+		}
+		if (this->field == EXPERIENCE)
+		{
+			if (el.second->GetExp() == stoi(this->query)) result.push_back(el.second);
+		}
+	}
 }
 
 
 void SearchHandler::getResult(std::vector<Designer*>& result)
 {
-	//TODO
+	for (auto const& el : *(this->users))
+	{
+		if (typeid(el.second) != typeid(result.data)) continue;
+		Designer* elem = dynamic_cast<Designer*>(el.second);
+		if (this->field == ID)
+		{
+			if (el.first == stoi(this->query)) 
+				result.push_back(elem);
+		}
+		if (this->field == NAME)
+		{
+			if (el.second->getName() == this->query) 
+				result.push_back(elem);
+		}
+		if (this->field == EXPERIENCE)
+		{
+			if (el.second->GetExp() == stoi(this->query)) 
+				result.push_back(elem);
+		}
+		if (this->field == VOGUE)
+		{
+			if (elem->GetVogue() == this->query)
+				result.push_back(elem);
+		}
+	}
 }
 
 
 void SearchHandler::getResult(std::vector<Model*>& result)
 {
-	//TODO
+	for (auto const& el : *(this->users))
+	{
+		if (typeid(el.second) != typeid(result.data)) continue;
+		Model* elem = dynamic_cast<Model*>(el.second);
+		if (this->field == ID)
+		{
+			if (el.first == stoi(this->query))
+				result.push_back(elem);
+		}
+		if (this->field == NAME)
+		{
+			if (el.second->getName() == this->query)
+				result.push_back(elem);
+		}
+		if (this->field == EXPERIENCE)
+		{
+			if (el.second->GetExp() == stoi(this->query))
+				result.push_back(elem);
+		}
+		if (this->field == HEIGHT)
+		{
+			if (elem->getHeight() == stoi(this->query))
+				result.push_back(elem);
+		}
+		if (this->field == WEIGHT)
+		{
+			if (elem->getWeight() == stoi(this->query))
+				result.push_back(elem);
+		}
+		if (this->field == HAIR_COLOR)
+		{
+			if (elem->getHairColor() == this->query)
+				result.push_back(elem);
+		}
+	}
 }
 
 void SearchHandler::printResult(std::vector<Project*>& result)
 {
 	for (std::size_t i = 0; i < result.size(); ++i)
 		std::cout << i << ") " << result[i]->getName() << " with " << 
-		result[i]->getDesigner->getName() << " as designer" << std::endl;
+		result[i]->getDesigner()->getName() << " as designer" << std::endl;
 }
 
 
 void SearchHandler::printResult(std::vector<User*>& result)
 {
 	for (std::size_t i = 0; i < result.size(); ++i)
-		std::cout << i << ") " << result[i]->getName()
-		<< " with " << result[i]->GetExp()
+		std::cout << i << ") " << result[i]->getName() << " with " << result[i]->GetExp()
 		<< " years experience";
 }
 
