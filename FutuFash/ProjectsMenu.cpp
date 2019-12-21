@@ -136,7 +136,7 @@ Designer* ProjectsMenu::getNewDesigner()
 	Search.printResult(data);
 	if (data.size() == 0)
 	{
-		throw std::exception("No matched designers found");
+		throw std::exception("No designer that can be attached.");
 	}
 	if (data.size() == 1)
 	{

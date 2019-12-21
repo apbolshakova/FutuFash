@@ -15,16 +15,15 @@ MainMenu::MainMenu(std::map<int, User*> *users, std::map<int, Project*> *project
 	{
 		system("cls");
 		this->printMenu();
-		enum OpCodes { USERS_MENU = 1, PROJECTS_MENU, PRINT_ALL, SAVE };
+		enum OpCodes { USERS_MENU = 1, PROJECTS_MENU, PRINT_ALL };
 
 		std::cout << "Press button of required operation." << std::endl;
-		opCode = this->getOperationCode(USERS_MENU, SAVE, exitBtnCode);
+		opCode = this->getOperationCode(USERS_MENU, PRINT_ALL, exitBtnCode);
 		switch (opCode)
 		{
 		case USERS_MENU: this->handleUsersMenu(); break;
 		case PROJECTS_MENU: this->handleProjectsMenu(); break;
-		case PRINT_ALL: this->printProjectsWithParticipants(); break;
-		case SAVE: this->handleDataSaving();
+		case PRINT_ALL: this->printProjectsWithParticipants();
 		default: break;
 		}
 
@@ -39,8 +38,8 @@ void MainMenu::printMenu()
 		"1   - Go to users menu\n" <<
 		"2   - Go to projects menu\n" <<
 		"3   - Print all projects and users in system\n" <<
-		"4   - Save current system state\n" <<
-		"Esc - Exit" << std::endl;
+		"Esc - Exit" << std::endl <<
+	    "Actual information about users and projects was saved." << std::endl;
 }
 
 
