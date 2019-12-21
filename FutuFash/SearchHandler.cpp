@@ -196,7 +196,7 @@ void SearchHandler::getResult(std::vector<User*>& result)
 		}
 		if (this->field == EXPERIENCE)
 		{
-			if (el.second->GetExp() == stoi(this->query)) result.push_back(el.second);
+			if (el.second->getExp() == stoi(this->query)) result.push_back(el.second);
 		}
 	}
 }
@@ -220,7 +220,7 @@ void SearchHandler::getResult(std::vector<Designer*>& result)
 		}
 		if (this->field == EXPERIENCE)
 		{
-			if (el.second->GetExp() == stoi(this->query)) 
+			if (el.second->getExp() == stoi(this->query)) 
 				result.push_back(elem);
 		}
 		if (this->field == VOGUE)
@@ -250,7 +250,7 @@ void SearchHandler::getResult(std::vector<Model*>& result)
 		}
 		if (this->field == EXPERIENCE)
 		{
-			if (el.second->GetExp() == stoi(this->query))
+			if (el.second->getExp() == stoi(this->query))
 				result.push_back(elem);
 		}
 		if (this->field == HEIGHT)
@@ -294,7 +294,7 @@ void SearchHandler::printResult(std::vector<User*>& result)
 	}
 
 	for (std::size_t i = 0; i < result.size(); ++i)
-		std::cout << i << ") " << result[i]->getName() << " with " << result[i]->GetExp()
+		std::cout << i << ") " << result[i]->getName() << " with " << result[i]->getExp()
 		<< " years experience" << std::endl;
 }
 
@@ -309,7 +309,7 @@ void SearchHandler::printResult(std::vector<Designer*>& result)
 
 	for (std::size_t i = 0; i < result.size(); ++i)
 		std::cout << i << ") " << result[i]->getName() << " with " <<
-		result[i]->GetExp() << " years experience from " << result[i]->GetVogue() << " vogue"
+		result[i]->getExp() << " years experience from " << result[i]->GetVogue() << " vogue"
 		<< std::endl;
 }
 
@@ -324,6 +324,6 @@ void SearchHandler::printResult(std::vector<Model*>& result)
 
 	for (std::size_t i = 0; i < result.size(); ++i)
 		std::cout << i << ") " << result[i]->getName() << " with " <<
-		result[i]->GetExp() << " years experience: " << result[i]->getHeight() << " tall with "
+		result[i]->getExp() << " years experience: " << result[i]->getHeight() << " tall with "
         << result[i]->getHairColor() << " hair" << std::endl;
 }

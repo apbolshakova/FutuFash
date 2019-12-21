@@ -82,6 +82,7 @@ void MainMenu::printProjectsWithParticipants()
 		std::cout << "Projects in system: " << std::endl;
 		for (auto const& el : *(this->projects))
 		{
+			if (el.second->getStatus() == DELETED) continue;
 			std::cout << el.first << ". " << el.second->getName() << std::endl;
 		}
 	}
@@ -95,6 +96,7 @@ void MainMenu::printProjectsWithParticipants()
 		std::cout << "Users in system: " << std::endl;
 		for (auto const& el : *(this->users))
 		{
+			if (el.second->isDeleted()) continue;
 			std::cout << el.first << ". " << el.second->getName() << std::endl;
 		}
 	}

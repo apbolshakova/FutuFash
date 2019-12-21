@@ -69,8 +69,9 @@ private:
 	bool toDelete;
 public:
 	User(int experienceInYears = -1, std::map<int, Project*> *projects = nullptr, bool toDelete = false) : experienceInYears(experienceInYears),projects(projects), toDelete(toDelete) {};
-	int GetExp();
-	std::map<int, Project*>* GetProjects();
+	int getExp();
+	std::map<int, Project*>* getProjects();
+	bool isDeleted();
 	void setExp(int exp);
 	void addProject(Project* project);
 	void removeProject(Project* project);

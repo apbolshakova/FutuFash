@@ -279,9 +279,9 @@ void UserMenu::printProfile(Designer* designer)
 {
 	system("cls");
 	cout << "Name: "<< designer->getName() << endl;
-	cout << "Work experience: "<<designer->GetExp() <<" year(s)"<< endl;
+	cout << "Work experience: "<<designer->getExp() <<" year(s)"<< endl;
 	
-	map<int, Project*>* projects = designer->GetProjects(); //на каком этапе у нас будет вызываться метод addProject?
+	map<int, Project*>* projects = designer->getProjects(); //на каком этапе у нас будет вызываться метод addProject?
 	if (projects != nullptr)
 	{
 		cout << "Taking/took part in the following projects:" << endl;
@@ -298,9 +298,9 @@ void UserMenu::printProfile(Model* model)
 {
 	system("cls");
 	cout << "Name: "<< model->getName() << endl;
-	cout << "Work experience: "<<model->GetExp() << " year(s)" << endl;
+	cout << "Work experience: "<<model->getExp() << " year(s)" << endl;
 
-	map<int, Project*>* projects = model->GetProjects(); //на каком этапе у нас будет вызываться метод addProject?
+	map<int, Project*>* projects = model->getProjects(); //на каком этапе у нас будет вызываться метод addProject?
 	if (projects != nullptr)
 	{
 		cout << "Taking/took part in the following projects:" << endl;

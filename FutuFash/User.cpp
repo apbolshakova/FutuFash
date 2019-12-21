@@ -3,14 +3,20 @@
 
 using namespace std;
 
-int User::GetExp()
+int User::getExp()
 {
 	return this->experienceInYears;
 }
-map<int, Project*>* User:: GetProjects()
+map<int, Project*>* User::getProjects()
 {
 	return this->projects;
 }
+
+bool User::isDeleted()
+{
+	return this->toDelete;
+}
+
 void User::setExp(int exp)
 {
 	try
