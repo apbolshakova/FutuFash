@@ -148,35 +148,41 @@ void SearchHandler::setQuery(std::string query)
 	this->query = query;
 }
 
-//TODO: firstly check type
-
 void SearchHandler::getResult(std::vector<Project*>& result)
 {
 	for (auto const& el : *(this->projects))
 	{
+		if (el.second->getStatus() == DELETED) continue;
+
 		if (this->field == ID)
 		{
-			if (el.first == stoi(this->query)) result.push_back(el.second);
+			if (el.first == stoi(this->query)) 
+				result.push_back(el.second);
 		}
-		if (this->field == NAME)
+		else if (this->field == NAME)
 		{
-			if (el.second->getName() == this->query) result.push_back(el.second);
+			if (el.second->getName() == this->query) 
+				result.push_back(el.second);
 		}
-		if (this->field == DATE)
+		else if (this->field == DATE)
 		{
-			if (el.second->getDate() == this->query) result.push_back(el.second);
+			if (el.second->getDate() == this->query) 
+				result.push_back(el.second);
 		}
-		if (this->field == LOCATION)
+		else if (this->field == LOCATION)
 		{
-			if (el.second->getLocation() == this->query) result.push_back(el.second);
+			if (el.second->getLocation() == this->query) 
+				result.push_back(el.second);
 		}
-		if (this->field == DESIGNER)
+		else if (this->field == DESIGNER)
 		{
-			if (el.second->getDesigner()->getName() == this->query) result.push_back(el.second);
+			if (el.second->getDesigner()->getName() == this->query) 
+				result.push_back(el.second);
 		}
-		if (this->field == STATUS)
+		else if (this->field == STATUS)
 		{
-			if (el.second->getStatus() == stoi(this->query)) result.push_back(el.second);
+			if (el.second->getStatus() == stoi(this->query)) 
+				result.push_back(el.second);
 		}
 	}
 }
@@ -186,17 +192,21 @@ void SearchHandler::getResult(std::vector<User*>& result)
 {
 	for (auto const& el : *(this->users))
 	{
+		if (el.second->isDeleted()) continue;
 		if (this->field == ID)
 		{
-			if (el.first == stoi(this->query)) result.push_back(el.second);
+			if (el.first == stoi(this->query)) 
+				result.push_back(el.second);
 		}
-		if (this->field == NAME)
+		else if (this->field == NAME)
 		{
-			if (el.second->getName() == this->query) result.push_back(el.second);
+			if (el.second->getName() == this->query) 
+				result.push_back(el.second);
 		}
-		if (this->field == EXPERIENCE)
+		else if (this->field == EXPERIENCE)
 		{
-			if (el.second->getExp() == stoi(this->query)) result.push_back(el.second);
+			if (el.second->getExp() == stoi(this->query)) 
+				result.push_back(el.second);
 		}
 	}
 }
@@ -206,6 +216,7 @@ void SearchHandler::getResult(std::vector<Designer*>& result)
 {
 	for (auto const& el : *(this->users))
 	{
+		if (el.second->isDeleted()) continue;
 		Designer* elem = dynamic_cast<Designer*>(el.second);
 		if (elem == nullptr) continue;
 		if (this->field == ID)
@@ -213,17 +224,17 @@ void SearchHandler::getResult(std::vector<Designer*>& result)
 			if (el.first == stoi(this->query)) 
 				result.push_back(elem);
 		}
-		if (this->field == NAME)
+		else if (this->field == NAME)
 		{
 			if (el.second->getName() == this->query) 
 				result.push_back(elem);
 		}
-		if (this->field == EXPERIENCE)
+		else if (this->field == EXPERIENCE)
 		{
 			if (el.second->getExp() == stoi(this->query)) 
 				result.push_back(elem);
 		}
-		if (this->field == VOGUE)
+		else if (this->field == VOGUE)
 		{
 			if (elem->GetVogue() == this->query)
 				result.push_back(elem);
@@ -236,6 +247,7 @@ void SearchHandler::getResult(std::vector<Model*>& result)
 {
 	for (auto const& el : *(this->users))
 	{
+		if (el.second->isDeleted()) continue;
 		Model* elem = dynamic_cast<Model*>(el.second);
 		if (elem == nullptr) continue;
 		if (this->field == ID)
@@ -243,27 +255,27 @@ void SearchHandler::getResult(std::vector<Model*>& result)
 			if (el.first == stoi(this->query))
 				result.push_back(elem);
 		}
-		if (this->field == NAME)
+		else if (this->field == NAME)
 		{
 			if (el.second->getName() == this->query)
 				result.push_back(elem);
 		}
-		if (this->field == EXPERIENCE)
+		else if (this->field == EXPERIENCE)
 		{
 			if (el.second->getExp() == stoi(this->query))
 				result.push_back(elem);
 		}
-		if (this->field == HEIGHT)
+		else if (this->field == HEIGHT)
 		{
 			if (elem->getHeight() == stoi(this->query))
 				result.push_back(elem);
 		}
-		if (this->field == WEIGHT)
+		else if (this->field == WEIGHT)
 		{
 			if (elem->getWeight() == stoi(this->query))
 				result.push_back(elem);
 		}
-		if (this->field == HAIR_COLOR)
+		else if (this->field == HAIR_COLOR)
 		{
 			if (elem->getHairColor() == this->query)
 				result.push_back(elem);
