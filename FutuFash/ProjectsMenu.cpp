@@ -128,7 +128,6 @@ void ProjectsMenu::addNew()
 		return;
 	}
 	project->setDesigner(designer);
-	project->setLocation(name);
 	int key = 1;
 	if (this->projects->size() != 0)
 	{

@@ -126,7 +126,7 @@ void UserMenu::addNew(Designer* designer)
 	cout << "Vogue: ";
 	string vogue;
 	cin >> vogue;
-	designer->SetVogue(vogue);
+	designer->setVogue(vogue);
 	this->users->insert(pair<int, Designer*>(designer->getId(),designer));
 }
 void UserMenu::addNew(Model* model)
@@ -291,7 +291,7 @@ void UserMenu::printProfile(Designer* designer)
 			cout << i+1 <<". " << iter->second->getName() << endl; //check
 		}
 	}
-	cout <<"Vogue: "<< designer->GetVogue()<<endl;
+	cout <<"Vogue: "<< designer->getVogue()<<endl;
 	cout << endl;
 }
 void UserMenu::printProfile(Model* model)
@@ -369,7 +369,7 @@ void UserMenu::changeVogue(Designer* designer)
 	cout << "Enter new vogue: ";
 	string vogue;
 	cin >> vogue;
-	designer->SetVogue(vogue);
+	designer->setVogue(vogue);
 }
 void UserMenu::handleGlobalChanging(Model* model)
 {

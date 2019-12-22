@@ -14,6 +14,7 @@ MainMenu::MainMenu(std::map<int, User*> *users, std::map<int, Project*> *project
 	do
 	{
 		system("cls");
+		this->handleDataSaving();
 		this->printMenu();
 		enum OpCodes { USERS_MENU = 1, PROJECTS_MENU, PRINT_ALL };
 
@@ -26,20 +27,17 @@ MainMenu::MainMenu(std::map<int, User*> *users, std::map<int, Project*> *project
 		case PRINT_ALL: this->printProjectsWithParticipants();
 		default: break;
 		}
-
 	} while (opCode != exitBtnCode);
 }
 
 
 void MainMenu::printMenu()
 {
-	system("cls");
 	std::cout <<
 		"1   - Go to users menu\n" <<
 		"2   - Go to projects menu\n" <<
 		"3   - Print all projects and users in system\n" <<
-		"Esc - Exit" << std::endl <<
-	    "Actual information about users and projects was saved." << std::endl;
+		"Esc - Exit" << std::endl;
 }
 
 
@@ -107,5 +105,76 @@ void MainMenu::printProjectsWithParticipants()
 
 void MainMenu::handleDataSaving()
 {
-	//TODO
+	std::ofstream file;
+	file.open("data.dat");
+	this->saveProjectsData(file);
+	this->saveUsersData(file);
+	file.close();
+	std::cout << "Actual information about users and projects was saved." << std::endl;
+}
+
+void MainMenu::saveProjectsData(std::ofstream& file)
+{
+	file << "P\n";
+	for (auto const& el : *(this->projects))
+	{
+		if (el.second->getStatus() == DELETED) continue;
+
+		file << "%" << el.first
+			<< "%" << el.second->getName()
+			<< "%" << el.second->getDate()
+			<< "%" << el.second->getLocation()
+			<< "%" << el.second->getModels().size();
+		if (el.second->getModels().size() != 0)
+		{
+			for (auto const& model : el.second->getModels())
+				file << "%" << model.first;
+		}
+		file << "%" << el.second->getStatus();
+		file << "\n";
+	}
+}
+
+void MainMenu::saveUsersData(std::ofstream& file)
+{
+	file << "U\n";
+	for (auto const& el : *(this->users))
+	{
+		if (el.second->isDeleted()) continue;
+
+		file << "%" << el.first
+			<< "%" << el.second->getName()
+			<< "%" << el.second->getExp();
+			
+		if (el.second->getProjects())
+		{
+			file << "%" << el.second->getProjects()->size();
+			if (el.second->getProjects()->size() != 0)
+			{
+				for (auto const& project : *(el.second->getProjects()))
+					file << "%" << project.first;
+			}
+		}
+		else
+		{
+			file << "%0";
+		}
+
+		Designer* elAsDesigner = dynamic_cast<Designer*>(el.second);
+		if (elAsDesigner != nullptr)
+		{
+			file << "%D" 
+				<< "%" << elAsDesigner->getVogue();
+		}
+
+		Model* elAsModel = dynamic_cast<Model*>(el.second);
+		if (elAsModel != nullptr)
+		{
+			file << "%M"
+				<< "%" << elAsModel->getHeight()
+				<< "%" << elAsModel->getWeight()
+				<< "%" << elAsModel->getHairColor();
+		}
+		file << "\n";
+	}
 }

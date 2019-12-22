@@ -87,8 +87,8 @@ private:
 
 public:
 	Designer(std::string vogue = "") : vogue(vogue) {};
-	std::string GetVogue();
-	void SetVogue(std::string vogue);
+	std::string getVogue();
+	void setVogue(std::string vogue);
 
 };
 

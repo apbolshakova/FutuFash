@@ -3,11 +3,11 @@
 
 using namespace std;
 
-string Designer::GetVogue()
+string Designer::getVogue()
 {
 	return this->vogue;
 }
-void Designer::SetVogue(string vogue)
+void Designer::setVogue(string vogue)
 {
 	try
 	{

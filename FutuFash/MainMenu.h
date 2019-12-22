@@ -18,6 +18,8 @@ private:
 	void handleProjectsMenu();
 	void printProjectsWithParticipants();
 	void handleDataSaving();
+	void saveProjectsData(std::ofstream& file);
+	void saveUsersData(std::ofstream& file);
 public:
 	MainMenu(std::map<int, User*> *users = nullptr, std::map<int, Project*> *projects = nullptr);
 };
