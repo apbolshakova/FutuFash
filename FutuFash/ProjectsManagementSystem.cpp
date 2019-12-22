@@ -15,7 +15,7 @@ void ProjectsManagementSystem::handleDataLoading(std::map<int, User*> *users, st
 {
 	std::ifstream file;
 	file.open("data.dat");
-	if (file.eof())
+	if (file.peek() == std::ifstream::traits_type::eof())
 	{
 		file.close();
 		return;
@@ -23,7 +23,7 @@ void ProjectsManagementSystem::handleDataLoading(std::map<int, User*> *users, st
 	try
 	{
 		parseUsersData(file, users);
-		parseProjectsData(file, projects);
+		parseProjectsData(file, projects, users);
 	}
 	catch (const std::exception& e)
 	{
@@ -37,7 +37,7 @@ void ProjectsManagementSystem::handleDataLoading(std::map<int, User*> *users, st
 }
 
 
-void ProjectsManagementSystem::parseProjectsData(std::ifstream& file, std::map<int, Project*> *projects)
+void ProjectsManagementSystem::parseProjectsData(std::ifstream& file, std::map<int, Project*> *projects, std::map<int, User*> *users)
 {
 	std::string str;
 	std::getline(file, str);
@@ -45,14 +45,15 @@ void ProjectsManagementSystem::parseProjectsData(std::ifstream& file, std::map<i
 	std::getline(file, str);
 	while (str != "P")
 	{
-		Project* project = getParsedProject(str);
-		projects->insert(std::pair< int, Project*>(project->getId(), project));
+		Project* project = getParsedProject(str, users);
+		if (project != nullptr)
+		    projects->insert(std::pair< int, Project*>(project->getId(), project));
 		std::getline(file, str);
 	}
 }
 
 
-Project* ProjectsManagementSystem::getParsedProject(std::string str) 
+Project* ProjectsManagementSystem::getParsedProject(std::string str, std::map<int, User*> *users)
 {
 	char delim = '%';
 	Project* project = new Project();
@@ -60,11 +61,11 @@ Project* ProjectsManagementSystem::getParsedProject(std::string str)
 	std::size_t startPos = 0;
 	std::size_t endPos = str.find(startPos, delim);
 	project->setId(stoi(str.substr(startPos, endPos - startPos)));
-	
+
 	startPos = endPos + 1;
 	endPos = str.find(startPos, delim);
 	project->setName(str.substr(startPos, endPos - startPos));
-	
+
 	startPos = endPos + 1;
 	endPos = str.find(startPos, delim);
 	project->setDate(str.substr(startPos, endPos - startPos));
@@ -75,7 +76,32 @@ Project* ProjectsManagementSystem::getParsedProject(std::string str)
 
 	startPos = endPos + 1;
 	endPos = str.find(startPos, delim);
-	//project->setDesigner(stoi(str.substr(startPos, endPos - startPos))); TODO finish
+	int designerId = stoi(str.substr(startPos, endPos - startPos));
+	if (users->count(designerId) == 0) project->setDesigner(nullptr);
+	else project->setDesigner(dynamic_cast<Designer*>((*users)[designerId]));
+
+	startPos = endPos + 1;
+	endPos = str.find(startPos, delim);
+	int modelsNum = stoi(str.substr(startPos, endPos - startPos));
+	for (int i = 0; i < modelsNum; i++)
+	{
+		startPos = endPos + 1;
+		endPos = str.find(startPos, delim);
+		int modelId = stoi(str.substr(startPos, endPos - startPos));
+		if (users->count(modelId) != 0)
+			project->addModel(dynamic_cast<Model*>((*users)[modelId]));
+	}
+
+	startPos = endPos + 1;
+	endPos = str.find(startPos, delim);
+	ProjectStatus status = ProjectStatus(stoi(str.substr(startPos, endPos - startPos)));
+	if (status == DELETED)
+	{
+		free(project);
+		return nullptr;
+	}
+	project->setStatus(status);
+	return project;
 }
 
 

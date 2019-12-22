@@ -124,6 +124,7 @@ void MainMenu::saveProjectsData(std::ofstream& file)
 			<< "%" << el.second->getName()
 			<< "%" << el.second->getDate()
 			<< "%" << el.second->getLocation()
+			<< "%" << el.second->getDesigner()->getId()
 			<< "%" << el.second->getModels().size();
 		if (el.second->getModels().size() != 0)
 		{
@@ -133,6 +134,7 @@ void MainMenu::saveProjectsData(std::ofstream& file)
 		file << "%" << el.second->getStatus();
 		file << "%\n";
 	}
+	file << "P\n";
 }
 
 void MainMenu::saveUsersData(std::ofstream& file)
@@ -145,26 +147,12 @@ void MainMenu::saveUsersData(std::ofstream& file)
 		Designer* elAsDesigner = dynamic_cast<Designer*>(el.second);
 		Model* elAsModel = dynamic_cast<Model*>(el.second);
 
-		if (elAsDesigner != nullptr) file << "%D";
-		if (elAsModel != nullptr) file << "%M";
+		if (elAsDesigner != nullptr) file << "D%";
+		if (elAsModel != nullptr) file << "M%";
 
 		file << el.first
 			<< "%" << el.second->getName()
 			<< "%" << el.second->getExp();
-			
-		if (el.second->getProjects())
-		{
-			file << "%" << el.second->getProjects()->size();
-			if (el.second->getProjects()->size() != 0)
-			{
-				for (auto const& project : *(el.second->getProjects()))
-					file << "%" << project.first;
-			}
-		}
-		else
-		{
-			file << "%0";
-		}
 
 		if (elAsDesigner != nullptr)
 		{
@@ -179,4 +167,5 @@ void MainMenu::saveUsersData(std::ofstream& file)
 		}
 		file << "%\n";
 	}
+	file << "U\n";
 }
