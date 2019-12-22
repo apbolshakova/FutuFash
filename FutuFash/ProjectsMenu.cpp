@@ -74,15 +74,20 @@ void ProjectsMenu::printAllProjects()
 	system("cls");
 	if (projects->size() != 0)
 	{
-		
+		bool empty = true;
 		for (auto const& el : *(this->projects))
 		{
-			if (el.second->getStatus() != 3)
-			cout << el.first << "." << el.second->getName() << endl;
+			if (el.second->getStatus() != DELETED)
+			{
+				empty = false;
+				cout << el.first << "." << el.second->getName() << endl;
+			}
 		}
 		//map <int, Project*> ::iterator it = this->projects->begin();
 		//for (int i=0; it != this->projects->end(); i++, it++)
 			//cout << ++i << ") " << it->second->getName() << endl;
+		if (empty)
+			cout << "You need to add at least one project to the base at first" << endl;
 		cout << "Press any button to return" << endl;
 		_getch();
 	}

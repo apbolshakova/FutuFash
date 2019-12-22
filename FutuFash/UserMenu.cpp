@@ -204,16 +204,25 @@ void UserMenu::printAllUsers()
 	if (users->empty())
 		cout << "No users in the system." << endl;
 	else
-	for (auto const& el : *(this->users))
 	{
-		if (!el.second->isDeleted())
+		bool empty = true;
+		for (auto const& el : *(this->users))
 		{
-			cout << el.first << ". " << el.second->getName() << " ";
-			if (dynamic_cast<Model*>(el.second))
-				cout << " - model" << endl;
-			else cout << " - designer" << endl;
+			if (!el.second->isDeleted())
+			{
+				empty = false;
+				cout << el.first << ". " << el.second->getName() << " ";
+				if (dynamic_cast<Model*>(el.second))
+					cout << " - model" << endl;
+				else cout << " - designer" << endl;
+			}
+		}
+		if (empty)
+		{
+			cout << "No users in the system." << endl;
 		}
 	}
+	
 	cout << "Press any button to return." << std::endl;
 	_getch();
 }
