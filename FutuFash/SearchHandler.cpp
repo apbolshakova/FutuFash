@@ -236,7 +236,7 @@ void SearchHandler::getResult(std::vector<Designer*>& result)
 		}
 		else if (this->field == VOGUE)
 		{
-			if (elem->GetVogue() == this->query)
+			if (elem->getVogue() == this->query)
 				result.push_back(elem);
 		}
 	}
@@ -321,7 +321,7 @@ void SearchHandler::printResult(std::vector<Designer*>& result)
 
 	for (std::size_t i = 0; i < result.size(); ++i)
 		std::cout << i << ") " << result[i]->getName() << " with " <<
-		result[i]->getExp() << " years experience from " << result[i]->GetVogue() << " vogue"
+		result[i]->getExp() << " years experience from " << result[i]->getVogue() << " vogue"
 		<< std::endl;
 }
 
