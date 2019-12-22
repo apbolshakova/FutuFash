@@ -17,8 +17,7 @@ enum SearchEntityType
 
 enum SearchField
 {
-	ID = 1, 
-	NAME, 
+	NAME = 1, 
 	DATE, 
 	LOCATION, 
 	DESIGNER, 

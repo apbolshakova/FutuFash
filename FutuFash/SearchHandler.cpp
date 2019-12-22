@@ -39,7 +39,6 @@ SearchField SearchHandler::getNewField()
 std::vector<SearchField> SearchHandler::getAllowedFields()
 {
 	std::vector<SearchField> allowed;
-	allowed.push_back(ID);
 	allowed.push_back(NAME);
 	if (this->type == PRJ)
 	{
@@ -69,8 +68,7 @@ std::vector<SearchField> SearchHandler::getAllowedFields()
 void SearchHandler::printFieldChoice()
 {
 	std::cout << "Enter by which parameter you want to search: " << std::endl;
-	std::cout << ID << " - ID" << std::endl
-		<< NAME << " - name" << std::endl;
+	std::cout << NAME << " - name" << std::endl;
 	if (this->type == PRJ)
 	{
 		std::cout << DATE << " - date" << std::endl
@@ -101,7 +99,7 @@ std::string SearchHandler::getNewQuery()
 	std::string q;
 	std::cout << "Enter value to search: " << std::endl;
 
-	if (this->field == ID || this->field == EXPERIENCE || this->field == HEIGHT ||
+	if (this->field == EXPERIENCE || this->field == HEIGHT ||
 		this->field == WEIGHT)
 	{
 		std::cout << "Only positive numbers are allowed." << std::endl;
@@ -123,7 +121,7 @@ std::string SearchHandler::getNewQuery()
 
 bool SearchHandler::queryIsValid(std::string query)
 {
-	if (this->field == ID || this->field == EXPERIENCE || this->field == HEIGHT ||
+	if (this->field == EXPERIENCE || this->field == HEIGHT ||
 		this->field == WEIGHT)
 	{
 		return !query.empty() && query.find_first_not_of("0123456789") == std::string::npos;
@@ -154,12 +152,7 @@ void SearchHandler::getResult(std::vector<Project*>& result)
 	{
 		if (el.second->getStatus() == DELETED) continue;
 
-		if (this->field == ID)
-		{
-			if (el.first == stoi(this->query)) 
-				result.push_back(el.second);
-		}
-		else if (this->field == NAME)
+		if (this->field == NAME)
 		{
 			if (el.second->getName() == this->query) 
 				result.push_back(el.second);
@@ -193,12 +186,7 @@ void SearchHandler::getResult(std::vector<User*>& result)
 	for (auto const& el : *(this->users))
 	{
 		if (el.second->isDeleted()) continue;
-		if (this->field == ID)
-		{
-			if (el.first == stoi(this->query)) 
-				result.push_back(el.second);
-		}
-		else if (this->field == NAME)
+		if (this->field == NAME)
 		{
 			if (el.second->getName() == this->query) 
 				result.push_back(el.second);
@@ -219,12 +207,7 @@ void SearchHandler::getResult(std::vector<Designer*>& result)
 		if (el.second->isDeleted()) continue;
 		Designer* elem = dynamic_cast<Designer*>(el.second);
 		if (elem == nullptr) continue;
-		if (this->field == ID)
-		{
-			if (el.first == stoi(this->query)) 
-				result.push_back(elem);
-		}
-		else if (this->field == NAME)
+		if (this->field == NAME)
 		{
 			if (el.second->getName() == this->query) 
 				result.push_back(elem);
@@ -250,12 +233,7 @@ void SearchHandler::getResult(std::vector<Model*>& result)
 		if (el.second->isDeleted()) continue;
 		Model* elem = dynamic_cast<Model*>(el.second);
 		if (elem == nullptr) continue;
-		if (this->field == ID)
-		{
-			if (el.first == stoi(this->query))
-				result.push_back(elem);
-		}
-		else if (this->field == NAME)
+		if (this->field == NAME)
 		{
 			if (el.second->getName() == this->query)
 				result.push_back(elem);
@@ -292,7 +270,7 @@ void SearchHandler::printResult(std::vector<Project*>& result)
 	}
 
 	for (std::size_t i = 0; i < result.size(); ++i)
-		std::cout << i << ") " << result[i]->getName() << " with " << 
+		std::cout << i+1 << ") " << result[i]->getName() << " with " << 
 		result[i]->getDesigner()->getName() << " as designer" << std::endl;
 }
 
@@ -306,7 +284,7 @@ void SearchHandler::printResult(std::vector<User*>& result)
 	}
 
 	for (std::size_t i = 0; i < result.size(); ++i)
-		std::cout << i << ") " << result[i]->getName() << " with " << result[i]->getExp()
+		std::cout << i+1 << ") " << result[i]->getName() << " with " << result[i]->getExp()
 		<< " years experience" << std::endl;
 }
 
@@ -320,7 +298,7 @@ void SearchHandler::printResult(std::vector<Designer*>& result)
 	}
 
 	for (std::size_t i = 0; i < result.size(); ++i)
-		std::cout << i << ") " << result[i]->getName() << " with " <<
+		std::cout << i+1 << ") " << result[i]->getName() << " with " <<
 		result[i]->getExp() << " years experience from " << result[i]->getVogue() << " vogue"
 		<< std::endl;
 }
@@ -335,7 +313,7 @@ void SearchHandler::printResult(std::vector<Model*>& result)
 	}
 
 	for (std::size_t i = 0; i < result.size(); ++i)
-		std::cout << i << ") " << result[i]->getName() << " with " <<
+		std::cout << i+1 << ") " << result[i]->getName() << " with " <<
 		result[i]->getExp() << " years experience: " << result[i]->getHeight() << " tall with "
         << result[i]->getHairColor() << " hair" << std::endl;
 }
