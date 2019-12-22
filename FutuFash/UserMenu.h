@@ -37,15 +37,15 @@ private:
 	void printProfile(Designer* designer);
 	void printProfile(Model* model);
 	void handleGlobalChanging(Designer* designer);
-	template <class X> void changeName(X* desormod);
-	template <class X> void changeExperience(X* desormod);
+	template <class X> void changeName(X* user);
+	template <class X> void changeExperience(X* user);
 	void changeVogue(Designer* designer);
 	
 	void handleGlobalChanging(Model* model);
 	void changeHeight(Model* model);
 	void changeWeight(Model* model);
 	void changeHairColor(Model* model);
-	template <class X> void handleGlobalDeleting(X* desormod);
+	void handleGlobalDeleting(User* user);
 	void handleProjectAdding(Model* model); //TODO нужно ли параметр менять на модель
 	void handleProjectDeleting(User* user);
 public:

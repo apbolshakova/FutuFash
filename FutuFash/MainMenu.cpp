@@ -77,12 +77,15 @@ void MainMenu::printProjectsWithParticipants()
 	}
 	else
 	{
-		std::cout << "Projects in system: " << std::endl;
+		bool empty = true;
 		for (auto const& el : *(this->projects))
 		{
 			if (el.second->getStatus() == DELETED) continue;
+			if (empty) std::cout << "Projects in system: " << std::endl;
+			empty = false;
 			std::cout << el.first << ". " << el.second->getName() << std::endl;
 		}
+		if (empty) std::cout << "No projects in system." << std::endl;
 	}
 	
 	if (this->users->empty())
@@ -91,12 +94,15 @@ void MainMenu::printProjectsWithParticipants()
 	}
 	else
 	{
-		std::cout << "Users in system: " << std::endl;
+		bool empty = true;
 		for (auto const& el : *(this->users))
 		{
 			if (el.second->isDeleted()) continue;
+			if (empty) std::cout << "Users in system: " << std::endl;
+			empty = false;
 			std::cout << el.first << ". " << el.second->getName() << std::endl;
 		}
+		if (empty) std::cout << "No users in system." << std::endl;
 	}
 	std::cout << "Press any button to return." << std::endl;
 	_getch();

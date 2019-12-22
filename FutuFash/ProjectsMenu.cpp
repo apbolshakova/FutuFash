@@ -141,6 +141,7 @@ void ProjectsMenu::addNew()
 	}
 	project->setId(key);
 	this->projects->insert(pair< int, Project*>(key, project));
+	designer->addProject(project);
 }
 void ProjectsMenu::handleSearch()
 {

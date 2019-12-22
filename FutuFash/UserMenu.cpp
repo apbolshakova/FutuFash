@@ -364,14 +364,14 @@ void UserMenu::handleGlobalChanging(Designer* designer)
 		}
 	} while (opCode != exitBtnCode);
 }
-template <class X> void UserMenu::changeName(X* desormod)
+template <class X> void UserMenu::changeName(X* user)
 {
 	cout << "Enter new name: ";
 	string name;
 	cin >> name;
-	desormod->setName(name);
+	user->setName(name);
 }
-template <class X> void UserMenu::changeExperience(X* desormod)
+template <class X> void UserMenu::changeExperience(X* user)
 {
 	cout << "Enter new work experience (in years): ";
 	int exp;
@@ -388,7 +388,7 @@ template <class X> void UserMenu::changeExperience(X* desormod)
 		}
 		else t = false;
 	}
-	desormod->setExp(exp);
+	user->setExp(exp);
 }
 void UserMenu::changeVogue(Designer* designer)
 {
@@ -471,17 +471,20 @@ void UserMenu::changeHairColor(Model* model)
 		cin >> hairColor;
 	model->setHairColor(hairColor);
 }
-template <class X> void UserMenu::handleGlobalDeleting(X* desormod)
+ void UserMenu::handleGlobalDeleting(User* user)
 { 
-	desormod->markToDelete();
-	if (dynamic_cast<Designer*>(desormod) != nullptr)
+	user->markToDelete();
+	if (dynamic_cast<Designer*>(user) != nullptr)
 	{
-		//for (auto const& el : *(desormod->getProjects()))
-		//	el->handleDeleting();
+		for (auto const& el : *(user->getProjects()))
+		{
+			el.second->setStatus(DELETED);
+		}
 	}
 	else
 	{
-
+		//for (auto const& el : *(user->getProjects()))
+		//	el->;
 	}
 }
 void UserMenu::handleProjectAdding(Model* model)
