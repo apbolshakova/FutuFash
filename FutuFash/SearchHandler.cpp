@@ -284,8 +284,16 @@ void SearchHandler::printResult(std::vector<User*>& result)
 	}
 
 	for (std::size_t i = 0; i < result.size(); ++i)
-		std::cout << i+1 << ") " << result[i]->getName() << " with " << result[i]->getExp()
-		<< " years experience" << std::endl;
+	{
+		std::cout << i + 1 << ") ";
+		if (dynamic_cast<Designer*>(result[i]) != nullptr)
+			std::cout << "Designer ";
+		if (dynamic_cast<Model*>(result[i]) != nullptr)
+			std::cout << "Model ";
+		std::cout << result[i]->getName() << " with " << result[i]->getExp()
+			<< " years experience" << std::endl;
+	}
+
 }
 
 
@@ -298,7 +306,7 @@ void SearchHandler::printResult(std::vector<Designer*>& result)
 	}
 
 	for (std::size_t i = 0; i < result.size(); ++i)
-		std::cout << i+1 << ") " << result[i]->getName() << " with " <<
+		std::cout << i+1 << ") Designer " << result[i]->getName() << " with " <<
 		result[i]->getExp() << " years experience from " << result[i]->getVogue() << " vogue"
 		<< std::endl;
 }
@@ -313,7 +321,7 @@ void SearchHandler::printResult(std::vector<Model*>& result)
 	}
 
 	for (std::size_t i = 0; i < result.size(); ++i)
-		std::cout << i+1 << ") " << result[i]->getName() << " with " <<
+		std::cout << i+1 << ") Model " << result[i]->getName() << " with " <<
 		result[i]->getExp() << " years experience: " << result[i]->getHeight() << " tall with "
         << result[i]->getHairColor() << " hair" << std::endl;
 }
