@@ -44,6 +44,15 @@ void ProjectsMenu::printMenu()
 void ProjectsMenu::handleAdding()
 {
 	system("cls");
+bool t = false;
+for (auto const& el : *(this->users))
+	if (dynamic_cast<Designer*>(el.second))
+	{
+		t = true;
+	}
+if (t)
+{
+	
 	try
 	{
 		addNew();
@@ -52,18 +61,37 @@ void ProjectsMenu::handleAdding()
 	{
 		cout << e.what() << endl;
 	}
-	
+}
+else
+{
+	cout << "You need to add at least one designer to the base at first" << endl;
+	cout << "Press any button to return" << endl;
+	_getch();
+}
 }
 void ProjectsMenu::printAllProjects()
 {
 	system("cls");
-	for (auto const& e1 : *(this->projects))
-		cout << e1.first << "." << e1.second->getName() << endl;
-	//map <int, Project*> ::iterator it = this->projects->begin();
-	//for (int i=0; it != this->projects->end(); i++, it++)
-		//cout << ++i << ") " << it->second->getName() << endl;
-	cout << "Press any button to return" << endl;
-	_getch();
+	if (projects->size() != 0)
+	{
+		
+		for (auto const& el : *(this->projects))
+		{
+			if (el.second->getStatus() != 3)
+			cout << el.first << "." << el.second->getName() << endl;
+		}
+		//map <int, Project*> ::iterator it = this->projects->begin();
+		//for (int i=0; it != this->projects->end(); i++, it++)
+			//cout << ++i << ") " << it->second->getName() << endl;
+		cout << "Press any button to return" << endl;
+		_getch();
+	}
+	else {
+		
+		cout << "You need to add at least one project to the base at first" << endl;
+		cout << "Press any button to return" << endl;
+		_getch();
+	}
 }
 
 void ProjectsMenu::addNew()
@@ -76,7 +104,7 @@ void ProjectsMenu::addNew()
 	string name;
 	cin >> name;
 	project->setName(name);
-	cout << "Date of show"<< endl;
+	cout << "Date of show (e.g. 01.01.2020)"<< endl;
 	string date;
 	cin >> date;
 	project->setDate(date);
@@ -95,8 +123,7 @@ void ProjectsMenu::addNew()
 	catch (const std::exception& e)
 	{
 		cout << e.what() << std::endl;
-		cout << "Project creation will be aborted. Press any button to return."
-			<< std::endl;
+		cout << "Project creation will be aborted. Press any button to return"<< endl;
 		_getch();
 		return;
 	}
@@ -113,15 +140,31 @@ void ProjectsMenu::addNew()
 }
 void ProjectsMenu::handleSearch()
 {
-	SearchEntityType type = PRJ;
-	SearchHandler Search(type, this->users, this->projects);
-	vector<Project*> data;
-	Search.getResult(data);
-    Search.printResult(data);
-	cout << "Do you want to work with particular profile? 1- yes, 0- no"<< endl;
-	bool t;
-	cin >> t;
-	if (t) this->handleProfile(data); //TODO передавать результат поиска
+	system("cls");
+	if (projects->size() != 0)
+	{
+		SearchEntityType type = PRJ;
+		SearchHandler Search(type, this->users, this->projects);
+		vector<Project*> data;
+		Search.getResult(data);
+		Search.printResult(data);
+		if (data.size() != 0)
+		{
+			cout << "Do you want to work with particular profile? 1- yes, 0- no" << endl;
+			bool t;
+			cin >> t;
+			if (t) this->handleProfile(data); //TODO передавать результат поиска
+		}
+		else
+		{
+			cout << "No matches, please verify your guery";
+		}
+	}
+	else {
+		cout << "We can't make a searching in an empty base" << endl;
+		cout << "Press any button to return" << endl;
+		_getch();
+	}
 }
 
 Designer* ProjectsMenu::getNewDesigner()
@@ -140,8 +183,7 @@ Designer* ProjectsMenu::getNewDesigner()
 	}
 	if (data.size() == 1)
 	{
-		cout << "This designer will be attacted to new project. Press any button to continue"
-			<< std::endl;
+		cout << "This designer will be attacted to new project. Press any button to continue"<< endl;
 		_getch();
 		return data[0];
 	}
@@ -174,9 +216,9 @@ void ProjectsMenu::handleProfile(vector<Project*> data)
 }
 int ProjectsMenu::getNumToShow(int size)
 {
-	cout << "What project to show? 0- first, " << size-1 << "- last"<< endl;
+	cout << "What project to show? 1- first, " << size << "- last"<< endl;
 	int p; cin >> p;
-	return p; 
+	return p-1; 
 }
 void ProjectsMenu::handleParticipantsMenu(Project* project, map<int,User*> *users)
 {
@@ -189,7 +231,15 @@ void ProjectsMenu::printProfile(Project* project)
 	cout << "   Date of show : " << project->getDate() << endl;
 	cout << "   Location : " << project->getLocation() << endl;
 	cout << "   Name of designer : " << project->getDesigner()->getName() << endl;
-	cout << "   Project status : " << project->getStatus() << endl; //TODO switch to show correct message
+	int OpCodes=0;
+	switch (OpCodes= project->getStatus())
+	{
+	case 0: cout << "   Project status : in search of models" << endl; break;
+	case 1: cout << "   Project status : waiting for show" << endl; break;
+	case 2: cout << "   Project status : the show is finished" << endl; break;
+	case 3: cout << "   Project status : the project is deleted" << endl; break; 
+	}
+	//cout << "   Project status : " << project->getStatus() << endl; TODO switch to show correct message
 	cout << "   Number of models : " << project->getModels().size() << endl;
 	cout << endl;
 }
@@ -198,8 +248,6 @@ void ProjectsMenu::handleChanging(Project* project)
 {
 	const char exitBtnCode = 0x1B;
 	char opCode = 0;
-	do
-	{
 		system("cls");
 		cout << "Select a number" << endl;
 		enum OpCodes { NAME = 1, DATE, LOCATION, STATUS };
@@ -211,13 +259,13 @@ void ProjectsMenu::handleChanging(Project* project)
 		opCode = this->getOperationCode(NAME, STATUS, exitBtnCode);
 		switch (opCode)
 		{
-		case NAME: this->changeName(project); break;
-		case DATE: this->changeDate(project); break;
-		case LOCATION: this->changeLocation(project); break;
-		case STATUS: this->changeStatus(project); break;
-		default: cout << "Incorrect number of query"<< endl; break;
+		case NAME: this->changeName(project); printSuccessMessage(); break;
+		case DATE: this->changeDate(project); printSuccessMessage(); break;
+		case LOCATION: this->changeLocation(project); printSuccessMessage(); break;
+		case STATUS: this->changeStatus(project); printSuccessMessage(); break;
+		default: cout << "Incorrect number of query"<< endl; break; // todo
 		}
-	} while (opCode != exitBtnCode);
+		
 }
 void ProjectsMenu::changeName(Project* project)
 {
@@ -226,6 +274,7 @@ void ProjectsMenu::changeName(Project* project)
 	cout << "Enter new name: " << endl;
 	string newname; getline(cin,newname);
 	project->setName(newname);
+	printSuccessMessage();
 }
 void ProjectsMenu::changeDate(Project* project)
 {
@@ -234,6 +283,7 @@ void ProjectsMenu::changeDate(Project* project)
 	cout << "Enter new date: " << endl;
 	string newdate; getline(cin, newdate);
 	project->setDate(newdate);
+	printSuccessMessage();
 }
 void ProjectsMenu::changeLocation(Project* project)
 {
@@ -242,6 +292,7 @@ void ProjectsMenu::changeLocation(Project* project)
 	cout << "Enter new location: " << endl;
 	string newlocation; getline(cin, newlocation);
 	project->setLocation(newlocation);
+	printSuccessMessage();
 }
 void ProjectsMenu::changeStatus(Project* project)
 {
@@ -257,19 +308,21 @@ void ProjectsMenu::changeStatus(Project* project)
 		opCode = this->getOperationCode(IN, FIN, exitBtnCode);
 		switch (opCode)
 		{
-		case IN: project->setStatus(INSEARCH); break;
-		case FIL: project->setStatus(FILLED); break;
-		case FIN: project->setStatus(FINISHED); break;
+		case IN: project->setStatus(INSEARCH); printSuccessMessage(); break;
+		case FIL: project->setStatus(FILLED); printSuccessMessage(); break;
+		case FIN: project->setStatus(FINISHED); printSuccessMessage(); break;
 		default:
 		{
 			cout << "Incorrect number of query"<< endl;
 			break;
 		}
 		}
+
 }
 void ProjectsMenu::handleDeleting(Project* project)
 {
 	project->setStatus(DELETED);
+	printSuccessMessage();
 }
 
 ProjectsMenu::~ProjectsMenu()

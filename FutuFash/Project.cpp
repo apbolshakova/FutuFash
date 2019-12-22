@@ -27,7 +27,7 @@ map<int, Model*> Project::getModels(void)
 {
 	return this->models;
 }
-enum ProjectStatus  Project::getStatus(void)
+enum ProjectStatus Project::getStatus(void)
 {
 	return this->status;
 }
