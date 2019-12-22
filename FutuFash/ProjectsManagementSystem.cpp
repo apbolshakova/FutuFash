@@ -13,7 +13,6 @@ ProjectsManagementSystem::ProjectsManagementSystem()
 
 void ProjectsManagementSystem::handleDataLoading(std::map<int, User*> *users, std::map<int, Project*> *projects)
 {
-	return; //TODO delete when fixed
 	std::ifstream file;
 	file.open("data.dat");
 	if (file.peek() == std::ifstream::traits_type::eof())
@@ -42,7 +41,7 @@ void ProjectsManagementSystem::parseProjectsData(std::ifstream& file, std::map<i
 {
 	std::string str;
 	std::getline(file, str);
-	if (str != "P") throw new std::exception("Data file is corrupted and will be deleted.");
+	if (str != "P") throw std::exception("Data file is corrupted and will be deleted.");
 	std::getline(file, str);
 	while (str != "P")
 	{
@@ -60,41 +59,41 @@ Project* ProjectsManagementSystem::getParsedProject(std::string str, std::map<in
 	Project* project = new Project();
 
 	std::size_t startPos = 0;
-	std::size_t endPos = str.find(startPos, delim);
+	std::size_t endPos = str.find(delim, startPos);
 	project->setId(stoi(str.substr(startPos, endPos - startPos)));
 
 	startPos = endPos + 1;
-	endPos = str.find(startPos, delim);
+	endPos = str.find(delim, startPos);
 	project->setName(str.substr(startPos, endPos - startPos));
 
 	startPos = endPos + 1;
-	endPos = str.find(startPos, delim);
+	endPos = str.find(delim, startPos);
 	project->setDate(str.substr(startPos, endPos - startPos));
 
 	startPos = endPos + 1;
-	endPos = str.find(startPos, delim);
+	endPos = str.find(delim, startPos);
 	project->setLocation(str.substr(startPos, endPos - startPos));
 
 	startPos = endPos + 1;
-	endPos = str.find(startPos, delim);
+	endPos = str.find(delim, startPos);
 	int designerId = stoi(str.substr(startPos, endPos - startPos));
 	if (users->count(designerId) == 0) project->setDesigner(nullptr);
 	else project->setDesigner(dynamic_cast<Designer*>((*users)[designerId]));
 
 	startPos = endPos + 1;
-	endPos = str.find(startPos, delim);
+	endPos = str.find(delim, startPos);
 	int modelsNum = stoi(str.substr(startPos, endPos - startPos));
 	for (int i = 0; i < modelsNum; i++)
 	{
 		startPos = endPos + 1;
-		endPos = str.find(startPos, delim);
+		endPos = str.find(delim, startPos);
 		int modelId = stoi(str.substr(startPos, endPos - startPos));
 		if (users->count(modelId) != 0)
 			project->addModel(dynamic_cast<Model*>((*users)[modelId]));
 	}
 
 	startPos = endPos + 1;
-	endPos = str.find(startPos, delim);
+	endPos = str.find(delim, startPos);
 	ProjectStatus status = ProjectStatus(stoi(str.substr(startPos, endPos - startPos)));
 	if (status == DELETED)
 	{
@@ -110,7 +109,7 @@ void ProjectsManagementSystem::parseUsersData(std::ifstream& file, std::map<int,
 {
 	std::string str;
 	std::getline(file, str);
-	if (str != "U") throw new std::exception("Data file is corrupted and will be deleted.");
+	if (str != "U") throw std::exception("Data file is corrupted and will be deleted.");
 	std::getline(file, str);
 	while (str != "U")
 	{
@@ -123,27 +122,27 @@ void ProjectsManagementSystem::parseUsersData(std::ifstream& file, std::map<int,
 
 User* ProjectsManagementSystem::getParsedUser(std::string str)
 {
-	char delim = '%';
+	std::string delim = "%";
 	std::size_t startPos = 0;
-	std::size_t endPos = str.find(startPos, delim);
+	std::size_t endPos = str.find(delim, startPos);
 	std::string type = str.substr(startPos, endPos - startPos);
 	if (type == "D")
 	{
 		Designer* user = new Designer();
 		startPos = endPos + 1;
-		endPos = str.find(startPos, delim);
+		endPos = str.find(delim, startPos);
 		user->setId(stoi(str.substr(startPos, endPos - startPos)));
 
 		startPos = endPos + 1;
-		endPos = str.find(startPos, delim);
+		endPos = str.find(delim, startPos);
 		user->setName(str.substr(startPos, endPos - startPos));
 
 		startPos = endPos + 1;
-		endPos = str.find(startPos, delim);
+		endPos = str.find(delim, startPos);
 		user->setExp(stoi(str.substr(startPos, endPos - startPos)));
 
 		startPos = endPos + 1;
-		endPos = str.find(startPos, delim);
+		endPos = str.find(delim, startPos);
 		user->setVogue(str.substr(startPos, endPos - startPos));
 
 		return user;
@@ -152,32 +151,32 @@ User* ProjectsManagementSystem::getParsedUser(std::string str)
 	{
 		Model* user = new Model();
 		startPos = endPos + 1;
-		endPos = str.find(startPos, delim);
+		endPos = str.find(delim, startPos);
 		user->setId(stoi(str.substr(startPos, endPos - startPos)));
 
 		startPos = endPos + 1;
-		endPos = str.find(startPos, delim);
+		endPos = str.find(delim, startPos);
 		user->setName(str.substr(startPos, endPos - startPos));
 
 		startPos = endPos + 1;
-		endPos = str.find(startPos, delim);
+		endPos = str.find(delim, startPos);
 		user->setExp(stoi(str.substr(startPos, endPos - startPos)));
 
 		startPos = endPos + 1;
-		endPos = str.find(startPos, delim);
+		endPos = str.find(delim, startPos);
 		user->setHeight(stoi(str.substr(startPos, endPos - startPos)));
 
 		startPos = endPos + 1;
-		endPos = str.find(startPos, delim);
+		endPos = str.find(delim, startPos);
 		user->setWeight(stoi(str.substr(startPos, endPos - startPos)));
 
 		startPos = endPos + 1;
-		endPos = str.find(startPos, delim);
+		endPos = str.find(delim, startPos);
 		user->setHairColor(str.substr(startPos, endPos - startPos));
 
 		return user;
 	}
-	else throw new std::exception("Corrupted user data.");
+	else throw std::exception("Corrupted user data.");
 }
 
 

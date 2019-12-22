@@ -27,13 +27,11 @@ private:
 	void printAllUsers();
 	void handleSearch(UserMenuMode mode);
 	//adding
-	//void addNew(User* user);
 	void addNew(Designer* designer = nullptr);
 	void addNew(Model* model = nullptr);
 	//profile
 	void handleProfile(std::vector<User*> data, UserMenuMode mode);
 	int getNumToShow(std::vector<User*> data);
-	//void printProfile(User* user);
 	void printProfile(Designer* designer);
 	void printProfile(Model* model);
 	void handleGlobalChanging(Designer* designer);
@@ -46,7 +44,7 @@ private:
 	void changeWeight(Model* model);
 	void changeHairColor(Model* model);
 	void handleGlobalDeleting(User* user);
-	void handleProjectAdding(Model* model); //TODO нужно ли параметр менять на модель
+	void handleProjectAdding(Model* model);
 	void handleProjectDeleting(Model* model);
 public:
 	UserMenu(std::map<int, User*> *users, UserMenuMode mode, Project* projectToEdit);

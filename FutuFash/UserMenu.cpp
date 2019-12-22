@@ -10,7 +10,7 @@ UserMenu::UserMenu(map<int, User*> *users = nullptr, UserMenuMode mode = GLOBAL_
 	{
 	case GLOBAL_CHANGING:
 	{
-		if (!users) throw new exception("No users structure found.");
+		if (!users) throw exception("No users structure found.");
 
 		this->users = users;
 		const char exitBtnCode = 0x1B;
@@ -41,6 +41,8 @@ UserMenu::UserMenu(map<int, User*> *users = nullptr, UserMenuMode mode = GLOBAL_
 	{
 		this->users = users;
 		this->projectToEdit = projectToEdit;
+		cout << "You need to search required models. Press any button to start searching." << endl;
+		_getch();
 		this->handleSearch(mode);
 	}
 	}
@@ -311,9 +313,12 @@ void UserMenu::handleProfile(vector<User*> data, UserMenuMode mode)
 				{
 					this->handleWarning();
 				}
-				catch (std::exception& e)
+				catch (const std::exception& e)
 				{
-					e.what();
+					cout << e.what() << endl;
+					cout << "Press any button to return." << endl;
+					_getch();
+					return;
 				}
 				handleProjectAdding(model);
 				cout << "Press any button to return." << endl;
@@ -326,9 +331,12 @@ void UserMenu::handleProfile(vector<User*> data, UserMenuMode mode)
 				{
 					this->handleWarning();
 				}
-				catch (std::exception& e)
+				catch (const std::exception& e)
 				{
-					e.what();
+					cout << e.what() << endl;
+					cout << "Press any button to return." << endl;
+					_getch();
+					return;
 				}
 				handleProjectDeleting(model);
 				cout << "Press any button to return." << endl;
@@ -385,7 +393,7 @@ void UserMenu::printProfile(Model* model)
 	cout << "Work experience: "<<model->getExp() << " year(s)" << endl;
 
 	map<int, Project*>* projects = model->getProjects(); //на каком этапе у нас будет вызываться метод addProject?
-	if (projects != nullptr)
+	if (projects->size() != 0)
 	{
 		cout << "Taking/took part in the following projects:" << endl;
 		map<int, Project*>::iterator iter = projects->begin();
@@ -535,14 +543,12 @@ void UserMenu::changeHairColor(Model* model)
 	if (dynamic_cast<Designer*>(user) != nullptr)
 	{
 		for (auto const& el : *(user->getProjects()))
-		{
 			el.second->setStatus(DELETED);
-		}
 	}
 	else
 	{
-		for (auto const& el : *(user->getProjects())) {}
-		//sel->removeModel(); TODO прописать удаление модели из проекта
+		for (auto const& el : *(user->getProjects()))
+		    el.second->removeModel(dynamic_cast<Model*>(user));
 	}
 }
 void UserMenu::handleProjectAdding(Model* model)

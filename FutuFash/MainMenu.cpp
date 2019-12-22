@@ -3,8 +3,8 @@
 
 MainMenu::MainMenu(std::map<int, User*> *users, std::map<int, Project*> *projects)
 {
-	if (!users) throw new std::exception("No users structure is found.");
-	if (!projects) throw new std::exception("No project structure is found.");
+	if (!users) throw std::exception("No users structure is found.");
+	if (!projects) throw std::exception("No project structure is found.");
 
 	this->users = users;
 	this->projects = projects;

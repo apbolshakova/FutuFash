@@ -3,7 +3,7 @@
 
 int Menu::getOperationCode(int min, int max, char exitBtnCode)
 {
-	if (!min || !max) throw new std::exception("Invalid operations range.");
+	if (!min || !max) throw std::exception("Invalid operations range.");
 	int opCode = 0;
 	do 
 	{
@@ -24,7 +24,7 @@ void Menu::handleWarning()
 	do {
 		ch = _getch();
 	} while (ch != confCode && ch != abortCode);
-	if (ch == abortCode) throw new std::exception("Operation was aborted.");
+	if (ch == abortCode) throw std::exception("Operation was aborted.");
 }
 
 

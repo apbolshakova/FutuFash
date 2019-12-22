@@ -7,8 +7,8 @@ ProjectsMenu::ProjectsMenu(map<int, User*> *users, map<int, Project*> *projects)
 {
 	this->users = users;
 	this->projects = projects;
-	if (!users) throw new std::exception("No users structure is found.");
-	if (!projects) throw new std::exception("No project structure is found.");
+	if (!users) throw std::exception("No users structure is found.");
+	if (!projects) throw std::exception("No project structure is found.");
 	const char exitBtnCode = 0x1B;
 	char opCode = 0;
 	do
@@ -327,7 +327,12 @@ void ProjectsMenu::changeStatus(Project* project)
 void ProjectsMenu::handleDeleting(Project* project)
 {
 	project->setStatus(DELETED);
+	project->getDesigner()->removeProject(project);
+	for (auto const& el : project->getModels())
+		el.second->removeProject(project);
 	printSuccessMessage();
+	cout << "Press any button to return." << std::endl;
+	_getch();
 }
 
 ProjectsMenu::~ProjectsMenu()
