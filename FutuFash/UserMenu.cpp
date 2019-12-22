@@ -39,6 +39,7 @@ UserMenu::UserMenu(map<int, User*> *users = nullptr, UserMenuMode mode = GLOBAL_
 	}
 	case PROJECT_CHANGING:
 	{
+		this->users = users;
 		this->handleSearch();
 	}
 	}

@@ -13,6 +13,7 @@ ProjectsManagementSystem::ProjectsManagementSystem()
 
 void ProjectsManagementSystem::handleDataLoading(std::map<int, User*> *users, std::map<int, Project*> *projects)
 {
+	return; //TODO delete when fixed
 	std::ifstream file;
 	file.open("data.dat");
 	if (file.peek() == std::ifstream::traits_type::eof())
