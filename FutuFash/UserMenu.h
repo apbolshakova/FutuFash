@@ -47,7 +47,7 @@ private:
 	void changeHairColor(Model* model);
 	void handleGlobalDeleting(User* user);
 	void handleProjectAdding(Model* model); //TODO нужно ли параметр менять на модель
-	void handleProjectDeleting(User* user);
+	void handleProjectDeleting(Model* model);
 public:
 	UserMenu(std::map<int, User*> *users, UserMenuMode mode, Project* projectToEdit);
 	~UserMenu();

@@ -43,7 +43,7 @@ void ParticipantsMenu::printAllParticipants()
 	if (mapmod.size() == 0) cout << "No models added." << endl;
 	map <int, Model*> ::iterator it = mapmod.begin();
 	for (int i = 0; it != mapmod.end(); i++, it++)
-		cout << i++ << ") " << it->second->getName() << endl;
+		cout << i+1 << ") " << it->second->getName() << endl;
 	cout << "Press any button to return." << endl;
 	_getch();
 }

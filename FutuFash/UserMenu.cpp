@@ -304,9 +304,36 @@ void UserMenu::handleProfile(vector<User*> data, UserMenuMode mode)
 		}
 		else
 		{
-			cout << "Press any button to add the user to the project" << endl;
-			_getch();
-			handleProjectAdding(model);
+			if (model->getProjects()->count(this->projectToEdit->getId()) == 0) 
+			{
+				cout << "This model will be added to project." << endl;
+				try 
+				{
+					this->handleWarning();
+				}
+				catch (std::exception& e)
+				{
+					e.what();
+				}
+				handleProjectAdding(model);
+				cout << "Press any button to return." << endl;
+				_getch();
+			}
+			else
+			{
+				cout << "This model will be deleted from project." << endl;
+				try
+				{
+					this->handleWarning();
+				}
+				catch (std::exception& e)
+				{
+					e.what();
+				}
+				handleProjectDeleting(model);
+				cout << "Press any button to return." << endl;
+				_getch();
+			}
 		}
 	}
 	else
@@ -520,14 +547,15 @@ void UserMenu::changeHairColor(Model* model)
 }
 void UserMenu::handleProjectAdding(Model* model)
 {
-  //TODO разобраться с доступом к projects и мэпе моделей проекта
 	model->addProject(this->projectToEdit);
 	this->projectToEdit->addModel(model);
 	this->printSuccessMessage();
 }
-void UserMenu::handleProjectDeleting(User* user)
+void UserMenu::handleProjectDeleting(Model* model)
 {
-	//TODO
+	model->removeProject(this->projectToEdit);
+	this->projectToEdit->removeModel(model);
+	this->printSuccessMessage();
 }
 
 UserMenu::~UserMenu()
