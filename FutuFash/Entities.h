@@ -68,7 +68,7 @@ private:
 	std::map<int, Project*> *projects;
 	bool toDelete;
 public:
-	User(int experienceInYears = -1, std::map<int, Project*> *projects = nullptr, bool toDelete = false) : experienceInYears(experienceInYears),projects(projects), toDelete(toDelete) {};
+	User(int experienceInYears = -1, std::map<int, Project*> *projects = new std::map<int, Project*>, bool toDelete = false) : experienceInYears(experienceInYears),projects(projects), toDelete(toDelete) {};
 	int getExp();
 	std::map<int, Project*>* getProjects();
 	bool isDeleted();
@@ -89,7 +89,7 @@ public:
 	Designer(std::string vogue = "") : vogue(vogue) {};
 	std::string getVogue();
 	void setVogue(std::string vogue);
-
+	~Designer();
 };
 
 
@@ -108,5 +108,5 @@ public:
 	void setHeight(int height);
 	void setWeight(int weight);
 	void setHairColor(std::string hairColor);
-
+	~Model();
 };

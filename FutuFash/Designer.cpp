@@ -22,7 +22,10 @@ void Designer::setVogue(string vogue)
 
 }
 
-
+Designer::~Designer()
+{
+	free(this->getProjects());
+}
 
 
 

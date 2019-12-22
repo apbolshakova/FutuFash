@@ -55,7 +55,10 @@ void Model::setHairColor(string hairColor)
 	}
 }
 
-
+Model::~Model()
+{
+	free(this->getProjects());
+}
 
 
 

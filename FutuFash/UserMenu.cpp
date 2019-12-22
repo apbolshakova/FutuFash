@@ -228,10 +228,9 @@ void UserMenu::printAllUsers()
 }
 void UserMenu::handleSearch(UserMenuMode mode)
 {
-	//SearchEntityType type = USR;
 	SearchEntityType type;
 	if (mode == GLOBAL_CHANGING) type = USR;
-	else type == MDL;
+	else type = MDL;
 	SearchHandler Search(type, this->users);
 	vector<User*> data;
 	Search.getResult(data);
