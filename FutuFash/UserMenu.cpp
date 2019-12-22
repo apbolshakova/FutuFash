@@ -40,6 +40,7 @@ UserMenu::UserMenu(map<int, User*> *users = nullptr, UserMenuMode mode = GLOBAL_
 	case PROJECT_CHANGING:
 	{
 		this->users = users;
+		this->projectToEdit = projectToEdit;
 		this->handleSearch(mode);
 	}
 	}
@@ -229,25 +230,55 @@ void UserMenu::printAllUsers()
 void UserMenu::handleSearch(UserMenuMode mode)
 {
 	SearchEntityType type;
-	if (mode == GLOBAL_CHANGING) type = USR;
-	else type = MDL;
-	SearchHandler Search(type, this->users);
-	vector<User*> data;
-	Search.getResult(data);
-	Search.printResult(data);
-	cout << endl;
-	if (!data.empty())
+	if (mode == GLOBAL_CHANGING)
 	{
-		cout << "Do you want to work with particular profile? 1- yes, 0- no" << endl;
-		bool t;
-		cin >> t;
-		if (t) this->handleProfile(data, mode);
+		type = USR;
+		SearchHandler Search(type, this->users);
+		vector<User*> data;
+		Search.getResult(data);
+		Search.printResult(data);
+		cout << endl;
+		if (!data.empty())
+		{
+			cout << "Do you want to work with particular profile? 1- yes, 0- no" << endl;
+			bool t;
+			cin >> t;
+			if (t) this->handleProfile(data, mode);
+		}
+		else
+		{
+			cout << "No matches, please verify your guery";
+			cout << "Press any button to return.";
+			_getch();
+		}
 	}
 	else
 	{
-		cout << "No matches, please verify your guery";
-		cout << "Press any button to return.";
-		_getch();
+		type = MDL;
+		SearchHandler Search(type, this->users);
+		vector<Model*> data;
+		Search.getResult(data);
+		Search.printResult(data);
+		cout << endl;
+		if (!data.empty())
+		{
+			vector<User*> dataAsUsers;
+			for (auto const& el : data)
+			{
+				dataAsUsers.push_back(el);
+			}
+
+			cout << "Do you want to work with particular profile? 1- yes, 0- no" << endl;
+			bool t;
+			cin >> t;
+			if (t) this->handleProfile(dataAsUsers, mode);
+		}
+		else
+		{
+			cout << "No matches, please verify your guery";
+			cout << "Press any button to return.";
+			_getch();
+		}
 	}
 }
 void UserMenu::handleProfile(vector<User*> data, UserMenuMode mode)
@@ -308,7 +339,7 @@ void UserMenu::printProfile(Designer* designer)
 	cout << "Work experience: "<<designer->getExp() <<" year(s)"<< endl;
 	
 	map<int, Project*>* projects = designer->getProjects(); //на каком этапе у нас будет вызываться метод addProject?
-	if (projects != nullptr)
+	if (projects->size() != 0)
 	{
 		cout << "Taking/took part in the following projects:" << endl;
 		map<int, Project*>::iterator iter = projects->begin();
@@ -483,14 +514,16 @@ void UserMenu::changeHairColor(Model* model)
 	}
 	else
 	{
-		//for (auto const& el : *(user->getProjects()))
-		//	el->;
+		for (auto const& el : *(user->getProjects())) {}
+		//sel->removeModel(); TODO прописать удаление модели из проекта
 	}
 }
 void UserMenu::handleProjectAdding(Model* model)
 {
   //TODO разобраться с доступом к projects и мэпе моделей проекта
-	model->addProject(projectToEdit);
+	model->addProject(this->projectToEdit);
+	this->projectToEdit->addModel(model);
+	this->printSuccessMessage();
 }
 void UserMenu::handleProjectDeleting(User* user)
 {

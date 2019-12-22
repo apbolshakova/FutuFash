@@ -40,9 +40,11 @@ void ParticipantsMenu::printAllParticipants()
 {
 	system("cls");
 	map<int, Model*> mapmod = this->project->getModels();
+	if (mapmod.size() == 0) cout << "No models added." << endl;
 	map <int, Model*> ::iterator it = mapmod.begin();
 	for (int i = 0; it != mapmod.end(); i++, it++)
 		cout << i++ << ") " << it->second->getName() << endl;
+	cout << "Press any button to return." << endl;
 	_getch();
 }
 void ParticipantsMenu::changeParticipants()
