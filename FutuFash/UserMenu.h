@@ -25,13 +25,13 @@ private:
 	//switch
 	void handleAdding();
 	void printAllUsers();
-	void handleSearch();
+	void handleSearch(UserMenuMode mode);
 	//adding
 	//void addNew(User* user);
 	void addNew(Designer* designer = nullptr);
 	void addNew(Model* model = nullptr);
 	//profile
-	void handleProfile(std::vector<User*> data);
+	void handleProfile(std::vector<User*> data, UserMenuMode mode);
 	int getNumToShow(std::vector<User*> data);
 	//void printProfile(User* user);
 	void printProfile(Designer* designer);
@@ -46,7 +46,7 @@ private:
 	void changeWeight(Model* model);
 	void changeHairColor(Model* model);
 	template <class X> void handleGlobalDeleting(X* desormod);
-	void handleProjectAdding(User* user); //TODO нужно ли параметр менять на модель
+	void handleProjectAdding(Model* model); //TODO нужно ли параметр менять на модель
 	void handleProjectDeleting(User* user);
 public:
 	UserMenu(std::map<int, User*> *users, UserMenuMode mode, Project* projectToEdit);

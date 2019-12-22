@@ -30,7 +30,7 @@ UserMenu::UserMenu(map<int, User*> *users = nullptr, UserMenuMode mode = GLOBAL_
 			case PRINT_ALL: this->printAllUsers(); break;
 			case SEARCH: 
 			{
-				this->handleSearch();
+				this->handleSearch(mode);
 			}
 			default: break;
 			}
@@ -40,7 +40,7 @@ UserMenu::UserMenu(map<int, User*> *users = nullptr, UserMenuMode mode = GLOBAL_
 	case PROJECT_CHANGING:
 	{
 		this->users = users;
-		this->handleSearch();
+		this->handleSearch(mode);
 	}
 	}
 }
@@ -206,15 +206,23 @@ void UserMenu::printAllUsers()
 	else
 	for (auto const& el : *(this->users))
 	{
-	//	if (el.second->toDelete == false)
-		std::cout << el.first << ". " << el.second->getName() << std::endl;
+		if (!el.second->isDeleted())
+		{
+			cout << el.first << ". " << el.second->getName() << " ";
+			if (dynamic_cast<Model*>(el.second))
+				cout << " - model" << endl;
+			else cout << " - designer" << endl;
+		}
 	}
 	cout << "Press any button to return." << std::endl;
 	_getch();
 }
-void UserMenu::handleSearch()
+void UserMenu::handleSearch(UserMenuMode mode)
 {
-	SearchEntityType type = USR;
+	//SearchEntityType type = USR;
+	SearchEntityType type;
+	if (mode == GLOBAL_CHANGING) type = USR;
+	else type == MDL;
 	SearchHandler Search(type, this->users);
 	vector<User*> data;
 	Search.getResult(data);
@@ -225,15 +233,16 @@ void UserMenu::handleSearch()
 		cout << "Do you want to work with particular profile? 1- yes, 0- no" << endl;
 		bool t;
 		cin >> t;
-		if (t) this->handleProfile(data);
+		if (t) this->handleProfile(data, mode);
 	}
 	else
 	{
+		cout << "No matches, please verify your guery";
 		cout << "Press any button to return.";
 		_getch();
 	}
 }
-void UserMenu::handleProfile(vector<User*> data)
+void UserMenu::handleProfile(vector<User*> data, UserMenuMode mode)
 {
 	int number = getNumToShow(data);
 	Model* model = dynamic_cast<Model*>(data[number]);
@@ -241,16 +250,24 @@ void UserMenu::handleProfile(vector<User*> data)
 	if (model)
 	{
 		printProfile(model);
-		
-		enum operCodes { CHANGE = 1, DELETE };
-		char operCode = 0;
-		cout << "Press 1 to change the data       Press 2 to delete the user       Press Esc to exit" << endl;
-		operCode = this->getOperationCode(CHANGE, DELETE);
-		switch (operCode)
+		if (mode == GLOBAL_CHANGING)
 		{
-		case CHANGE: handleGlobalChanging(model); break;
-		case DELETE: handleGlobalDeleting(data[number]); break;
-		default: break;
+			enum operCodes { CHANGE = 1, DELETE };
+			char operCode = 0;
+			cout << "Press 1 to change the data       Press 2 to delete the user       Press Esc to exit" << endl;
+			operCode = this->getOperationCode(CHANGE, DELETE);
+			switch (operCode)
+			{
+			case CHANGE: handleGlobalChanging(model); break;
+			case DELETE: handleGlobalDeleting(data[number]); break;
+			default: break;
+			}
+		}
+		else
+		{
+			cout << "Press any button to add the user to the project" << endl;
+			_getch();
+			handleProjectAdding(model);
 		}
 	}
 	else
@@ -398,27 +415,7 @@ void UserMenu::handleGlobalChanging(Model* model)
 		default: cout << "Incorrect number of query" << endl; break;
 		}
 	} while (opCode != exitBtnCode);
-		/*	cout << "Enter new data:\n" <<
-				"Name: ";
-			string name;
-			cin >> name;
-			model->setName(name);
-			cout << "Work experience (in years): ";
-			int exp;
-			cin >> exp;
-			model->setExp(exp);
-			cout << "Height: ";
-			int height;
-			cin >> height;
-			model->setHeight(height);
-			cout << "Weight: ";
-			int weight;
-			cin >> weight;
-			model->setWeight(weight);
-			cout << "Hair color: ";
-			string hairColor;
-			cin >> hairColor;
-			model->setHairColor(hairColor);*/
+		
 			
 } 
 void UserMenu::changeHeight(Model* model)
@@ -469,10 +466,20 @@ void UserMenu::changeHairColor(Model* model)
 template <class X> void UserMenu::handleGlobalDeleting(X* desormod)
 { 
 	desormod->markToDelete();
+	if (dynamic_cast<Designer*>(desormod) != nullptr)
+	{
+		//for (auto const& el : *(desormod->getProjects()))
+		//	el->handleDeleting();
+	}
+	else
+	{
+
+	}
 }
-void UserMenu::handleProjectAdding(User* user)
+void UserMenu::handleProjectAdding(Model* model)
 {
   //TODO разобраться с доступом к projects и мэпе моделей проекта
+	model->addProject(projectToEdit);
 }
 void UserMenu::handleProjectDeleting(User* user)
 {
