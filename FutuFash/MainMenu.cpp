@@ -107,8 +107,8 @@ void MainMenu::handleDataSaving()
 {
 	std::ofstream file;
 	file.open("data.dat");
-	this->saveProjectsData(file);
 	this->saveUsersData(file);
+	this->saveProjectsData(file);
 	file.close();
 	std::cout << "Actual information about users and projects was saved." << std::endl;
 }
@@ -120,7 +120,7 @@ void MainMenu::saveProjectsData(std::ofstream& file)
 	{
 		if (el.second->getStatus() == DELETED) continue;
 
-		file << "%" << el.first
+		file << el.first
 			<< "%" << el.second->getName()
 			<< "%" << el.second->getDate()
 			<< "%" << el.second->getLocation()
@@ -131,7 +131,7 @@ void MainMenu::saveProjectsData(std::ofstream& file)
 				file << "%" << model.first;
 		}
 		file << "%" << el.second->getStatus();
-		file << "\n";
+		file << "%\n";
 	}
 }
 
@@ -142,7 +142,13 @@ void MainMenu::saveUsersData(std::ofstream& file)
 	{
 		if (el.second->isDeleted()) continue;
 
-		file << "%" << el.first
+		Designer* elAsDesigner = dynamic_cast<Designer*>(el.second);
+		Model* elAsModel = dynamic_cast<Model*>(el.second);
+
+		if (elAsDesigner != nullptr) file << "%D";
+		if (elAsModel != nullptr) file << "%M";
+
+		file << el.first
 			<< "%" << el.second->getName()
 			<< "%" << el.second->getExp();
 			
@@ -160,21 +166,17 @@ void MainMenu::saveUsersData(std::ofstream& file)
 			file << "%0";
 		}
 
-		Designer* elAsDesigner = dynamic_cast<Designer*>(el.second);
 		if (elAsDesigner != nullptr)
 		{
-			file << "%D" 
-				<< "%" << elAsDesigner->getVogue();
+			file << "%" << elAsDesigner->getVogue();
 		}
 
-		Model* elAsModel = dynamic_cast<Model*>(el.second);
 		if (elAsModel != nullptr)
 		{
-			file << "%M"
-				<< "%" << elAsModel->getHeight()
+			file << "%" << elAsModel->getHeight()
 				<< "%" << elAsModel->getWeight()
 				<< "%" << elAsModel->getHairColor();
 		}
-		file << "\n";
+		file << "%\n";
 	}
 }
