@@ -107,8 +107,8 @@ void MainMenu::handleDataSaving()
 {
 	std::ofstream file;
 	file.open("data.dat");
-	this->saveProjectsData(file);
 	this->saveUsersData(file);
+	this->saveProjectsData(file);
 	file.close();
 	std::cout << "Actual information about users and projects was saved." << std::endl;
 }
@@ -120,10 +120,11 @@ void MainMenu::saveProjectsData(std::ofstream& file)
 	{
 		if (el.second->getStatus() == DELETED) continue;
 
-		file << "%" << el.first
+		file << el.first
 			<< "%" << el.second->getName()
 			<< "%" << el.second->getDate()
 			<< "%" << el.second->getLocation()
+			<< "%" << el.second->getDesigner()->getId()
 			<< "%" << el.second->getModels().size();
 		if (el.second->getModels().size() != 0)
 		{
@@ -131,8 +132,9 @@ void MainMenu::saveProjectsData(std::ofstream& file)
 				file << "%" << model.first;
 		}
 		file << "%" << el.second->getStatus();
-		file << "\n";
+		file << "%\n";
 	}
+	file << "P\n";
 }
 
 void MainMenu::saveUsersData(std::ofstream& file)
@@ -142,39 +144,28 @@ void MainMenu::saveUsersData(std::ofstream& file)
 	{
 		if (el.second->isDeleted()) continue;
 
-		file << "%" << el.first
+		Designer* elAsDesigner = dynamic_cast<Designer*>(el.second);
+		Model* elAsModel = dynamic_cast<Model*>(el.second);
+
+		if (elAsDesigner != nullptr) file << "D%";
+		if (elAsModel != nullptr) file << "M%";
+
+		file << el.first
 			<< "%" << el.second->getName()
 			<< "%" << el.second->getExp();
-			
-		if (el.second->getProjects())
-		{
-			file << "%" << el.second->getProjects()->size();
-			if (el.second->getProjects()->size() != 0)
-			{
-				for (auto const& project : *(el.second->getProjects()))
-					file << "%" << project.first;
-			}
-		}
-		else
-		{
-			file << "%0";
-		}
 
-		Designer* elAsDesigner = dynamic_cast<Designer*>(el.second);
 		if (elAsDesigner != nullptr)
 		{
-			file << "%D" 
-				<< "%" << elAsDesigner->getVogue();
+			file << "%" << elAsDesigner->getVogue();
 		}
 
-		Model* elAsModel = dynamic_cast<Model*>(el.second);
 		if (elAsModel != nullptr)
 		{
-			file << "%M"
-				<< "%" << elAsModel->getHeight()
+			file << "%" << elAsModel->getHeight()
 				<< "%" << elAsModel->getWeight()
 				<< "%" << elAsModel->getHairColor();
 		}
-		file << "\n";
+		file << "%\n";
 	}
+	file << "U\n";
 }
