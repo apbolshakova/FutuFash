@@ -111,9 +111,7 @@ void ProjectsMenu::addNew()
 	while (t)
 	{
 		cout << "Date of show (e.g. 01.01.2020): ";
-		cin >> date;
-		cin.clear();
-		cin.ignore(numeric_limits<streamsize>::max(), '/n');
+		getline(cin, date);
 		if (date.length() != 10 || date[2] != '.' || date[5] != '.'  )
 		{
 			date = "";
@@ -134,7 +132,7 @@ void ProjectsMenu::addNew()
 	{
 		designer = getNewDesigner();
 	}
-	catch (const std::exception& e)
+	catch (const exception& e)
 	{
 		cout << e.what() << endl;
 		cout << "Project creation will be aborted. Press any button to return"<< endl;
@@ -171,11 +169,11 @@ void ProjectsMenu::handleSearch()
 			bool a = true;
 			while (a)
 			{
-				cout << "Do you want to work with particular profile? 1- yes, 0- no" << endl;
+				cout << "Do you want to work with particular profile? 1- yes, 2- no" << endl;
 				cin >> t;
 				cin.clear();
 				cin.ignore(numeric_limits<streamsize>::max(), '/n');
-				if (t!=0 && t!=1)
+				if (t!=2 && t!=1)
 				{
 					cout << "Incorrect input, please try again" << endl;
 				}
