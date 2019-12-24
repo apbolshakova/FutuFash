@@ -179,7 +179,7 @@ void ProjectsMenu::handleSearch()
 				{
 					cout << "Incorrect input, please try again" << endl;
 				}
-				else a= false;
+				else a = false;
 			}
 			
 			if (t) this->handleProfile(data); 
