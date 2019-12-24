@@ -17,42 +17,21 @@ string Model::getHairColor()
 }
 void Model::setHeight(int height)
 {
-	try
-	{
 		if (height <= 0)
-			throw exception();
+			throw exception("Height cannot be non-positive.");
 		this->height = height;
-	}
-	catch (const exception&)
-	{
-		cout << "New height cannot be non-positive." << endl;
-	}
 }
 void Model::setWeight(int weight)
 {
-	try
-	{
 		if (weight <= 0)
-			throw exception();
+			throw exception("Weight cannot be non-positive.");
 		this->weight = weight;
-	}
-	catch (const exception&)
-	{
-		cout << "New weight cannot be non-positive." << endl;
-	}
 }
 void Model::setHairColor(string hairColor)
 {
-	try
-	{
 		if (hairColor.empty())
-			throw exception();
+			throw exception("Hair color cannot be empty string.");
 		this->hairColor = hairColor;
-	}
-	catch (const exception&)
-	{
-		cout << "New hair color cannot be empty string." << endl;
-	}
 }
 
 Model::~Model()

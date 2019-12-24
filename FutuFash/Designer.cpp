@@ -9,17 +9,9 @@ string Designer::getVogue()
 }
 void Designer::setVogue(string vogue)
 {
-	try
-	{
 		if (vogue.empty())
-			throw exception();
+			throw exception("Vogue cannot be empty string.");
 		this->vogue = vogue;
-	}
-	catch (const exception&)
-	{
-		cout << "New vogue cannot be empty string." << endl;
-	}
-
 }
 
 Designer::~Designer()
