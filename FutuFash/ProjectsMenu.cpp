@@ -248,7 +248,7 @@ int ProjectsMenu::getNumToShow(int size)
 {
 	
 	int p; 
-	bool t;
+	bool t=true;
 	while (t)
 	{
 		cout << "Which one to show? 1- first, " << size << "- last" << endl;
