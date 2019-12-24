@@ -5,23 +5,19 @@ using namespace std;
 
 UserMenu::UserMenu(map<int, User*> *users = nullptr, UserMenuMode mode = GLOBAL_CHANGING, Project* projectToEdit = nullptr)
 {
-	//system("cls");
 	switch (mode)
 	{
 	case GLOBAL_CHANGING:
 	{
 		if (!users) throw exception("No users structure found.");
-
 		this->users = users;
 		const char exitBtnCode = 0x1B;
 		char opCode = 0;
-
 		do
 		{
 			system("cls");
 			this->printMenu();
 			enum OpCodes { ADDING = 1, PRINT_ALL, SEARCH };
-
 			cout << "Press button of required operation." << endl;
 			opCode = this->getOperationCode(ADDING, SEARCH, exitBtnCode);
 			switch (opCode)
@@ -77,15 +73,13 @@ void UserMenu::handleAdding()
 		case DESIGNER:	
 		{
 			Designer* newUser = new Designer();
-			
-		addNew(newUser);
+			addNew(newUser);
 		break;
 		}
 		case MODEL:
 		{
-			
 			Model* newUser = new Model();
-		addNew(newUser);
+			addNew(newUser);
 		break;
 		}
 		default: break;
@@ -105,33 +99,38 @@ void UserMenu::addNew(Designer* designer)
 		map<int, User*> ::iterator iter = --this->users->end();
 		key = iter->first + 1;
 	}
-	designer->setId(key);
+	try
+	{
+		designer->setId(key);
 	cout << "Enter the data:\n" <<
 		"Name: ";
 	string name;
-	cin >> name;
+	getline(cin, name);
 	designer->setName(name);
-	int exp;
+	
 	cout << "Work experience (in years): ";
-	bool t = true;
-	while (t)
-	{
-		
-		cin >> exp;
-		if (cin.fail())
-		{
-			cin.clear();
-			cin.ignore(32767, '\n');
-			cout << "Incorrect input. Please try again." << endl;
-		}
-		else t = false;
-	}
+	int exp;
+	string line;
+	getline(cin, line);
+	if (line.find_first_not_of("0123456789") == string::npos)
+		exp = atoi(line.c_str());
+		else throw exception("Experience must be a positive number.");
 	designer->setExp(exp);
+
 	cout << "Vogue: ";
 	string vogue;
-	cin >> vogue;
+	getline(cin, vogue);
 	designer->setVogue(vogue);
-	this->users->insert(pair<int, Designer*>(designer->getId(),designer));
+
+	this->users->insert(pair<int, Designer*>(designer->getId(), designer));
+    }
+	catch (const exception& e)
+	{
+		cout << e.what() << endl;
+		cout << "Creation is aborted. Press any button to return." << endl;
+		_getch();
+		return;
+	}
 }
 void UserMenu::addNew(Model* model)
 {
@@ -142,64 +141,54 @@ void UserMenu::addNew(Model* model)
 		map<int, User*> ::iterator iter = --this->users->end();
 		key = iter->first + 1;
 	}
-	model->setId(key);
-	cout << "Enter the data:\n" <<
-		"Name: ";
-	string name;
-	cin >> name;
-	model->setName(name);
-	cout << "Work experience (in years): ";
-	int exp;
-	bool t = true;
-	while (t)
+	try
 	{
+		model->setId(key);
+		cout << "Enter the data:\n" <<
+			"Name: ";
+		string name;
+		getline(cin, name);
+		model->setName(name);
 
-		cin >> exp;
-		if (cin.fail())
-		{
-			cin.clear();
-			cin.ignore(32767, '\n');
-			cout << "Incorrect input. Please try again." << endl;
-		}
-		else t = false;
-	}
-	model->setExp(exp);
-	cout << "Height: ";
-	int height;
-	t = true;
-	while (t)
-	{
+		cout << "Work experience (in years): ";
+		int exp;
+		string line;
+		getline(cin, line);
+		if (line.find_first_not_of("0123456789") == string::npos)
+			exp = atoi(line.c_str());
+		else throw exception("Experience must be a positive number.");
+		model->setExp(exp);
 
-		cin >> height;
-		if (cin.fail())
-		{
-			cin.clear();
-			cin.ignore(32767, '\n');
-			cout << "Incorrect input. Please try again." << endl;
-		}
-		else t = false;
+		cout << "Height: ";
+		int height;
+		getline(cin, line);
+		if (line.find_first_not_of("0123456789") == string::npos)
+			height = atoi(line.c_str());
+		else throw exception("Height must be a positive number.");
+		model->setHeight(height);
+
+		cout << "Weight: ";
+		int weight;
+		getline(cin, line);
+		if (line.find_first_not_of("0123456789") == string::npos)
+			weight = atoi(line.c_str());
+		else throw exception("Weight must be a positive number.");
+		model->setWeight(weight);
+
+		cout << "Hair color: ";
+		string hairColor;
+		getline(cin, hairColor);
+		model->setHairColor(hairColor);
+
+		this->users->insert(pair<int, Model*>(model->getId(), model));
 	}
-	model->setHeight(height);
-	cout << "Weight: ";
-	int weight;
-	t = true;
-	while (t)
+	catch (const exception& e)
 	{
-		cin >> weight;
-		if (cin.fail())
-		{
-			cin.clear();
-			cin.ignore(32767, '\n');
-			cout << "Incorrect input. Please try again." << endl;
-		}
-		else t = false;
+		cout << e.what() << endl;
+		cout << "Creation is aborted. Press any button to return." << endl;
+		_getch();
+		return;
 	}
-	model->setWeight(weight);
-	cout << "Hair color: ";
-	string hairColor;
-	cin >> hairColor;
-	model->setHairColor(hairColor);
-	this->users->insert(pair<int, Model*>(model->getId(), model));
 }
 void UserMenu::printAllUsers()
 {
@@ -225,7 +214,6 @@ void UserMenu::printAllUsers()
 			cout << "No users in the system." << endl;
 		}
 	}
-	
 	cout << "Press any button to return." << std::endl;
 	_getch();
 }
@@ -238,18 +226,27 @@ void UserMenu::handleSearch(UserMenuMode mode)
 		SearchHandler Search(type, this->users);
 		vector<User*> data;
 		Search.getResult(data);
-		Search.printResult(data);
 		cout << endl;
 		if (!data.empty())
 		{
-			cout << "Do you want to work with particular profile? 1- yes, 0- no" << endl;
-			bool t;
-			cin >> t;
-			if (t) this->handleProfile(data, mode);
+			Search.printResult(data);
+			cout << endl;
+			cout << "Do you want to work with particular profile? 1 - yes, 2 - no" << endl;
+			int t;
+			bool boolean = true;
+			while (boolean)
+			{
+				cin >> t;
+				cin.clear();
+				cin.ignore(numeric_limits<streamsize>::max(), '\n');
+				if (t == 1 || t == 2) boolean = false;
+				else cout << "Incorrect input. Please try again." << endl;
+			}
+			if (t == 1) this->handleProfile(data, mode);
 		}
 		else
 		{
-			cout << "No matches, please verify your guery";
+			cout << "No matches, please verify your query." << endl;
 			cout << "Press any button to return.";
 			_getch();
 		}
@@ -260,24 +257,32 @@ void UserMenu::handleSearch(UserMenuMode mode)
 		SearchHandler Search(type, this->users);
 		vector<Model*> data;
 		Search.getResult(data);
-		Search.printResult(data);
 		cout << endl;
 		if (!data.empty())
 		{
+			Search.printResult(data);
 			vector<User*> dataAsUsers;
 			for (auto const& el : data)
 			{
 				dataAsUsers.push_back(el);
 			}
-
-			cout << "Do you want to work with particular profile? 1- yes, 0- no" << endl;
-			bool t;
-			cin >> t;
-			if (t) this->handleProfile(dataAsUsers, mode);
+			cout << endl;
+			cout << "Do you want to work with particular profile? 1 - yes, 2 - no" << endl;
+			int t;
+			bool boolean = true;
+			while (boolean)
+			{
+				cin >> t;
+				cin.clear();
+				cin.ignore(numeric_limits<streamsize>::max(), '\n');
+				if (t == 1 || t == 2) boolean = false;
+				else cout << "Incorrect input. Please try again." << endl;
+			}
+			if (t == 1) this->handleProfile(dataAsUsers, mode);
 		}
 		else
 		{
-			cout << "No matches, please verify your guery";
+			cout << "No matches, please verify your query." << endl;
 			cout << "Press any button to return.";
 			_getch();
 		}
@@ -285,6 +290,7 @@ void UserMenu::handleSearch(UserMenuMode mode)
 }
 void UserMenu::handleProfile(vector<User*> data, UserMenuMode mode)
 {
+	cout << endl;
 	int number = getNumToShow(data);
 	Model* model = dynamic_cast<Model*>(data[number]);
 	Designer* designer = dynamic_cast<Designer*>(data[number]);
@@ -293,22 +299,41 @@ void UserMenu::handleProfile(vector<User*> data, UserMenuMode mode)
 		printProfile(model);
 		if (mode == GLOBAL_CHANGING)
 		{
-			enum operCodes { CHANGE = 1, DELETE };
-			char operCode = 0;
-			cout << "Press 1 to change the data       Press 2 to delete the user       Press Esc to exit" << endl;
-			operCode = this->getOperationCode(CHANGE, DELETE);
-			switch (operCode)
+			cout << "Do you want to change the user's data? 1 - yes, 2 - no" << endl;
+			int t;
+			bool boolean = true;
+			while (boolean)
 			{
-			case CHANGE: handleGlobalChanging(model); break;
-			case DELETE: handleGlobalDeleting(data[number]); break;
-			default: break;
+				cin >> t;
+				cin.clear();
+				cin.ignore(numeric_limits<streamsize>::max(), '\n');
+				if (t == 1 || t == 2) boolean = false;
+				else cout << "Incorrect input. Please try again." << endl;
+			}
+			if (t == 1)
+			{
+				cout << endl;
+				cout << "Choose the number" << endl;
+				cout << "1- Change data, 2- Delete this user" << endl;
+				int k;
+				boolean = true;
+				while (boolean)
+				{
+					cin >> k;
+					cin.clear();
+					cin.ignore(numeric_limits<streamsize>::max(), '\n');
+					if (k == 1 || k == 2) boolean = false;
+					else cout << "Incorrect input. Please try again." << endl;
+				}
+				if (k == 1) handleGlobalChanging(model);
+				else if (k == 2) handleGlobalDeleting(data[number]);
 			}
 		}
 		else
 		{
 			if (model->getProjects()->count(this->projectToEdit->getId()) == 0) 
 			{
-				cout << "This model will be added to project." << endl;
+				cout << "This model will be added to the project." << endl;
 				try 
 				{
 					this->handleWarning();
@@ -326,7 +351,7 @@ void UserMenu::handleProfile(vector<User*> data, UserMenuMode mode)
 			}
 			else
 			{
-				cout << "This model will be deleted from project." << endl;
+				cout << "This model will be deleted from the project." << endl;
 				try
 				{
 					this->handleWarning();
@@ -347,24 +372,50 @@ void UserMenu::handleProfile(vector<User*> data, UserMenuMode mode)
 	else
 	{
 		printProfile(designer);
-		enum operCodes { CHANGE = 1, DELETE };
-		char operCode = 0;
-		cout << "Press 1 to change the data       Press 2 to delete the user       Press Esc to exit" << endl;
-		cout << endl;
-		operCode = this->getOperationCode(CHANGE, DELETE);
-		switch (operCode)
+		cout << "Do you want to change the user's data? 1 - yes, 2 - no" << endl;
+		int t;
+		bool boolean = true;
+		while (boolean)
 		{
-		case CHANGE: handleGlobalChanging(designer); break;
-		case DELETE: handleGlobalDeleting(data[number]); break;
-		default: break;
+			cin >> t;
+			cin.clear();
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+			if (t == 1 || t == 2) boolean = false;
+			else cout << "Incorrect input. Please try again." << endl;
+		}
+		if (t == 1)
+		{
+			cout << endl;
+			cout << "Choose the number" << endl;
+			cout << "1- Change data, 2- Delete this user" << endl;
+			int k;
+			boolean = true;
+			while (boolean)
+			{
+				cin >> k;
+				cin.clear();
+				cin.ignore(numeric_limits<streamsize>::max(), '\n');
+				if (k == 1 || k == 2) boolean = false;
+				else cout << "Incorrect input. Please try again." << endl;
+			}
+			if (k == 1) handleGlobalChanging(designer);
+			else if (k == 2) handleGlobalDeleting(data[number]);
 		}
 	}
 }
 int UserMenu::getNumToShow(vector<User*> data)
 {
-	cout << "Enter profile ordinal number from the list: ";
-	int opCode = 0;
-	opCode = this->getOperationCode(1, data.size());
+	cout << "Which user to show? 1- first, " << data.size() << "- last" << endl;
+	int opCode;
+	bool t = true;
+	while (t)
+	{
+		cin >> opCode;
+		cin.clear();
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		if (opCode >= 1 && opCode <= data.size()) t = false;
+		else cout << "Incorrect input. Please try again." << endl;
+	}
 	return opCode - 1;
 }
 void UserMenu::printProfile(Designer* designer)
@@ -373,14 +424,14 @@ void UserMenu::printProfile(Designer* designer)
 	cout << "Name: "<< designer->getName() << endl;
 	cout << "Work experience: "<<designer->getExp() <<" year(s)"<< endl;
 	
-	map<int, Project*>* projects = designer->getProjects(); //на каком этапе у нас будет вызываться метод addProject?
+	map<int, Project*>* projects = designer->getProjects();
 	if (projects->size() != 0)
 	{
 		cout << "Taking/took part in the following projects:" << endl;
 		map<int, Project*>::iterator iter = projects->begin();
 		for (int i = 0; iter != projects->end(); i++, iter++)
 		{
-			cout << i+1 <<". " << iter->second->getName() << endl; //check
+			cout << i+1 <<". " << iter->second->getName() << endl;
 		}
 	}
 	cout <<"Vogue: "<< designer->getVogue()<<endl;
@@ -392,12 +443,12 @@ void UserMenu::printProfile(Model* model)
 	cout << "Name: "<< model->getName() << endl;
 	cout << "Work experience: "<<model->getExp() << " year(s)" << endl;
 
-	map<int, Project*>* projects = model->getProjects(); //на каком этапе у нас будет вызываться метод addProject?
+	map<int, Project*>* projects = model->getProjects(); 
 	if (projects->size() != 0)
 	{
 		cout << "Taking/took part in the following projects:" << endl;
 		map<int, Project*>::iterator iter = projects->begin();
-		for (int i = 0; iter != projects->end(); i++, iter++) //check
+		for (int i = 0; iter != projects->end(); i++, iter++)
 		{
 			cout << i+1<<". "<<iter->second->getName() << endl;
 		}
@@ -433,35 +484,57 @@ void UserMenu::handleGlobalChanging(Designer* designer)
 template <class X> void UserMenu::changeName(X* user)
 {
 	cout << "Enter new name: ";
-	string name;
-	cin >> name;
-	user->setName(name);
+	try
+	{
+		string name;
+		getline(cin, name);
+		user->setName(name);
+	}
+	catch (const exception& e)
+	{
+		cout << e.what() << endl;
+		cout << "Changing is aborted. Press any button to return." << endl;
+		_getch();
+		return;
+	}
 }
 template <class X> void UserMenu::changeExperience(X* user)
 {
 	cout << "Enter new work experience (in years): ";
-	int exp;
-	bool t = true;
-	while (t)
+	try
 	{
-
-		cin >> exp;
-		if (cin.fail())
-		{
-			cin.clear();
-			cin.ignore(32767, '\n');
-			cout << "Incorrect input. Please try again." << endl;
-		}
-		else t = false;
+		int exp;
+		string line;
+		getline(cin, line);
+		if (line.find_first_not_of("0123456789") == string::npos)
+			exp = atoi(line.c_str());
+		else throw exception("Experience must be a positive number.");
+		user->setExp(exp);
 	}
-	user->setExp(exp);
+	catch (const exception& e)
+	{
+		cout << e.what() << endl;
+		cout << "Changing is aborted. Press any button to return." << endl;
+		_getch();
+		return;
+	}
 }
 void UserMenu::changeVogue(Designer* designer)
 {
 	cout << "Enter new vogue: ";
-	string vogue;
-	cin >> vogue;
-	designer->setVogue(vogue);
+	try
+	{
+		string vogue;
+		getline(cin, vogue);
+		designer->setVogue(vogue);
+	}
+	catch (const exception& e)
+	{
+		cout << e.what() << endl;
+		cout << "Changing is aborted. Press any button to return." << endl;
+		_getch();
+		return;
+	}
 }
 void UserMenu::handleGlobalChanging(Model* model)
 {
@@ -489,53 +562,65 @@ void UserMenu::handleGlobalChanging(Model* model)
 		default: cout << "Incorrect number of query" << endl; break;
 		}
 	} while (opCode != exitBtnCode);
-		
-			
 } 
 void UserMenu::changeHeight(Model* model)
 {
 	cout << "Enter new height: ";
-	int height;
-	bool t = true;
-	while (t)
+	try
 	{
-
-		cin >> height;
-		if (cin.fail())
-		{
-			cin.clear();
-			cin.ignore(32767, '\n');
-			cout << "Incorrect input. Please try again." << endl;
-		}
-		else t = false;
+		int height;
+		string line;
+		getline(cin, line);
+		if (line.find_first_not_of("0123456789") == string::npos)
+			height = atoi(line.c_str());
+		else throw exception("Height must be a positive number.");
+		model->setHeight(height);
 	}
-	model->setHeight(height);
+	catch (const exception& e)
+	{
+		cout << e.what() << endl;
+		cout << "Changing is aborted. Press any button to return." << endl;
+		_getch();
+		return;
+	}
 }
 void UserMenu::changeWeight(Model* model)
 {
 	cout << "Enter new weight: ";
-	int weight;
-	bool t = true;
-	while (t)
+	try
 	{
-
-		cin >> weight;
-		if (cin.fail())
-		{
-			cin.clear();
-			cin.ignore(32767, '\n');
-			cout << "Incorrect input. Please try again." << endl;
-		}
-		else t = false;
+		int weight;
+		string line;
+		getline(cin, line);
+		if (line.find_first_not_of("0123456789") == string::npos)
+			weight = atoi(line.c_str());
+		else throw exception("Weight must be a positive number.");
+		model->setWeight(weight);
 	}
-	model->setWeight(weight);
+	catch (const exception& e)
+	{
+		cout << e.what() << endl;
+		cout << "Changing is aborted. Press any button to return." << endl;
+		_getch();
+		return;
+	}
 }
 void UserMenu::changeHairColor(Model* model)
 {
 	cout << "Enter new hair color: ";
-    string hairColor;
-		cin >> hairColor;
-	model->setHairColor(hairColor);
+	try
+	{
+		string hairColor;
+		getline(cin, hairColor);
+		model->setHairColor(hairColor);
+	}
+	catch (const exception& e)
+	{
+		cout << e.what() << endl;
+		cout << "Changing is aborted. Press any button to return." << endl;
+		_getch();
+		return;
+	}
 }
  void UserMenu::handleGlobalDeleting(User* user)
 { 

@@ -19,17 +19,9 @@ bool User::isDeleted()
 
 void User::setExp(int exp)
 {
-	try
-	{
-		if (exp < 0)
-			throw exception();
+		if (exp <= 0)
+			throw exception("Experience must be a positive number.");
 		experienceInYears = exp;
-	}
-	catch (const exception&)
-	{
-		cout << "New experience cannot be negative." << endl;
-	}
-		
 }
 void User::addProject(Project* project)
 {
