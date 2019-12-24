@@ -50,7 +50,14 @@ std::vector<SearchField> SearchHandler::getAllowedFields()
 	else
 	{
 		allowed.push_back(EXPERIENCE);
-		if (this->type == DSG)
+		if (this->type == USR)
+		{
+			allowed.push_back(VOGUE);
+			allowed.push_back(HEIGHT);
+			allowed.push_back(WEIGHT);
+			allowed.push_back(HAIR_COLOR);
+		}
+		else if (this->type == DSG)
 		{
 			allowed.push_back(VOGUE);
 		}
@@ -79,7 +86,14 @@ void SearchHandler::printFieldChoice()
 	else
 	{
 		std::cout << EXPERIENCE << " - experience in years" << std::endl;
-		if (this->type == DSG)
+		if (this->type == USR)
+		{
+			std::cout << VOGUE << " - vogue" << std::endl
+				<< HEIGHT << " - height" << std::endl
+				<< WEIGHT << " - weight" << std::endl
+				<< HAIR_COLOR << " - hair color" << std::endl;
+		}
+        else if (this->type == DSG)
 		{
 			std::cout << VOGUE << " - vogue" << std::endl;
 		}
@@ -195,6 +209,36 @@ void SearchHandler::getResult(std::vector<User*>& result)
 		{
 			if (el.second->getExp() == stoi(this->query)) 
 				result.push_back(el.second);
+		}
+
+		Designer* elemAsDesigner = dynamic_cast<Designer*>(el.second);
+		if (elemAsDesigner != nullptr)
+		{
+			if (this->field == VOGUE)
+			{
+				if (elemAsDesigner->getVogue() == this->query)
+					result.push_back(elemAsDesigner);
+			}
+		}
+
+		Model* elemAsModel = dynamic_cast<Model*>(el.second);
+		if (elemAsModel != nullptr)
+		{
+			if (this->field == HEIGHT)
+			{
+				if (elemAsModel->getHeight() == stoi(this->query))
+					result.push_back(elemAsModel);
+			}
+			else if (this->field == WEIGHT)
+			{
+				if (elemAsModel->getWeight() == stoi(this->query))
+					result.push_back(elemAsModel);
+			}
+			else if (this->field == HAIR_COLOR)
+			{
+				if (elemAsModel->getHairColor() == this->query)
+					result.push_back(elemAsModel);
+			}
 		}
 	}
 }
