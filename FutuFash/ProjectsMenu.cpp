@@ -7,8 +7,8 @@ ProjectsMenu::ProjectsMenu(map<int, User*> *users, map<int, Project*> *projects)
 {
 	this->users = users;
 	this->projects = projects;
-	if (!users) throw std::exception("No users structure is found.");
-	if (!projects) throw std::exception("No project structure is found.");
+	if (!users) throw exception("No users structure is found.");
+	if (!projects) throw exception("No project structure is found.");
 	const char exitBtnCode = 0x1B;
 	char opCode = 0;
 	do
@@ -83,9 +83,6 @@ void ProjectsMenu::printAllProjects()
 				cout << el.first << "." << el.second->getName() << endl;
 			}
 		}
-		//map <int, Project*> ::iterator it = this->projects->begin();
-		//for (int i=0; it != this->projects->end(); i++, it++)
-			//cout << ++i << ") " << it->second->getName() << endl;
 		if (empty)
 			cout << "You need to add at least one project to the base at first" << endl;
 		cout << "Press any button to return" << endl;
@@ -103,22 +100,34 @@ void ProjectsMenu::addNew()
 {
 	Project* project = new Project();
 	system ("cls");
-	cout << "Insert the information about new project" << endl;
+	cout << "Enter the data" << endl;
 	
-	cout << "Project name"<< endl;
+	cout << "Project name: ";
 	string name;
-	cin >> name;
+	getline(cin, name);
 	project->setName(name);
-	cout << "Date of show (e.g. 01.01.2020)"<< endl;
+	bool t= true;
 	string date;
-	cin >> date;
+	while (t)
+	{
+		cout << "Date of show (e.g. 01.01.2020): ";
+		cin >> date;
+		cin.clear();
+		cin.ignore(numeric_limits<streamsize>::max(), '/n');
+		if (date.length() != 10 || date[2] != '.' || date[5] != '.'  )
+		{
+			date = "";
+			cout << "Incorrect input, please try again"<< endl;
+		}
+		else t = false;
+	}
 	project->setDate(date);
-	cout << "Location"<< endl;
+	cout << "Location: ";
 	string location;
-	cin >> location;
+	getline(cin, location);
 	project->setLocation(location);
 	project->setStatus(INSEARCH);
-	cout << "Next step is designer adding. Press any button to start searching." << endl;
+	cout << "Next step is designer adding. Press any button to start searching" << endl;
 	_getch();
 	Designer* designer; 
 	try
@@ -127,12 +136,14 @@ void ProjectsMenu::addNew()
 	}
 	catch (const std::exception& e)
 	{
-		cout << e.what() << std::endl;
+		cout << e.what() << endl;
 		cout << "Project creation will be aborted. Press any button to return"<< endl;
 		_getch();
 		return;
 	}
 	project->setDesigner(designer);
+	printSuccessMessage();
+	_getch();
 	int key = 1;
 	if (this->projects->size() != 0)
 	{
@@ -155,10 +166,23 @@ void ProjectsMenu::handleSearch()
 		Search.printResult(data);
 		if (data.size() != 0)
 		{
-			cout << "Do you want to work with particular profile? 1- yes, 0- no" << endl;
-			bool t;
-			cin >> t;
-			if (t) this->handleProfile(data); //TODO передавать результат поиска
+			
+			bool t; 
+			bool a = true;
+			while (a)
+			{
+				cout << "Do you want to work with particular profile? 1- yes, 0- no" << endl;
+				cin >> t;
+				cin.clear();
+				cin.ignore(numeric_limits<streamsize>::max(), '/n');
+				if (t!=0 && t!=1)
+				{
+					cout << "Incorrect input, please try again" << endl;
+				}
+				else a= false;
+			}
+			
+			if (t) this->handleProfile(data); 
 		}
 		else
 		{
@@ -174,9 +198,6 @@ void ProjectsMenu::handleSearch()
 
 Designer* ProjectsMenu::getNewDesigner()
 {
-	cout << "Name of designer"<< endl;
-	string designer;
-	getline(cin,designer);
 	SearchEntityType type = DSG;
     SearchHandler Search(type, this->users, this->projects);
 	vector<Designer*> data;
@@ -194,7 +215,7 @@ Designer* ProjectsMenu::getNewDesigner()
 	}
 	else
 	{
-		cout << "Choose required number" << std::endl;
+		cout << "Choose required number" << endl;
 		int number = getNumToShow(data.size());
 		return data[number];
     }
@@ -206,12 +227,16 @@ void ProjectsMenu::handleProfile(vector<Project*> data)
 	cout << "Do you want to change this project? 1- yes, 0- no"<< endl;
 	bool t;
 	cin >> t;
+	cin.clear();
+	cin.ignore(numeric_limits<streamsize>::max(), '/n');
 	if (t)
 	{
 		cout << "Choose the number" << endl;
 		cout << "1- Change models, 2- Change other positions, 3- Delete this project" << endl;
 		int k;
 		cin >> k;
+		cin.clear();
+		cin.ignore(numeric_limits<streamsize>::max(), '/n');
 		if (k == 1)
 			handleParticipantsMenu(data[number],this->users);
 		else if (k == 2) handleChanging(data[number]);
@@ -221,8 +246,23 @@ void ProjectsMenu::handleProfile(vector<Project*> data)
 }
 int ProjectsMenu::getNumToShow(int size)
 {
-	cout << "What project to show? 1- first, " << size << "- last"<< endl;
-	int p; cin >> p;
+	
+	int p; 
+	bool t;
+	while (t)
+	{
+		cout << "Which one to show? 1- first, " << size << "- last" << endl;
+		cin >> p;
+		cin.clear();
+		cin.ignore(numeric_limits<streamsize>::max(), '/n');
+		if (p<1 || p>size)
+		{
+			cout << "Incorrect input, please try again" << endl;
+		}
+		else t = false;
+	}
+	cin.clear();
+	cin.ignore(numeric_limits<streamsize>::max(), '/n');
 	return p-1; 
 }
 void ProjectsMenu::handleParticipantsMenu(Project* project, map<int,User*> *users)
@@ -244,7 +284,6 @@ void ProjectsMenu::printProfile(Project* project)
 	case 2: cout << "   Project status : the show is finished" << endl; break;
 	case 3: cout << "   Project status : the project is deleted" << endl; break; 
 	}
-	//cout << "   Project status : " << project->getStatus() << endl; TODO switch to show correct message
 	cout << "   Number of models : " << project->getModels().size() << endl;
 	cout << endl;
 }
@@ -268,14 +307,12 @@ void ProjectsMenu::handleChanging(Project* project)
 		case DATE: this->changeDate(project); printSuccessMessage(); break;
 		case LOCATION: this->changeLocation(project); printSuccessMessage(); break;
 		case STATUS: this->changeStatus(project); printSuccessMessage(); break;
-		default: cout << "Incorrect number of query"<< endl; break; // todo
+		default: cout << "Incorrect number of query"<< endl; break; 
 		}
 		
 }
 void ProjectsMenu::changeName(Project* project)
 {
-	std::cin.clear();
-	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 	cout << "Enter new name: " << endl;
 	string newname; getline(cin,newname);
 	project->setName(newname);
@@ -283,8 +320,6 @@ void ProjectsMenu::changeName(Project* project)
 }
 void ProjectsMenu::changeDate(Project* project)
 {
-	std::cin.clear();
-	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 	cout << "Enter new date: " << endl;
 	string newdate; getline(cin, newdate);
 	project->setDate(newdate);
@@ -292,8 +327,6 @@ void ProjectsMenu::changeDate(Project* project)
 }
 void ProjectsMenu::changeLocation(Project* project)
 {
-	std::cin.clear();
-	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 	cout << "Enter new location: " << endl;
 	string newlocation; getline(cin, newlocation);
 	project->setLocation(newlocation);
@@ -301,8 +334,6 @@ void ProjectsMenu::changeLocation(Project* project)
 }
 void ProjectsMenu::changeStatus(Project* project)
 {
-	std::cin.clear();
-	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 	const char exitBtnCode = 0x1B;
 	char opCode = 0;
 		cout << "Select a number" << endl;
