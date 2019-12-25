@@ -164,23 +164,22 @@ void ProjectsMenu::handleSearch()
 		Search.printResult(data);
 		if (data.size() != 0)
 		{
-			int opCode;
+			string opCode;
 			bool t = true;
 			while (t)
 			{
 				cout << "Do you want to work with particular profile? 1- yes, 0- no" << endl;
-				cin >> opCode;
-				cin.clear();
-				cin.ignore(numeric_limits<streamsize>::max(), '\n');
-				if (opCode == 1 || opCode == 0) t = false;
+				getline(cin, opCode);
+				if (opCode == "1" || opCode == "0") t = false;
 				else cout << "Incorrect input. Please try again." << endl;
 			}
 			
-			if (opCode==1) this->handleProfile(data); 
+			if (opCode == "1") this->handleProfile(data); 
 		}
 		else
 		{
-			cout << "No matches, please verify your guery";
+			cout << "Please verify your guery. Press any button to continue." << endl;
+			_getch();
 		}
 	}
 	else {
@@ -219,35 +218,31 @@ void ProjectsMenu::handleProfile(vector<Project*> data)
 	int number = getNumToShow(data.size());
 	printProfile(data[number]);
 	
-	int opCode;
+	string opCode;
 	bool t = true;
 	while (t)
 	{
 		cout << "Do you want to change this project? 1- yes, 0- no" << endl;
-		cin >> opCode;
-		cin.clear();
-		cin.ignore(numeric_limits<streamsize>::max(), '\n');
-		if (opCode ==1 || opCode==0) t = false;
+		getline(cin, opCode);
+		if (opCode == "1" || opCode == "0") t = false;
 		else cout << "Incorrect input. Please try again." << endl;
 	}
-	if (opCode==1 )
+	if (opCode == "1" )
 	{
-		int k;
+		string k;
 		t = true;
 		while (t)
 		{
 			cout << "Choose the number" << endl;
 			cout << "1- Change models, 2- Change other positions, 3- Delete this project" << endl;
-			cin >> k;
-			cin.clear();
-			cin.ignore(numeric_limits<streamsize>::max(), '\n');
-			if (k == 1 || k == 2 || k == 3 ) t = false;
+			getline(cin, k);
+			if (k == "1" || k == "2" || k == "3" ) t = false;
 			else cout << "Incorrect input. Please try again." << endl;
 		}
-		if (k == 1)
+		if (k == "1")
 			handleParticipantsMenu(data[number],this->users);
-		else if (k == 2) handleChanging(data[number]);
-		else if (k == 3) handleDeleting(data[number]);
+		else if (k == "2") handleChanging(data[number]);
+		else if (k == "3") handleDeleting(data[number]);
 
 	}
 }

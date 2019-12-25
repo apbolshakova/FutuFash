@@ -232,17 +232,15 @@ void UserMenu::handleSearch(UserMenuMode mode)
 			Search.printResult(data);
 			cout << endl;
 			cout << "Do you want to work with particular profile? 1 - yes, 2 - no" << endl;
-			int t;
+			string t;
 			bool boolean = true;
 			while (boolean)
 			{
-				cin >> t;
-				cin.clear();
-				cin.ignore(numeric_limits<streamsize>::max(), '\n');
-				if (t == 1 || t == 2) boolean = false;
+				getline(cin, t);
+				if (t == "1" || t == "2") boolean = false;
 				else cout << "Incorrect input. Please try again." << endl;
 			}
-			if (t == 1) this->handleProfile(data, mode);
+			if (t == "1") this->handleProfile(data, mode);
 		}
 		else
 		{
@@ -268,21 +266,19 @@ void UserMenu::handleSearch(UserMenuMode mode)
 			}
 			cout << endl;
 			cout << "Do you want to work with particular profile? 1 - yes, 2 - no" << endl;
-			int t;
+			string t;
 			bool boolean = true;
 			while (boolean)
 			{
-				cin >> t;
-				cin.clear();
-				cin.ignore(numeric_limits<streamsize>::max(), '\n');
-				if (t == 1 || t == 2) boolean = false;
+				getline(cin, t);
+				if (t == "1" || t == "2") boolean = false;
 				else cout << "Incorrect input. Please try again." << endl;
 			}
-			if (t == 1) this->handleProfile(dataAsUsers, mode);
+			if (t == "1") this->handleProfile(dataAsUsers, mode);
 		}
 		else
 		{
-			cout << "No matches, please verify your query." << endl;
+			cout << "Please verify your query." << endl;
 			cout << "Press any button to return.";
 			_getch();
 		}
@@ -300,33 +296,29 @@ void UserMenu::handleProfile(vector<User*> data, UserMenuMode mode)
 		if (mode == GLOBAL_CHANGING)
 		{
 			cout << "Do you want to change the user's data? 1 - yes, 2 - no" << endl;
-			int t;
+			string t;
 			bool boolean = true;
 			while (boolean)
 			{
-				cin >> t;
-				cin.clear();
-				cin.ignore(numeric_limits<streamsize>::max(), '\n');
-				if (t == 1 || t == 2) boolean = false;
+				getline(cin, t);
+				if (t == "1" || t == "2") boolean = false;
 				else cout << "Incorrect input. Please try again." << endl;
 			}
-			if (t == 1)
+			if (t == "1")
 			{
 				cout << endl;
 				cout << "Choose the number" << endl;
 				cout << "1- Change data, 2- Delete this user" << endl;
-				int k;
+				string k;
 				boolean = true;
 				while (boolean)
 				{
-					cin >> k;
-					cin.clear();
-					cin.ignore(numeric_limits<streamsize>::max(), '\n');
-					if (k == 1 || k == 2) boolean = false;
+					getline(cin, k);
+					if (k == "1" || k == "2") boolean = false;
 					else cout << "Incorrect input. Please try again." << endl;
 				}
-				if (k == 1) handleGlobalChanging(model);
-				else if (k == 2) handleGlobalDeleting(data[number]);
+				if (k == "1") handleGlobalChanging(model);
+				else if (k == "2") handleGlobalDeleting(data[number]);
 			}
 		}
 		else
@@ -373,33 +365,29 @@ void UserMenu::handleProfile(vector<User*> data, UserMenuMode mode)
 	{
 		printProfile(designer);
 		cout << "Do you want to change the user's data? 1 - yes, 2 - no" << endl;
-		int t;
+		string t;
 		bool boolean = true;
 		while (boolean)
 		{
-			cin >> t;
-			cin.clear();
-			cin.ignore(numeric_limits<streamsize>::max(), '\n');
-			if (t == 1 || t == 2) boolean = false;
+			getline(cin, t);
+			if (t == "1" || t == "2") boolean = false;
 			else cout << "Incorrect input. Please try again." << endl;
 		}
-		if (t == 1)
+		if (t == "1")
 		{
 			cout << endl;
 			cout << "Choose the number" << endl;
 			cout << "1- Change data, 2- Delete this user" << endl;
-			int k;
+			string k;
 			boolean = true;
 			while (boolean)
 			{
-				cin >> k;
-				cin.clear();
-				cin.ignore(numeric_limits<streamsize>::max(), '\n');
-				if (k == 1 || k == 2) boolean = false;
+				getline(cin, k);
+				if (k == "1" || k == "2") boolean = false;
 				else cout << "Incorrect input. Please try again." << endl;
 			}
-			if (k == 1) handleGlobalChanging(designer);
-			else if (k == 2) handleGlobalDeleting(data[number]);
+			if (k == "1") handleGlobalChanging(designer);
+			else if (k == "2") handleGlobalDeleting(data[number]);
 		}
 	}
 }
