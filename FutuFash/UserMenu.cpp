@@ -648,8 +648,6 @@ void UserMenu::handleProjectAdding(Model* model)
 	model->addProject(this->projectToEdit);
 	this->projectToEdit->addModel(model);
 	this->printSuccessMessage();
-	cout << "Press any button to return." << endl;
-	_getch();
 }
 void UserMenu::handleProjectDeleting(Model* model)
 {
