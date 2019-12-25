@@ -24,6 +24,7 @@ void ProjectsManagementSystem::handleDataLoading(std::map<int, User*> *users, st
 	{
 		parseUsersData(file, users);
 		parseProjectsData(file, projects, users);
+		bindProjectsToUsers(users, projects);
 	}
 	catch (const std::exception& e)
 	{
@@ -177,6 +178,20 @@ User* ProjectsManagementSystem::getParsedUser(std::string str)
 		return user;
 	}
 	else throw std::exception("Corrupted user data.");
+}
+
+
+void ProjectsManagementSystem::bindProjectsToUsers(std::map<int, User*> *users, std::map<int, Project*> *projects)
+{
+	for (auto const& project : *projects)
+	{
+		project.second->getDesigner()->addProject(project.second);
+		std::map<int, Model*> models = project.second->getModels();
+		for (auto const& model : models)
+		{
+			model.second->addProject(project.second);
+		}
+	}
 }
 
 

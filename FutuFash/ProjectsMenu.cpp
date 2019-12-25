@@ -269,6 +269,7 @@ void ProjectsMenu::handleParticipantsMenu(Project* project, map<int,User*> *user
 
 void ProjectsMenu::printProfile(Project* project)
 {
+	system("cls");
 	cout << "Name of project : " << project->getName() << endl;
 	cout << "   Date of show : " << project->getDate() << endl;
 	cout << "   Location : " << project->getLocation() << endl;

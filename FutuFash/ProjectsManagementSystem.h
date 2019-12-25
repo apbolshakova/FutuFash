@@ -15,6 +15,7 @@ private:
 	Project* getParsedProject(std::string str, std::map<int, User*> *users);
 	void parseUsersData(std::ifstream& file, std::map<int, User*> *users);
 	User* getParsedUser(std::string str);
+	void bindProjectsToUsers(std::map<int, User*> *users, std::map<int, Project*> *projects);
 public:
 	ProjectsManagementSystem();
 };

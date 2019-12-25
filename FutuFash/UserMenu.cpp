@@ -356,8 +356,6 @@ void UserMenu::handleProfile(vector<User*> data, UserMenuMode mode)
 					return;
 				}
 				handleProjectDeleting(model);
-				cout << "Press any button to return." << endl;
-				_getch();
 			}
 		}
 	}
