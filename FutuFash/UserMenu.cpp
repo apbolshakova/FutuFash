@@ -477,6 +477,9 @@ template <class X> void UserMenu::changeName(X* user)
 		string name;
 		getline(cin, name);
 		user->setName(name);
+		this->printSuccessMessage();
+		cout << "Press any button to return." << endl;
+		_getch();
 	}
 	catch (const exception& e)
 	{
@@ -498,6 +501,9 @@ template <class X> void UserMenu::changeExperience(X* user)
 			exp = atoi(line.c_str());
 		else throw exception("Experience must be a positive number.");
 		user->setExp(exp);
+		this->printSuccessMessage();
+		cout << "Press any button to return." << endl;
+		_getch();
 	}
 	catch (const exception& e)
 	{
@@ -515,6 +521,9 @@ void UserMenu::changeVogue(Designer* designer)
 		string vogue;
 		getline(cin, vogue);
 		designer->setVogue(vogue);
+		this->printSuccessMessage();
+		cout << "Press any button to return." << endl;
+		_getch();
 	}
 	catch (const exception& e)
 	{
@@ -563,6 +572,9 @@ void UserMenu::changeHeight(Model* model)
 			height = atoi(line.c_str());
 		else throw exception("Height must be a positive number.");
 		model->setHeight(height);
+		this->printSuccessMessage();
+		cout << "Press any button to return." << endl;
+		_getch();
 	}
 	catch (const exception& e)
 	{
@@ -584,6 +596,9 @@ void UserMenu::changeWeight(Model* model)
 			weight = atoi(line.c_str());
 		else throw exception("Weight must be a positive number.");
 		model->setWeight(weight);
+		this->printSuccessMessage();
+		cout << "Press any button to return." << endl;
+		_getch();
 	}
 	catch (const exception& e)
 	{
@@ -601,6 +616,9 @@ void UserMenu::changeHairColor(Model* model)
 		string hairColor;
 		getline(cin, hairColor);
 		model->setHairColor(hairColor);
+		this->printSuccessMessage();
+		cout << "Press any button to return." << endl;
+		_getch();
 	}
 	catch (const exception& e)
 	{
@@ -623,18 +641,25 @@ void UserMenu::changeHairColor(Model* model)
 		for (auto const& el : *(user->getProjects()))
 		    el.second->removeModel(dynamic_cast<Model*>(user));
 	}
+	this->printSuccessMessage();
+	cout << "Press any button to return." << endl;
+	_getch();
 }
 void UserMenu::handleProjectAdding(Model* model)
 {
 	model->addProject(this->projectToEdit);
 	this->projectToEdit->addModel(model);
 	this->printSuccessMessage();
+	cout << "Press any button to return." << endl;
+	_getch();
 }
 void UserMenu::handleProjectDeleting(Model* model)
 {
 	model->removeProject(this->projectToEdit);
 	this->projectToEdit->removeModel(model);
 	this->printSuccessMessage();
+	cout << "Press any button to return." << endl;
+	_getch();
 }
 
 UserMenu::~UserMenu()
