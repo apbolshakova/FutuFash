@@ -164,23 +164,19 @@ void ProjectsMenu::handleSearch()
 		Search.printResult(data);
 		if (data.size() != 0)
 		{
-			
-			bool t; 
-			bool a = true;
-			while (a)
+			int opCode;
+			bool t = true;
+			while (t)
 			{
-				cout << "Do you want to work with particular profile? 1- yes, 2- no" << endl;
-				cin >> t;
+				cout << "Do you want to work with particular profile? 1- yes, 0- no" << endl;
+				cin >> opCode;
 				cin.clear();
-				cin.ignore(numeric_limits<streamsize>::max(), '/n');
-				if (t!=2 && t!=1)
-				{
-					cout << "Incorrect input, please try again" << endl;
-				}
-				else a = false;
+				cin.ignore(numeric_limits<streamsize>::max(), '\n');
+				if (opCode == 1 || opCode == 0) t = false;
+				else cout << "Incorrect input. Please try again." << endl;
 			}
 			
-			if (t) this->handleProfile(data); 
+			if (opCode==1) this->handleProfile(data); 
 		}
 		else
 		{
@@ -222,19 +218,32 @@ void ProjectsMenu::handleProfile(vector<Project*> data)
 {
 	int number = getNumToShow(data.size());
 	printProfile(data[number]);
-	cout << "Do you want to change this project? 1- yes, 0- no"<< endl;
-	bool t;
-	cin >> t;
-	cin.clear();
-	cin.ignore(numeric_limits<streamsize>::max(), '/n');
-	if (t)
+	
+	int opCode;
+	bool t = true;
+	while (t)
 	{
-		cout << "Choose the number" << endl;
-		cout << "1- Change models, 2- Change other positions, 3- Delete this project" << endl;
-		int k;
-		cin >> k;
+		cout << "Do you want to change this project? 1- yes, 0- no" << endl;
+		cin >> opCode;
 		cin.clear();
-		cin.ignore(numeric_limits<streamsize>::max(), '/n');
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		if (opCode ==1 || opCode==0) t = false;
+		else cout << "Incorrect input. Please try again." << endl;
+	}
+	if (opCode==1 )
+	{
+		int k;
+		t = true;
+		while (t)
+		{
+			cout << "Choose the number" << endl;
+			cout << "1- Change models, 2- Change other positions, 3- Delete this project" << endl;
+			cin >> k;
+			cin.clear();
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+			if (k == 1 || k == 2 || k == 3 ) t = false;
+			else cout << "Incorrect input. Please try again." << endl;
+		}
 		if (k == 1)
 			handleParticipantsMenu(data[number],this->users);
 		else if (k == 2) handleChanging(data[number]);
@@ -244,25 +253,20 @@ void ProjectsMenu::handleProfile(vector<Project*> data)
 }
 int ProjectsMenu::getNumToShow(int size)
 {
-	
-	int p; 
-	bool t=true;
-	while (t)
-	{
-		cout << "Which one to show? 1- first, " << size << "- last" << endl;
-		cin >> p;
-		cin.clear();
-		cin.ignore(numeric_limits<streamsize>::max(), '/n');
-		if (p<1 || p>size)
+		int opCode;
+		bool t = true;
+		while (t)
 		{
-			cout << "Incorrect input, please try again" << endl;
+			cout << "Which one to show? 1- first, " << size << "- last" << endl;
+			cin >> opCode;
+			cin.clear();
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+			if (opCode >= 1 && opCode <= size) t = false;
+			else cout << "Incorrect input. Please try again." << endl;
 		}
-		else t = false;
+		return opCode - 1;
 	}
-	cin.clear();
-	cin.ignore(numeric_limits<streamsize>::max(), '/n');
-	return p-1; 
-}
+
 void ProjectsMenu::handleParticipantsMenu(Project* project, map<int,User*> *users)
 {
 	ParticipantsMenu(users, project);
